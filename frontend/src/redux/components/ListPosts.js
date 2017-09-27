@@ -7,7 +7,6 @@ const ListPosts = (props) => {
     category = "All Posts"
   }
 
-  console.log("Category:" + category)
   return(
     <div className="list-posts">
       <h2>{category}</h2>
