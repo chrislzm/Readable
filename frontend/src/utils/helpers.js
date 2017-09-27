@@ -11,7 +11,7 @@ export function getCurrentCategoryPathAndName(urlPath,reduxStoreCategories) {
       let categoryPath, categoryName
 
       // If a path to a category wasn't defined, or we haven't loaded categories from the server yet
-      if(!urlPath || reduxStoreCategories.length == 0) {
+      if(!urlPath || reduxStoreCategories.length === 0) {
         // Assign default category and path
         categoryPath = Constants.DEFAULT_CATEGORY_PATH
         categoryName = Constants.DEFAULT_CATEGORY_NAME
