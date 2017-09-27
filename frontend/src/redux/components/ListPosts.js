@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Route, withRouter } from 'react-router-dom'
-import * as Constants from '../../constants'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCurrentCategoryPathAndName } from '../../utils/helpers'
 
@@ -32,4 +31,4 @@ const mapStateToProps = (state) => ({
   categories: state.categories
 });
 
-export default withRouter(connect(mapStateToProps)(ListPosts));
+export default connect(mapStateToProps)(ListPosts);
