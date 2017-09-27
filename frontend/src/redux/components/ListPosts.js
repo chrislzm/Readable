@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getCurrentCategoryPathAndName } from '../../utils/helpers'
 
 class ListPosts extends Component {
   render() {
 
-    const {categoryPath, categoryName} = getCurrentCategoryPathAndName(this.props.match.params.categoryPath,this.props.categories)
+    const {categoryPath, categoryName} = this.props
 
     return(
       <div>

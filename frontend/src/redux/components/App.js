@@ -17,10 +17,13 @@ class App extends Component {
   }
 
   render() {
-    const listPostsURLPaths = ['/','/:categoryPath']
-    let categoryNamesAndPaths = [{path:Constants.DEFAULT_CATEGORY_PATH,name:Constants.DEFAULT_CATEGORY_NAME}]
+    let categories = [{path:Constants.DEFAULT_CATEGORY_PATH,name:Constants.DEFAULT_CATEGORY_NAME}]
     if(this.props.categories) {
-      categoryNamesAndPaths = [...categoryNamesAndPaths,...this.props.categories]
+      // Add forward slash to all paths so React Router can match the path exactly
+      const storeCategories = this.props.categories.map(category => {
+        return {path:'/' + category.path,name: category.name}
+      })
+      categories = [...categories,...storeCategories]
     }
 
     return (
@@ -30,13 +33,19 @@ class App extends Component {
         </div>
         <h2>Categories</h2>
         <ul>
-          { categoryNamesAndPaths.map( category => (
+          { categories.map( category => (
             <li key={category.path}><Link to={category.path}>{capitalize(category.name)}</Link></li>
           )) }
         </ul>
-        { listPostsURLPaths.map(path => (
-          <Route exact path={path} component={ListPosts} key={path}/>
+        { categories.map(category => (
+          <Route exact path={category.path} key={category.path} render={() =>(
+            <ListPosts
+              categoryPath={category.path}
+              categoryName={category.name}
+            />
+          )}/>
         ))}
+        <Route path='/createPost/:categoryPath?' component={CreatePost}/>
       </div>
     );
   }
