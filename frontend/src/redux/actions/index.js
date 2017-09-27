@@ -1,8 +1,8 @@
-export const ADD_CATEGORIES = 'ADD_CATEGORIES'
+export const SET_CATEGORIES = 'SET_CATEGORIES'
 
-export function addCategories(newCategories) {
+export function setCategories(categories) {
   return {
-    type: ADD_CATEGORIES,
-    newCategories
+    type: SET_CATEGORIES,
+    categories
   }
 }

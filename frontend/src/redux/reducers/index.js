@@ -1,19 +1,15 @@
 import { combineReducers } from 'redux'
 
 import {
-  ADD_CATEGORIES
+  SET_CATEGORIES
 } from '../actions'
 
 function categories(state = [], action) {
-  const { newCategories } = action
+  const { categories } = action
 
-  console.log(newCategories)
   switch(action.type) {
-    case ADD_CATEGORIES:
-      return [
-        ...state,
-        ...newCategories
-        ]
+    case SET_CATEGORIES:
+      return categories
     default:
       return state
   }

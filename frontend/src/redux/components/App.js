@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import '../../style/App.css';
+import '../../style/App.css'
 import * as ServerAPI from '../../api/ServerAPI'
-import { addCategories } from '../actions'
+import { setCategories } from '../actions'
 
 class App extends Component {
 
   componentDidMount() {
-    ServerAPI.getCategories().then(categories => this.props.dispatch(addCategories(categories)))
+    ServerAPI.getCategories().then(categories => this.props.dispatch(setCategories(categories)))
   }
 
   render() {
