@@ -13,6 +13,12 @@ class App extends Component {
   }
 
   render() {
+    const listPostsURLPaths = ['/','/:category']
+    let categoryNamesAndPaths = [{name:'All',path:'/'}]
+    if(this.props.categories) {
+      categoryNamesAndPaths = [...categoryNamesAndPaths,...this.props.categories]
+    }
+
     return (
       <div className="App">
         <div className="App-header">
@@ -21,13 +27,13 @@ class App extends Component {
         </div>
         <h2>Categories</h2>
         <ul>
-          <li><Link to="/">All</Link></li>
-          { this.props.categories && this.props.categories.map( category => (
+          { categoryNamesAndPaths.map( category => (
             <li><Link to={category.path} >{capitalize(category.name)}</Link></li>
           )) }
         </ul>
-        <Route path='/' component={ListPosts}/>
-        <Route path='/:category' component={ListPosts}/>
+        { listPostsURLPaths.map(path => (
+          <Route exact path={path} component={ListPosts}/>
+        ))}
       </div>
     );
   }
