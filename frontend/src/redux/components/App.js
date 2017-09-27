@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link, Route, withRouter } from 'react-router-dom'
 import '../../style/App.css'
-import * as ServerAPI from '../../api/ServerAPI'
+import * as BackendAPI from '../../utils/api'
 import { setCategories } from '../actions'
-
+import { capitalize } from '../../utils/helpers'
+import ListPosts from './ListPosts'
 class App extends Component {
 
   componentDidMount() {
-    ServerAPI.getCategories().then(categories => this.props.dispatch(setCategories(categories)))
+    BackendAPI.getCategories().then(categories => this.props.dispatch(setCategories(categories)))
   }
 
   render() {
@@ -17,11 +19,15 @@ class App extends Component {
           <img className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
+        <h2>Categories</h2>
         <ul>
+          <li><Link to="/">All</Link></li>
           { this.props.categories && this.props.categories.map( category => (
-            <li>{category.name}</li>
+            <li><Link to={category.path} >{capitalize(category.name)}</Link></li>
           )) }
         </ul>
+        <Route path='/' component={ListPosts}/>
+        <Route path='/:category' component={ListPosts}/>
       </div>
     );
   }
@@ -31,4 +37,4 @@ const mapStateToProps = (state) => ({
   categories: state.categories
 });
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));
