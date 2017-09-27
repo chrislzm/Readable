@@ -10,6 +10,7 @@ class App extends Component {
 
   componentDidMount() {
     BackendAPI.getCategories().then(categories => this.props.dispatch(setCategories(categories)))
+    BackendAPI.getAllPosts().then(posts => console.log(posts))
   }
 
   render() {
@@ -28,11 +29,11 @@ class App extends Component {
         <h2>Categories</h2>
         <ul>
           { categoryNamesAndPaths.map( category => (
-            <li><Link to={category.path} >{capitalize(category.name)}</Link></li>
+            <li key={category.path}><Link to={category.path}>{capitalize(category.name)}</Link></li>
           )) }
         </ul>
         { listPostsURLPaths.map(path => (
-          <Route exact path={path} component={ListPosts}/>
+          <Route exact path={path} component={ListPosts} key={path}/>
         ))}
       </div>
     );
