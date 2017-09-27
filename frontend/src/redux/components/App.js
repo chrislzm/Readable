@@ -6,6 +6,9 @@ import * as BackendAPI from '../../utils/api'
 import { setCategories } from '../actions'
 import { capitalize } from '../../utils/helpers'
 import ListPosts from './ListPosts'
+import CreatePost from './CreatePost'
+import * as Constants from '../../constants'
+
 class App extends Component {
 
   componentDidMount() {
@@ -14,8 +17,8 @@ class App extends Component {
   }
 
   render() {
-    const listPostsURLPaths = ['/','/:category']
-    let categoryNamesAndPaths = [{path:'/',name:'All'}]
+    const listPostsURLPaths = ['/','/:categoryPath']
+    let categoryNamesAndPaths = [{path:Constants.DEFAULT_CATEGORY_PATH,name:Constants.DEFAULT_CATEGORY_NAME}]
     if(this.props.categories) {
       categoryNamesAndPaths = [...categoryNamesAndPaths,...this.props.categories]
     }
