@@ -2,26 +2,16 @@ import React, { Component } from 'react'
 import { Link, Route, withRouter } from 'react-router-dom'
 import * as Constants from '../../constants'
 import { connect } from 'react-redux'
-
+import { getCurrentCategoryPathAndName } from '../../utils/helpers'
 
 class ListPosts extends Component {
   render() {
 
-    let {categoryPath} = this.props.match.params
-    let categoryName
-
-    // If a path to a category wasn't defined, or we haven't loaded categories from the server yet
-    if(!categoryPath || this.props.categories.length == 0) {
-      // Assign default category and path
-      categoryPath = Constants.DEFAULT_CATEGORY_PATH
-      categoryName = Constants.DEFAULT_CATEGORY_NAME
-    } else {
-      // Otherwise look up the category name based on the path
-      categoryName = this.props.categories.find(category => category.path === categoryPath).name
-    }
+    const {categoryPath, categoryName} = getCurrentCategoryPathAndName(this.props.match.params.categoryPath,this.props.categories)
 
     return(
       <div>
+        <Link to={ `createPost${categoryPath}`}>Create New Post</Link>
         <div className="list-posts">
           <h2>{categoryName}</h2>
           <div className="list-posts-title">
