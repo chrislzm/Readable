@@ -14,7 +14,7 @@ class App extends Component {
 
   render() {
     const listPostsURLPaths = ['/','/:category']
-    let categoryNamesAndPaths = [{name:'All',path:'/'}]
+    let categoryNamesAndPaths = [{path:'/',name:'All'}]
     if(this.props.categories) {
       categoryNamesAndPaths = [...categoryNamesAndPaths,...this.props.categories]
     }
