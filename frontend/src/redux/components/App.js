@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import '../../style/App.css';
+import * as ServerAPI from '../../api/ServerAPI'
+import { addCategories } from '../actions'
 
 class App extends Component {
+
+  componentDidMount() {
+    ServerAPI.getCategories().then(categories => this.props.dispatch(addCategories(categories)))
+  }
+
   render() {
     return (
       <div className="App">
@@ -9,12 +17,18 @@ class App extends Component {
           <img className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <ul>
+          { this.props.categories && this.props.categories.map( category => (
+            <li>{category.name}</li>
+          )) }
+        </ul>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  categories: state.categories
+});
+
+export default connect(mapStateToProps)(App);
