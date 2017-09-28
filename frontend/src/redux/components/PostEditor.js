@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { capitalize } from '../../utils/helpers'
 import serializeForm from 'form-serialize'
 import { addNewPost } from '../../utils/api'
-import { guid } from '../../utils/helpers'
+import { guid, convertCategoriesToArray } from '../../utils/helpers'
 
 class PostEditor extends Component {
 
@@ -44,8 +44,6 @@ class PostEditor extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  categories: state.categories
-});
+const mapStateToProps = (store) => (convertCategoriesToArray(store.categories))
 
 export default connect(mapStateToProps)(PostEditor)
