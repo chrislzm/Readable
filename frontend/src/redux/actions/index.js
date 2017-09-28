@@ -1,5 +1,5 @@
 export const ADD_NEW_POST = 'ADD_NEW_POST'
-export const SET_CATEGORIES = 'SET_CATEGORIES'
+export const ADD_NEW_CATEGORY = 'ADD_NEW_CATEGORY'
 
 export function addNewPost(id,content) {
   return {
@@ -9,9 +9,10 @@ export function addNewPost(id,content) {
   }
 }
 
-export function setCategories(categories) {
+export function addNewCategory(categoryPath,categoryName) {
   return {
-    type: SET_CATEGORIES,
-    categories
+    type: ADD_NEW_CATEGORY,
+    categoryPath,
+    categoryName
   }
 }
