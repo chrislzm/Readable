@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link, Route, withRouter } from 'react-router-dom'
 import '../../style/App.css'
 import * as BackendAPI from '../../utils/api'
-import { setCategories } from '../actions'
+import { addNewPost, setCategories } from '../actions'
 import { capitalize } from '../../utils/helpers'
 import ListPosts from './ListPosts'
 import CreatePost from './CreatePost'
@@ -13,7 +13,12 @@ class App extends Component {
 
   componentDidMount() {
     BackendAPI.getCategories().then(categories => this.props.dispatch(setCategories(categories)))
-    BackendAPI.getAllPosts().then(posts => console.log(posts))
+    BackendAPI.getAllPosts().then(posts => {
+      for(const post of posts) {
+        const {id,...content} = post
+        this.props.dispatch(addNewPost(id,content))
+      }
+    })
   }
 
   render() {
