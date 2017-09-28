@@ -1,14 +1,25 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getCurrentCategoryPathAndName } from '../../utils/helpers'
+import { capitalize } from '../../utils/helpers'
+import PostEditor from './PostEditor'
 
 class CreatePost extends Component {
   render() {
-    const { currentCategoryName, currentCategoryPath } = this.props
+    const {categoryPath, categoryName} = getCurrentCategoryPathAndName(this.props.match.params.categoryPath,this.props.categories)
 
     return(
-      <Link to={currentCategoryPath}>Back to {currentCategoryName}</Link>
+      <div>
+        <PostEditor categoryName={categoryName}/>
+        <Link to={categoryPath}>Back to {capitalize(categoryName)}</Link>
+      </div>
     )
   }
 }
 
-export default CreatePost
+const mapStateToProps = (state) => ({
+  categories: state.categories
+});
+
+export default connect(mapStateToProps)(CreatePost)
