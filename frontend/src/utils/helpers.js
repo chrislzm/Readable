@@ -25,8 +25,7 @@ export function getCurrentCategoryPathAndName(urlPath,reduxStoreCategories) {
       } else {
         // Otherwise look up the category name based on the path
         categoryName = reduxStoreCategories[urlPath]
-        // Add forward slash to path for proper linking
-        categoryPath = '/' + urlPath
+        categoryPath = urlPath
       }
 
       return {categoryPath,categoryName}

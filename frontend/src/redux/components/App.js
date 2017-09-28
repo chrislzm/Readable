@@ -31,11 +31,7 @@ class App extends Component {
     let categories = [{path:Constants.DEFAULT_CATEGORY_PATH,name:Constants.DEFAULT_CATEGORY_NAME}]
     // If categories have been loaded from store
     if(this.props.categories) {
-      // Add forward slash to all paths so React Router can match the path exactly
-      const storeCategories = this.props.categories.map(category => {
-        return {path:'/' + category.path,name: category.name}
-      })
-      categories = [...categories,...storeCategories]
+      categories = [...categories,...this.props.categories]
     }
 
     return (
@@ -46,11 +42,11 @@ class App extends Component {
         <h2>Categories</h2>
         <ul>
           { categories.map( category => (
-            <li key={category.path}><Link to={category.path}>{capitalize(category.name)}</Link></li>
+            <li key={category.path}><Link to={'/' + category.path}>{capitalize(category.name)}</Link></li>
           )) }
         </ul>
         { categories.map(category => (
-          <Route exact path={category.path} key={category.path} render={() =>(
+          <Route exact path={'/' + category.path} key={category.path} render={() =>(
             <ListPosts
               categoryPath={category.path}
               categoryName={category.name}
