@@ -1,6 +1,7 @@
 const api = "http://localhost:3001"
 
 const headers = {
+  'Content-Type': 'application/json',
   'Authorization': 'whatever-you-want'
 }
 
@@ -13,7 +14,6 @@ export const getCategories = () => (
 export const getAllPosts = () => (
   fetch(`${api}/posts`, { headers })
   .then(res => res.json())
-  .then(data => data.posts)
 )
 
 export const getCategoryPosts = (category) => (
@@ -21,3 +21,12 @@ export const getCategoryPosts = (category) => (
   .then(res => res.json())
   .then(data => data.posts)
 )
+
+export const addNewPost = (body) => {
+  fetch(`${api}/posts`, {
+    method: 'POST',
+    headers,
+    body:JSON.stringify(body)
+   })
+  .then(res => res.json())
+}
