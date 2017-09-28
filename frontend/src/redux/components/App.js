@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Link, Route, withRouter } from 'react-router-dom'
 import '../../style/App.css'
 import * as BackendAPI from '../../utils/api'
-import { addNewPost, setCategories } from '../actions'
-import { capitalize } from '../../utils/helpers'
+import { addNewPost, addNewCategory } from '../actions'
+import { capitalize, convertCategoriesToArray } from '../../utils/helpers'
 import ListPosts from './ListPosts'
 import CreatePost from './CreatePost'
 import * as Constants from '../../constants'
@@ -12,7 +12,12 @@ import * as Constants from '../../constants'
 class App extends Component {
 
   componentDidMount() {
-    BackendAPI.getCategories().then(categories => this.props.dispatch(setCategories(categories)))
+    BackendAPI.getCategories().then(categories => {
+      for(const category of categories) {
+        const {path, name} = category
+        this.props.dispatch(addNewCategory(path,name))
+      }
+    })
     BackendAPI.getAllPosts().then(posts => {
       for(const post of posts) {
         const {id,...content} = post
@@ -56,8 +61,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  categories: state.categories
-});
+const mapStateToProps = (store) => (convertCategoriesToArray(store.categories))
 
 export default withRouter(connect(mapStateToProps)(App));
