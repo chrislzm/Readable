@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { capitalize } from '../../utils/helpers'
 import serializeForm from 'form-serialize'
-import { addNewPost } from '../../utils/api'
+import * as BackendAPI from '../../utils/api'
 import { guid, convertCategoriesToArray } from '../../utils/helpers'
+import * as Actions from '../actions'
+import * as Constants from '../../constants'
 
 class PostEditor extends Component {
 
@@ -11,9 +13,12 @@ class PostEditor extends Component {
     e.preventDefault()
     this.idInput.value = guid()
     this.timestampInput.value = Date.now()
-    const values = serializeForm(e.target, { hash: true })
-    addNewPost(values)
-    console.log(values)
+    const post = serializeForm(e.target, { hash: true })
+    BackendAPI.addNewPost(post)
+    let {id,...content} = post
+    content.voteScore = Constants.DEFAULT_VOTES
+    content.deleted = Constants.DEFAULT_DELETED_FLAG
+    this.props.dispatch(Actions.addNewPost(id,content))
   }
 
   render() {
