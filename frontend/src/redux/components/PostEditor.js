@@ -16,17 +16,25 @@ class PostEditor extends Component {
     this.idInput.value = guid()
     this.timestampInput.value = Date.now()
     const post = serializeForm(e.target, { hash: true })
-    BackendAPI.addNewPost(post)
-    let {id,...content} = post
-    content.voteScore = Constants.DEFAULT_VOTES
-    content.deleted = Constants.DEFAULT_DELETED_FLAG
-    this.props.dispatch(Actions.addNewPost(id,content))
-    this.props.history.push('/' + this.props.categoryPath)
+    if(!post.title) {
+      alert("Error: Title cannot be blank")
+    } else if (!post.body) {
+      alert("Error: Body cannot be blank")
+    } else if (!post.author) {
+      alert("Error: Author cannot be blank")
+    } else {
+      BackendAPI.addNewPost(post)
+      let {id,...content} = post
+      content.voteScore = Constants.DEFAULT_VOTES
+      content.deleted = Constants.DEFAULT_DELETED_FLAG
+      this.props.dispatch(Actions.addNewPost(id,content))
+      this.props.history.push('/' + this.props.categoryPath)
+    }
   }
 
   render() {
     return (
-      <div class="PostEditor">
+      <div className="PostEditor">
         <form onSubmit={this.handleSubmit} className="edit-post-form">
           <div className="edit-post-details">
             <div className="divTable blueTable">
