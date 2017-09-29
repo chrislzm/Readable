@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import {
-  ADD_NEW_POST, ADD_NEW_CATEGORY, UPVOTE_POST
+  ADD_NEW_POST, ADD_NEW_CATEGORY, UPVOTE_POST, DOWNVOTE_POST
 } from '../actions'
 
 function categories(state = {}, action) {
@@ -34,6 +34,14 @@ function posts(state = {}, action) {
         [id]: {
           ...state[id],
           voteScore:state[id].voteScore+1
+        }
+      }
+    case DOWNVOTE_POST:
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          voteScore:state[id].voteScore-1
         }
       }
     default:
