@@ -20,7 +20,8 @@ class ListPosts extends Component {
   }
 
   downVote(postId) {
-    alert("Downvoted!")
+    BackendAPI.voteOnPost(postId,{option:"downVote"})
+    this.props.dispatch(Actions.downVotePost(postId))
   }
 
   edit(postId) {
