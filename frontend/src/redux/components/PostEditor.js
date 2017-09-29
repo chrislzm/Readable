@@ -7,6 +7,7 @@ import { guid, convertCategoriesToArray } from '../../utils/helpers'
 import * as Actions from '../actions'
 import * as Constants from '../../constants'
 import { withRouter } from 'react-router-dom'
+import '../../style/PostEditor.css'
 
 class PostEditor extends Component {
 
@@ -25,32 +26,60 @@ class PostEditor extends Component {
 
   render() {
     return (
-      <div>
+      <div class="PostEditor">
         <form onSubmit={this.handleSubmit} className="edit-post-form">
           <div className="edit-post-details">
-            <select name="category" onSubmit={this.handleSubmit} defaultValue={this.props.categoryPath}>
-              {this.props.categories.map(category => (
-                <option
-                  value={category.path}
-                  disabled={false}
-                  key={category.path}>
-                  {capitalize(category.name)}
-                </option>
-              ))}
-            </select>
-            <input type="text" name="title" placeholder="Title"/>
-            <input type="textarea" name="body" placeholder="Body"/>
-            <input type="text" name="author" placeholder="Author"/>
-            <input type="hidden" name="id" ref={(input) => { this.idInput = input;}}/>
-            <input type="hidden" name="timestamp" ref={(input) => { this.timestampInput = input;}}/>
-            <button>Post</button>
-          </div>
-        </form>
-      </div>
-    )
+            <div className="divTable blueTable">
+              <div className="divTableBody">
+                <div className="divTableRow">
+                  <div className="divTableLabel">Category</div>
+                  <div className="divTableCell">
+                    <select name="category" onSubmit={this.handleSubmit} defaultValue={this.props.categoryPath}>
+                      {this.props.categories.map(category => (
+                        <option
+                          value={category.path}
+                          disabled={false}
+                          key={category.path}>
+                          {capitalize(category.name)}
+                        </option>
+                      ))}
+                    </select>
+                  </div></div>
+                  <div className="divTableRow">
+                    <div className="divTableLabel">Title</div>
+                    <div className="divTableCell">
+                      <input type="text" name="title"/>
+                    </div>
+                  </div>
+                  <div className="divTableRow">
+                    <div className="divTableLabel">Body</div>
+                    <div className="divTableCell">
+                      <textarea name="body"/>
+                    </div>
+                  </div>
+                  <div className="divTableRow">
+                    <div className="divTableLabel">Author</div>
+                    <div className="divTableCell">
+                      <input type="text" name="author"/>
+                    </div>
+                  </div>
+                  <input type="hidden" name="id" ref={(input) => { this.idInput = input;}}/>
+                  <input type="hidden" name="timestamp" ref={(input) => { this.timestampInput = input;}}/>
+                  <div className="divTableRow">
+                    <div className="divTableLabel"></div>
+                    <div className="divTableCell">
+                      <button>Submit Post</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      )
+    }
   }
-}
 
-const mapStateToProps = (store) => (convertCategoriesToArray(store.categories))
+  const mapStateToProps = (store) => (convertCategoriesToArray(store.categories))
 
-export default withRouter(connect(mapStateToProps)(PostEditor))
+  export default withRouter(connect(mapStateToProps)(PostEditor))

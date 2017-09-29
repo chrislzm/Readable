@@ -1,0 +1,35 @@
+div.blueTable {
+  border: 1px solid #1C6EA4;
+  background-color: #EEEEEE;
+  width: 90%;
+  text-align: left;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+.divTable.blueTable .divTableCell, .divTable.blueTable .divTableLabel {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+.divTable.blueTable .divTableBody .divTableCell, .divTable.blueTable .divTableBody .divTableLabel {
+  font-size: 13px;
+}
+.divTableLabel {
+  font-weight: bold;
+}
+
+.divTableCell input, .divTableCell select, .divTableCell textarea {
+  width:90%;
+  vertical-align: top;
+}
+
+.divTableCell textarea {
+  height:4em;
+  resize:none;
+}
+
+.divTable{ display: table; }
+.divTableRow { display: table-row; }
+.divTableHeading { display: table-header-group;}
+.divTableCell, .divTableLabel, .divTableHead { display: table-cell;}
+.divTableHeading { display: table-header-group;}
+.divTableBody { display: table-row-group;}
