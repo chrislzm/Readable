@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import '../../style/ListPosts.css'
 import * as Constants from '../../constants'
 import Moment from 'moment'
+import * as BackendAPI from '../../utils/api'
+import * as Actions from '../actions'
 
 class ListPosts extends Component {
 
@@ -13,7 +15,8 @@ class ListPosts extends Component {
   }
 
   upVote(postId) {
-    alert("Upvoted!")
+    BackendAPI.voteOnPost(postId,{option:"upVote"})
+    this.props.dispatch(Actions.upVotePost(postId))
   }
 
   downVote(postId) {
