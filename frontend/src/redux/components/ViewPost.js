@@ -3,6 +3,7 @@ import Moment from 'moment'
 import { connect } from 'react-redux'
 import '../../style/ViewPost.css'
 import * as Constants from '../../constants'
+import PostActions from './PostActions'
 
 class ViewPost extends Component {
   render() {
@@ -37,6 +38,12 @@ class ViewPost extends Component {
                 <div className="divTableLabel">Votes</div>
                 <div className="divTableCell">{post.voteScore}</div>
               </div>
+              <div className="divTableRow">
+                <div className="divTableLabel">Actions</div>
+                <div className="divTableCell">
+                  <PostActions postId={postId}/>
+                </div>
+                </div>
             </div>
           </div>
         )}
