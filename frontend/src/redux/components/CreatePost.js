@@ -11,7 +11,7 @@ class CreatePost extends Component {
 
     return(
       <div>
-        <PostEditor categoryName={categoryName}/>
+        <PostEditor categoryPath={categoryPath}/>
         <Link to={'/' + categoryPath}>Back to {capitalize(categoryName)}</Link>
       </div>
     )
