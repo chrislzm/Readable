@@ -32,7 +32,7 @@ class ListPosts extends Component {
             { posts.filter(post => this.postFilter(post.category,categoryName)).map(post => (
               <div className="divTableRow" key={post.id}>
                 <div className="divTableCell">{post.category}</div>
-                <div className="divTableCell">{post.title}</div>
+                <div className="divTableCell"><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></div>
                 <div className="divTableCell">{Moment(post.timestamp, "x").format("MM-DD-YYYY hh:mm A")}</div>
                 <div className="divTableCell">{post.author}</div>
                 <div className="divTableCell">{post.voteScore}</div>
