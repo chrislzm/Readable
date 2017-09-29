@@ -8,7 +8,7 @@ import Moment from 'moment'
 class ListPosts extends Component {
 
   postFilter(postCategory,categoryName) {
-    if(categoryName === Constants.DEFAULT_CATEGORY_NAME) return true
+    if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) return true
     return postCategory === categoryName
   }
 
