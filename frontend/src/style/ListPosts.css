@@ -29,30 +29,10 @@ div.blueTable {
   font-weight: bold;
   color: #FFFFFF;
 }
-.blueTable .tableFootStyle {
-  font-size: 14px;
-}
-.blueTable .tableFootStyle .links {
-	 text-align: right;
-}
-.blueTable .tableFootStyle .links a{
-  display: inline-block;
-  background: #1C6EA4;
-  color: #FFFFFF;
-  padding: 2px 8px;
-  border-radius: 5px;
-}
-.blueTable.outerTableFooter {
-  border-top: none;
-}
-.blueTable.outerTableFooter .tableFootStyle {
-  padding: 3px 5px;
-}
-/* DivTable.com */
+
 .divTable{ display: table; }
 .divTableRow { display: table-row; }
 .divTableHeading { display: table-header-group;}
 .divTableCell, .divTableHead { display: table-cell;}
 .divTableHeading { display: table-header-group;}
-.divTableFoot { display: table-footer-group;}
 .divTableBody { display: table-row-group;}

@@ -22,5 +22,4 @@ div.blueTable {
 .divTableHeading { display: table-header-group;}
 .divTableCell, .divTableLabel, .divTableHead { display: table-cell;}
 .divTableHeading { display: table-header-group;}
-.divTableFoot { display: table-footer-group;}
 .divTableBody { display: table-row-group;}
