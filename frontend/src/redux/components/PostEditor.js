@@ -6,6 +6,7 @@ import * as BackendAPI from '../../utils/api'
 import { guid, convertCategoriesToArray } from '../../utils/helpers'
 import * as Actions from '../actions'
 import * as Constants from '../../constants'
+import { withRouter } from 'react-router-dom'
 
 class PostEditor extends Component {
 
@@ -19,6 +20,7 @@ class PostEditor extends Component {
     content.voteScore = Constants.DEFAULT_VOTES
     content.deleted = Constants.DEFAULT_DELETED_FLAG
     this.props.dispatch(Actions.addNewPost(id,content))
+    this.props.history.push('/' + this.props.categoryPath)
   }
 
   render() {
@@ -26,7 +28,7 @@ class PostEditor extends Component {
       <div>
         <form onSubmit={this.handleSubmit} className="edit-post-form">
           <div className="edit-post-details">
-            <select name="category" onSubmit={this.handleSubmit} defaultValue={this.props.categoryName}>
+            <select name="category" onSubmit={this.handleSubmit} defaultValue={this.props.categoryPath}>
               {this.props.categories.map(category => (
                 <option
                   value={category.path}
@@ -51,4 +53,4 @@ class PostEditor extends Component {
 
 const mapStateToProps = (store) => (convertCategoriesToArray(store.categories))
 
-export default connect(mapStateToProps)(PostEditor)
+export default withRouter(connect(mapStateToProps)(PostEditor))
