@@ -7,6 +7,7 @@ import { addNewPost, addNewCategory } from '../actions'
 import { capitalize, convertCategoriesToArray } from '../../utils/helpers'
 import ListPosts from './ListPosts'
 import CreatePost from './CreatePost'
+import ViewPost from './ViewPost'
 import * as Constants from '../../constants'
 
 class App extends Component {
@@ -52,6 +53,9 @@ class App extends Component {
               categoryName={category.name}
             />
           )}/>
+        ))}
+        { categories.map(category => (
+          <Route exact path={'/' + category.path + '/:postId'} key={category.path} component={ViewPost}/>
         ))}
         <Route path='/createPost/:categoryPath?' component={CreatePost}/>
       </div>
