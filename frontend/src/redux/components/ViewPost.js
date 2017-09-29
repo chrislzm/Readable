@@ -12,27 +12,27 @@ class ViewPost extends Component {
           <div className="divTable blueTable">
             <div className="divTableBody">
               <div className="divTableRow">
-                <div className="divTableCell">Title:</div>
+                <div className="divTableLabel">Title</div>
                 <div className="divTableCell">{post.title}</div>
               </div>
               <div className="divTableRow">
-                <div className="divTableCell">Category:</div>
+                <div className="divTableLabel">Category</div>
                 <div className="divTableCell">{post.category}</div>
               </div>
               <div className="divTableRow">
-                <div className="divTableCell">Author:</div>
+                <div className="divTableLabel">Author</div>
                 <div className="divTableCell">{post.author}</div>
               </div>
               <div className="divTableRow">
-                <div className="divTableCell">Date:</div>
+                <div className="divTableLabel">Date</div>
                 <div className="divTableCell">{post.timestamp}</div>
               </div>
               <div className="divTableRow">
-                <div className="divTableCell">Votes:</div>
+                <div className="divTableLabel">Votes</div>
                 <div className="divTableCell">{post.voteScore}</div>
               </div>
               <div className="divTableRow">
-                <div className="divTableCell">Body:</div>
+                <div className="divTableLabel">Body</div>
                 <div className="divTableCell">{post.body}</div>
               </div>
             </div>
