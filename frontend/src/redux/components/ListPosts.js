@@ -5,6 +5,7 @@ import '../../style/ListPosts.css'
 import * as Constants from '../../constants'
 import Moment from 'moment'
 import PostActions from './PostActions'
+import { setCurrentCategoryPath } from '../actions'
 
 class ListPosts extends Component {
 
@@ -13,8 +14,13 @@ class ListPosts extends Component {
     return postCategory === categoryName
   }
 
+  componentDidMount() {
+    this.props.dispatch(setCurrentCategoryPath(this.props.categoryPath))
+  }
+
   render() {
     const {categoryPath, categoryName, posts} = this.props
+
     return(
       <div className="ListPosts">
         <h2>{categoryName}</h2>
