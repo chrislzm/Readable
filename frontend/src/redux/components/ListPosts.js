@@ -40,7 +40,7 @@ class ListPosts extends Component {
                 <div className="divTableCell">{post.author}</div>
                 <div className="divTableCell">{post.voteScore}</div>
                 <div className="divTableCell">
-                  <PostActions postId={post.id}/>
+                  <PostActions postId={post.id} postTitle={post.title} categoryPath={categoryPath}/>
                 </div>
               </div>
             ))}

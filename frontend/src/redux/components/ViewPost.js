@@ -7,6 +7,8 @@ import PostActions from './PostActions'
 
 class ViewPost extends Component {
   render() {
+    // Extract category path from the URL
+    const categoryPath = this.props.match.path.split('/')[1]
     const postId = this.props.match.params.postId
     const post = this.props.posts[postId]
     return (
@@ -41,7 +43,7 @@ class ViewPost extends Component {
               <div className="divTableRow">
                 <div className="divTableLabel">Actions</div>
                 <div className="divTableCell">
-                  <PostActions postId={postId}/>
+                  <PostActions postId={postId} postTitle={post.title} categoryPath={categoryPath}/>
                 </div>
                 </div>
             </div>
