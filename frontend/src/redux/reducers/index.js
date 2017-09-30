@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux'
+import * as Constants from '../../constants'
 
 import {
   ADD_NEW_POST,
   ADD_NEW_CATEGORY,
   UPVOTE_POST,
   DOWNVOTE_POST,
-  SET_CURRENT_CATEGORY_PATH
+  SET_CURRENT_CATEGORY
 } from '../actions'
 
 function categories(state = {}, action) {
@@ -53,15 +54,16 @@ function posts(state = {}, action) {
   }
 }
 
-function currentCategory(state = {path: ''}, action) {
-    const { path } = action
+function currentCategory(state = {
+  categoryPath: Constants.ALL_POSTS_CATEGORY_PATH,
+  categoryName: Constants.ALL_POSTS_CATEGORY_NAME
+}, action) {
+
+    const { categoryPath, categoryName} = action
 
     switch(action.type) {
-      case SET_CURRENT_CATEGORY_PATH:
-        return {
-          ...state,
-          path
-        }
+      case SET_CURRENT_CATEGORY:
+        return { categoryPath, categoryName }
       default:
         return state
     }

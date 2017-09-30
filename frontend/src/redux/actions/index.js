@@ -2,7 +2,7 @@ export const ADD_NEW_POST = 'ADD_NEW_POST'
 export const ADD_NEW_CATEGORY = 'ADD_NEW_CATEGORY'
 export const DOWNVOTE_POST = 'DOWNVOTE_POST'
 export const UPVOTE_POST = 'UPVOTE_POST'
-export const SET_CURRENT_CATEGORY_PATH = 'SET_CURRENT_CATEGORY_PATH'
+export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY'
 
 export function addNewPost(id,content) {
   return {
@@ -33,9 +33,10 @@ export function upVotePost(id) {
   }
 }
 
-export function setCurrentCategoryPath(path) {
+export function setCurrentCategory(categoryPath,categoryName) {
   return {
-    type: SET_CURRENT_CATEGORY_PATH,
-    path
+    type: SET_CURRENT_CATEGORY,
+    categoryPath,
+    categoryName
   }
 }
