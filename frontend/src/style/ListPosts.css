@@ -1,3 +1,28 @@
+.AddNewPost {
+  text-align: right;
+}
+
+.AddNewPost button {
+  text-align: right;
+  font-size:1em;
+  position:relative;
+  top:-25px;
+}
+
+.AddNewPost a {
+  color:black;
+  text-decoration: none;
+}
+
+.ListPostsHeader {
+  margin:auto;
+  width:90%;
+}
+
+.ListPostsHeader h2 {
+  margin-bottom:0;
+}
+
 .ListPosts {
   width:100%;
   text-align: center;

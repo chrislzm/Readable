@@ -6,6 +6,7 @@ import * as Constants from '../../constants'
 import Moment from 'moment'
 import PostActions from './PostActions'
 import { setCurrentCategoryPath } from '../actions'
+import { capitalize } from '../../utils/helpers'
 
 class ListPosts extends Component {
 
@@ -23,8 +24,14 @@ class ListPosts extends Component {
 
     return(
       <div className="ListPosts">
-        <h2>{categoryName}</h2>
-        <Link to={ `createPost/${categoryPath}`}>Create New Post</Link>
+        <div className="ListPostsHeader">
+        <h2>{capitalize(categoryName)}</h2>
+        <div className="AddNewPost">
+          <button>
+            <Link to={ `createPost/${categoryPath}`}>+ Add New Post</Link>
+          </button>
+        </div>
+        </div>
         <div className="divTable blueTable">
           <div className="divTableHeading">
             <div className="divTableRow">
