@@ -39,7 +39,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Welcome to the Online Forum</h2>
+          <h2>{Constants.SITE_TITLE}</h2>
         </div>
         <CategoryBar categories={categories}/>
         { categories.map(category => (
