@@ -25,12 +25,12 @@ class ListPosts extends Component {
     return(
       <div className="ListPosts">
         <div className="ListPostsHeader">
-        <h2>{capitalize(categoryName)}</h2>
-        <div className="AddNewPost">
-          <button>
-            <Link to={ `createPost/${categoryPath}`}>+ Add New Post</Link>
-          </button>
-        </div>
+          <h2>{capitalize(categoryName)}</h2>
+          <div className="AddNewPost">
+            <button>
+              <Link to={ `createPost/${categoryPath}`}>+ Add New Post</Link>
+            </button>
+          </div>
         </div>
         <div className="divTable blueTable">
           <div className="divTableHeading">
