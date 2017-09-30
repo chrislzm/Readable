@@ -5,7 +5,7 @@ import '../../style/ListPosts.css'
 import * as Constants from '../../constants'
 import Moment from 'moment'
 import PostActions from './PostActions'
-import { setCurrentCategoryPath } from '../actions'
+import { setCurrentCategory } from '../actions'
 import { capitalize } from '../../utils/helpers'
 
 class ListPosts extends Component {
@@ -16,7 +16,7 @@ class ListPosts extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(setCurrentCategoryPath(this.props.categoryPath))
+    this.props.dispatch(setCurrentCategory(this.props.categoryPath, this.props.categoryName))
   }
 
   render() {
