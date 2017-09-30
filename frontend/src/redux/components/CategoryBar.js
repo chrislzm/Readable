@@ -1,5 +1,4 @@
 import React from 'react'
-import { capitalize } from '../../utils/helpers'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -12,7 +11,7 @@ const CategoryBar = (props) => {
         const liClassName = category.path === currentCategory.path ? "CurrentCategory" : "OtherCategory"
         return (
 
-        <li key={category.path} className={liClassName}><Link to={'/' + category.path}>{capitalize(category.name)}</Link></li>
+        <li key={category.path} className={liClassName}><Link to={'/' + category.path}>{category.name}</Link></li>
       )}) }
     </ul>
   )
