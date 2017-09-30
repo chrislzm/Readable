@@ -12,12 +12,15 @@ class ViewPost extends Component {
     const { categoryPath, categoryName }  = this.props.currentCategory
     const postId = this.props.match.params.postId
     const post = this.props.posts[postId]
+    if(post) {
+      post.category = capitalize(post.category)
+    }
     return (
       <div>
         { post && (
           <div className="VieWPost">
             <div className="ViewPostsHeader">
-              <h2>"{ post.title }"</h2>
+              <h2>{post.category}: "{ post.title }"</h2>
               <div className="BackToCategory">
                 <button>
                   <Link to={ `/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
@@ -26,14 +29,6 @@ class ViewPost extends Component {
             </div>
             <div className="divTable blueTable">
               <div className="divTableBody">
-                <div className="divTableRow">
-                  <div className="divTableLabel">Category</div>
-                  <div className="divTableCell">{capitalize(post.category)}</div>
-                </div>
-                <div className="divTableRow">
-                  <div className="divTableLabel">Title</div>
-                  <div className="divTableCell">{post.title}</div>
-                </div>
                 <div className="divTableRow">
                   <div className="divTableLabel">Author</div>
                   <div className="divTableCell">{post.author}</div>
