@@ -8,3 +8,21 @@
   padding: 20px;
   color: white;
 }
+
+.modal {
+  position: absolute;
+  line-height: 2.5em;
+  text-align: center;
+  top: 50%;
+  left: 20%;
+  right: 20%;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);
+  min-width: 500px;
+}
