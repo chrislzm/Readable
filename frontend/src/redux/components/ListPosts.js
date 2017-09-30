@@ -28,7 +28,7 @@ class ListPosts extends Component {
           <h2>{capitalize(categoryName)}</h2>
           <div className="AddNewPost">
             <button>
-              <Link to={ `createPost/${categoryPath}`}>+ Add New Post</Link>
+              <Link to="/createPost">+ Add New Post</Link>
             </button>
           </div>
         </div>
@@ -53,7 +53,7 @@ class ListPosts extends Component {
                 <div className="divTableCell">{post.author}</div>
                 <div className="divTableCell">{post.voteScore}</div>
                 <div className="divTableCell">
-                  <PostActions postId={post.id} postTitle={post.title} categoryPath={categoryPath}/>
+                  <PostActions postId={post.id} postTitle={post.title}/>
                 </div>
               </div>
             ))}

@@ -7,8 +7,7 @@ import PostEditor from './PostEditor'
 
 class CreatePost extends Component {
   render() {
-    const {categoryPath, categoryName} = getCurrentCategoryPathAndName(this.props.match.params.categoryPath,this.props.categories)
-
+    const {categoryPath, categoryName} = this.props.currentCategory
     return(
       <div>
         <PostEditor categoryPath={categoryPath}/>
@@ -19,7 +18,8 @@ class CreatePost extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  categories: state.categories
+  categories: state.categories,
+  currentCategory: state.currentCategory
 });
 
 export default connect(mapStateToProps)(CreatePost)

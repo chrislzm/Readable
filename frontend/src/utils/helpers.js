@@ -13,24 +13,6 @@ export function convertCategoriesToArray(categories) {
   return {categories:categoryArray}
 }
 
-export function getCurrentCategoryPathAndName(urlPath,reduxStoreCategories) {
-
-      let categoryPath, categoryName
-
-      // If a path to a category wasn't defined or we haven't completely loaded categories from the server yet
-      if(!urlPath || Object.keys(reduxStoreCategories).length === 0 || !reduxStoreCategories[urlPath]) {
-        // Assign default category and path
-        categoryPath = Constants.ALL_POSTS_CATEGORY_PATH
-        categoryName = Constants.ALL_POSTS_CATEGORY_NAME
-      } else {
-        // Otherwise look up the category name based on the path
-        categoryName = reduxStoreCategories[urlPath]
-        categoryPath = urlPath
-      }
-
-      return {categoryPath,categoryName}
-}
-
 // https://stackoverflow.com/a/105074/7602403
 export function guid() {
   function s4() {
