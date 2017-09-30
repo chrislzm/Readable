@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as BackendAPI from '../../utils/api'
 import * as Actions from '../actions'
+import Modal from 'react-modal'
 
 class PostActions extends Component {
+
+  state = {
+    confirmModalOpen: false
+  }
 
   upVote(postId) {
     BackendAPI.voteOnPost(postId,{option:"upVote"})
@@ -20,17 +25,43 @@ class PostActions extends Component {
   }
 
   delete(postId) {
-    alert("Deleting")
+  }
+
+  openConfirmModal = () => {
+    this.setState(() => ({
+      confirmModalOpen: true
+    }))
+  }
+
+  closeConfirmModal = () => {
+    this.setState(() => ({
+      confirmModalOpen: false
+    }))
   }
 
   render() {
-    const { postId } = this.props
+    const { confirmModalOpen } = this.state
+    const { postId, postTitle, categoryPath } = this.props
     return (
       <div>
-        <button onClick={() => this.upVote(postId)}>Upvote</button>
-        <button onClick={() => this.downVote(postId)}>Downvote</button>
-        <button onClick={() => this.edit(postId)}>Edit</button>
-        <button onClick={() => this.delete(postId)}>Delete</button>
+        <div>
+          <button onClick={() => this.upVote(postId)}>Upvote</button>
+          <button onClick={() => this.downVote(postId)}>Downvote</button>
+          <button onClick={() => this.edit(postId)}>Edit</button>
+          <button onClick={this.openConfirmModal}>Delete</button>
+        </div>
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          isOpen={confirmModalOpen}
+          onRequestClose={this.closeConfirmModal}
+          contentLabel='Modal'>
+          <div>Really delete "{postTitle}"?</div>
+          <div>
+            <button>Delete</button>
+            <button onClick={this.closeConfirmModal}>Cancel</button>
+          </div>
+        </Modal>
       </div>
     )
   }
