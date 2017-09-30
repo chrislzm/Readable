@@ -41,7 +41,7 @@ class PostActions extends Component {
 
   render() {
     const { confirmModalOpen } = this.state
-    const { postId, postTitle, categoryPath } = this.props
+    const { postId, postTitle } = this.props
     return (
       <div>
         <div>

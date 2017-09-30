@@ -53,7 +53,7 @@ class ViewPost extends Component {
                 <div className="divTableRow">
                   <div className="divTableLabel">Actions</div>
                   <div className="divTableCell">
-                    <PostActions postId={postId} postTitle={post.title} categoryPath={categoryPath}/>
+                    <PostActions postId={postId} postTitle={post.title}/>
                   </div>
                 </div>
               </div>
