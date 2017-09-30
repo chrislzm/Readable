@@ -4,9 +4,36 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
   padding: 20px;
   color: white;
+}
+
+.CategoryBar {
+  width:100%;
+  margin:auto;
+  background: black;
+  padding:10px;
+}
+
+.CategoryBar li {
+  display:inline;
+  padding:10px;
+  margin:0 20px 0 20px;
+  text-transform: uppercase;
+}
+
+.CategoryBar li.CurrentCategory{
+  background-color: #338;
+}
+
+.CategoryBar li.OtherCategory:hover {
+  background-color: #555;
+}
+
+.CategoryBar li a {
+  text-decoration: none;
+  color:#EEE;
+  font-weight: bold;
 }
 
 .modal {
