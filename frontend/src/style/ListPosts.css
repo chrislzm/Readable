@@ -29,7 +29,7 @@
 }
 
 div.blueTable {
-  border: 0px solid #1C6EA4;
+  border: solid #1C6EA4;
   background-color: #EEEEEE;
   width: 90%;
   text-align: left;
@@ -44,14 +44,9 @@ div.blueTable {
 }
 .divTable.blueTable .divTableHeading {
   background: #1C6EA4;
-  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  border-bottom: 2px solid #444444;
 }
 .divTable.blueTable .divTableHeading .divTableHead {
   font-size: 15px;
-  font-weight: bold;
   color: #FFFFFF;
 }
 
