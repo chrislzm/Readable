@@ -53,7 +53,7 @@ class App extends Component {
         { categories.map(category => (
           <Route exact path={'/' + category.path + '/:postId'} key={category.path} component={ViewPost}/>
         ))}
-        <Route path='/createPost' component={CreatePost}/>
+        <Route path={`${Constants.CREATE_POST_PATH}`} component={CreatePost}/>
       </div>
     );
   }
