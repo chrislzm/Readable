@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, Route, withRouter } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import '../../style/App.css'
 import * as BackendAPI from '../../utils/api'
 import { addNewPost, addNewCategory } from '../actions'
-import { capitalize, convertCategoriesToArray } from '../../utils/helpers'
+import { convertCategoriesToArray } from '../../utils/helpers'
 import ListPosts from './ListPosts'
 import CreatePost from './CreatePost'
 import ViewPost from './ViewPost'
 import * as Constants from '../../constants'
+import CategoryBar from './CategoryBar'
 
 class App extends Component {
 
@@ -40,12 +41,7 @@ class App extends Component {
         <div className="App-header">
           <h2>Welcome to the Online Forum</h2>
         </div>
-        <h2>Categories</h2>
-        <ul>
-          { categories.map( category => (
-            <li key={category.path}><Link to={'/' + category.path}>{capitalize(category.name)}</Link></li>
-          )) }
-        </ul>
+        <CategoryBar categories={categories}/>
         { categories.map(category => (
           <Route exact path={'/' + category.path} key={category.path} render={() =>(
             <ListPosts
