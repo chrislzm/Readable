@@ -6,6 +6,7 @@ import PostEditor from './PostEditor'
 
 class EditPost extends Component {
   render() {
+    const postId = this.props.match.params.postId
     const {categoryPath, categoryName} = this.props.currentCategory
     return(
       <div>
@@ -19,7 +20,7 @@ class EditPost extends Component {
             </button>
           </div>
         </div>
-        <PostEditor categoryPath={categoryPath}/>
+        <PostEditor categoryPath={categoryPath} editPostId={postId} />
       </div>
     )
   }
