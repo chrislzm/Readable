@@ -43,7 +43,7 @@ class EditPost extends Component {
           </h2>
           <div className="SectionTitleNav">
             <button>
-              <Link to={pathToViewPost}>&lt; Back To Post</Link>
+              <Link to={pathToViewPost}>&lt; View Post</Link>
             </button>
             <button>
               <Link to={`/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
