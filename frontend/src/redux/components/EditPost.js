@@ -8,21 +8,21 @@ import Modal from 'react-modal'
 
 class EditPost extends Component {
 
-    state = {
+  state = {
+    confirmModalOpen: false
+  }
+
+  openConfirmModal = () => {
+    this.setState(() => ({
+      confirmModalOpen: true
+    }))
+  }
+
+  closeConfirmModal = () => {
+    this.setState(() => ({
       confirmModalOpen: false
-    }
-
-    openConfirmModal = () => {
-      this.setState(() => ({
-        confirmModalOpen: true
-      }))
-    }
-
-    closeConfirmModal = () => {
-      this.setState(() => ({
-        confirmModalOpen: false
-      }))
-    }
+    }))
+  }
 
   render() {
     const { confirmModalOpen } = this.state
@@ -59,10 +59,7 @@ class EditPost extends Component {
           contentLabel='Modal'>
           <div>Changes have been saved!</div>
           <div>
-            <button>
-              <Link to={pathToViewPost}>View Post</Link>
-            </button>
-            <button onClick={this.closeConfirmModal}>Continue Editing</button>
+            <button onClick={this.closeConfirmModal}>OK</button>
           </div>
         </Modal>
       </div>
