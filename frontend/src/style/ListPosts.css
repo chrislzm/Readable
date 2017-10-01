@@ -28,8 +28,32 @@
   text-align: center;
 }
 
+.BackToCategory {
+  text-align: right;
+}
+
+.BackToCategory button {
+  text-align: right;
+  font-size:1em;
+  position:relative;
+  top:-25px;
+}
+
+.BackToCategory a {
+  color:black;
+  text-decoration: none;
+}
+
+.ViewPostsHeader {
+  margin:auto;
+  width:90%;
+}
+
+.ViewPostsHeader h2 {
+  margin-bottom:0;
+}
+
 div.blueTable {
-  border: solid #1C6EA4;
   background-color: #EEEEEE;
   width: 90%;
   text-align: left;
@@ -51,6 +75,19 @@ div.blueTable {
 .divTable.blueTable .divTableHeading .divTableHead {
   font-size: 15px;
   color: #FFFFFF;
+}
+
+.divTableCell input, .divTableCell select, .divTableCell textarea {
+  width:90%;
+  vertical-align: top;
+}
+
+.divTableLabel {
+  background: #1C6EA4;
+  font-size: 15px;
+  color: #FFFFFF;
+  padding:5px 10px;
+  border: 1px solid #AAAAAA;
 }
 
 .divTable{ display: table; }
