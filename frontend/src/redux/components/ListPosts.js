@@ -22,9 +22,9 @@ class ListPosts extends Component {
     const { categoryName, posts} = this.props
     return(
       <div className="ListPosts">
-        <div className="ListPostsHeader">
+        <div className="SectionTitle">
           <h2>{capitalize(categoryName)}</h2>
-          <div className="AddNewPost">
+          <div className="SectionTitleNav">
             <button>
               <Link to={`/${Constants.CREATE_POST_PATH}`}>+ Add New Post</Link>
             </button>

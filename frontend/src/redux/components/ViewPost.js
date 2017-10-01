@@ -18,9 +18,9 @@ class ViewPost extends Component {
       <div>
         { post && (
           <div className="VieWPost">
-            <div className="ViewPostsHeader">
+            <div className="SectionTitle">
               <h2>{post.category}: "{ post.title }"</h2>
-              <div className="BackToCategory">
+              <div className="SectionTitleNav">
                 <button>
                   <Link to={ `/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
                 </button>

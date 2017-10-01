@@ -1,56 +1,26 @@
-.AddNewPost {
-  text-align: right;
+.SectionTitle {
+  margin:auto;
+  width:90%;
 }
 
-.AddNewPost button {
+.SectionTitle h2 {
+  margin-bottom:0;
+}
+
+.SectionTitleNav {
+  float:right;
+}
+
+.SectionTitleNav button {
   text-align: right;
   font-size:1em;
   position:relative;
   top:-25px;
 }
 
-.AddNewPost a {
+.SectionTitleNav a {
   color:black;
   text-decoration: none;
-}
-
-.ListPostsHeader {
-  margin:auto;
-  width:90%;
-}
-
-.ListPostsHeader h2 {
-  margin-bottom:0;
-}
-
-.ListPosts {
-  width:100%;
-  text-align: center;
-}
-
-.BackToCategory {
-  text-align: right;
-}
-
-.BackToCategory button {
-  text-align: right;
-  font-size:1em;
-  position:relative;
-  top:-25px;
-}
-
-.BackToCategory a {
-  color:black;
-  text-decoration: none;
-}
-
-.ViewPostsHeader {
-  margin:auto;
-  width:90%;
-}
-
-.ViewPostsHeader h2 {
-  margin-bottom:0;
 }
 
 div.blueTable {
