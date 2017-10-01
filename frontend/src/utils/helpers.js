@@ -1,5 +1,3 @@
-import * as Constants from '../constants'
-
 export function capitalize (str = '') {
   return typeof str !== 'string'
     ? ''
