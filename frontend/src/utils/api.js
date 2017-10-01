@@ -33,7 +33,7 @@ export const addNewPost = (body) => {
 
 export const editPost = (id,body) => {
   fetch(`${api}/posts/${id}`, {
-    method: 'POST',
+    method: 'PUT',
     headers,
     body:JSON.stringify(body)
    })
