@@ -44,7 +44,7 @@ class PostEditor extends Component {
                     <select name="category" onSubmit={this.handleSubmit} defaultValue={this.props.categoryPath}>
                       {this.props.categories.map(category => (
                         <option
-                          value={category.path}
+                          value={category.name}
                           disabled={false}
                           key={category.path}>
                           {capitalize(category.name)}
