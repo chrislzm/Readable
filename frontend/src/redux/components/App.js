@@ -11,6 +11,7 @@ import CreatePost from './CreatePost'
 import ViewPost from './ViewPost'
 import * as Constants from '../../constants'
 import CategoryBar from './CategoryBar'
+import EditPost from './EditPost'
 
 class App extends Component {
 
@@ -55,6 +56,7 @@ class App extends Component {
           <Route exact path={`/${category.path}/:postId`} key={category.path} component={ViewPost}/>
         ))}
         <Route exact path={`/${Constants.CREATE_POST_PATH}`} component={CreatePost}/>
+        <Route exact path={`/${Constants.EDIT_POST_PATH}/:postId`} component={EditPost}/>
       </div>
     );
   }

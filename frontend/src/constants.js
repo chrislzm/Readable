@@ -5,3 +5,4 @@ export const DEFAULT_DELETED_FLAG = false
 export const DEFAULT_DATE_FORMAT = "MM-DD-YYYY hh:mm A"
 export const SITE_TITLE = "My React+Redux Powered Forum"
 export const CREATE_POST_PATH = "createPost"
+export const EDIT_POST_PATH = "editPost"

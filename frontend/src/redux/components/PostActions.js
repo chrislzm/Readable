@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import * as BackendAPI from '../../utils/api'
 import * as Actions from '../actions'
 import Modal from 'react-modal'
+import { withRouter } from 'react-router-dom'
+import * as Constants from '../../constants'
 
 class PostActions extends Component {
 
@@ -21,7 +23,7 @@ class PostActions extends Component {
   }
 
   edit(postId) {
-    alert("Editing")
+    this.props.history.push(`/${Constants.EDIT_POST_PATH}/${postId}`)
   }
 
   delete(postId) {
@@ -67,4 +69,4 @@ class PostActions extends Component {
   }
 }
 
-export default connect()(PostActions);
+  export default withRouter(connect()(PostActions))
