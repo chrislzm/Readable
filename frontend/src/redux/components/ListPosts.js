@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import '../../style/ListPosts.css'
 import * as Constants from '../../constants'
 import Moment from 'moment'
 import PostActions from './PostActions'
@@ -12,7 +11,7 @@ class ListPosts extends Component {
 
   filter(postCategory,categoryName) {
     if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) return true
-    return postCategory === categoryName
+    return postCategory.toLowerCase() === categoryName.toLowerCase()
   }
 
   componentDidMount() {
@@ -20,8 +19,7 @@ class ListPosts extends Component {
   }
 
   render() {
-    const {categoryPath, categoryName, posts} = this.props
-
+    const { categoryName, posts} = this.props
     return(
       <div className="ListPosts">
         <div className="ListPostsHeader">
