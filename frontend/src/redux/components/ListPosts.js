@@ -45,7 +45,7 @@ class ListPosts extends Component {
           <div className="divTableBody">
             { posts.filter(post => this.filter(post.category,categoryName)).map(post => (
               <div className="divTableRow" key={post.id}>
-                <div className="divTableCell">{post.category}</div>
+                <div className="divTableCell">{capitalize(post.category)}</div>
                 <div className="divTableCell"><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></div>
                 <div className="divTableCell">{Moment(post.timestamp, "x").format(Constants.DEFAULT_DATE_FORMAT)}</div>
                 <div className="divTableCell">{post.author}</div>
