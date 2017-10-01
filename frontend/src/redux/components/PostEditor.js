@@ -13,9 +13,14 @@ class PostEditor extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const post = serializeForm(e.target, { hash: true })
-    console.log(post.editing)
-    if(post.editing === true) {
-
+    if(post.editing === "true") {
+      const {id, title, body} = post
+      const editedPost = {
+        title,
+        body
+      }
+      BackendAPI.editPost(id,editedPost)
+      this.props.dispatch(Actions.editPost(id,title,body))
     } else {
       post.id = guid()
       post.timestamp = Date.now()
