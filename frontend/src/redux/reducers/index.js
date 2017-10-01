@@ -69,11 +69,11 @@ function currentCategory(state = {
   categoryName: Constants.ALL_POSTS_CATEGORY_NAME
 }, action) {
 
-    const { categoryPath, categoryName} = action
+    const { categoryName, categoryPath } = action
 
     switch(action.type) {
       case SET_CURRENT_CATEGORY:
-        return { categoryPath, categoryName }
+        return { categoryName, categoryPath }
       default:
         return state
     }

@@ -43,10 +43,10 @@ export function upVotePost(id) {
   }
 }
 
-export function setCurrentCategory(categoryPath,categoryName) {
+export function setCurrentCategory(categoryName, categoryPath) {
   return {
     type: SET_CURRENT_CATEGORY,
-    categoryPath,
-    categoryName
+    categoryName,
+    categoryPath
   }
 }

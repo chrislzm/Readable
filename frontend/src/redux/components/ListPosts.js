@@ -15,7 +15,7 @@ class ListPosts extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(setCurrentCategory(this.props.categoryPath, this.props.categoryName))
+    this.props.dispatch(setCurrentCategory(this.props.categoryName, this.props.categoryPath))
   }
 
   render() {
