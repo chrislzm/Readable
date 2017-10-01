@@ -32,6 +32,7 @@ class PostEditor extends Component {
   }
 
   render() {
+    let showAuthor, showCategory
     let postCategory = this.props.categoryName
     let postId = this.props.match.params.postId
     let editing = postId ? true : false
@@ -43,8 +44,11 @@ class PostEditor extends Component {
       postBody = postContent.body
       postAuthor = postContent.author
       postCategory = postContent.category
+      showAuthor = false
+      showCategory = false
     } else {
       postId = postTitle = postBody = postAuthor = ''
+      showAuthor = showCategory = true
     }
     return (
       <div className="PostEditor">
@@ -52,14 +56,13 @@ class PostEditor extends Component {
           <div className="edit-post-details">
             <div className="divTable blueTable">
               <div className="divTableBody">
-                <div className="divTableRow">
+                <div className="divTableRow" style={{display: showCategory ? 'table-row':'none'}}>
                   <div className="divTableLabel">Category</div>
                   <div className="divTableCell">
                     <select
                       name="category"
                       onSubmit={this.handleSubmit}
-                      defaultValue={postCategory}
-                      disabled={editing}>
+                      defaultValue={postCategory}>
                       {this.props.categories.map(category => (
                         <option
                           value={category.name}
@@ -81,14 +84,13 @@ class PostEditor extends Component {
                       <textarea name="body" defaultValue={postBody}/>
                     </div>
                   </div>
-                  <div className="divTableRow">
+                  <div className="divTableRow" style={{display: showAuthor ? 'table-row':'none'}}>
                     <div className="divTableLabel">Author</div>
                     <div className="divTableCell">
                       <input
                         type="text"
                         name="author"
-                        value={postAuthor}
-                        disabled={editing}/>
+                        defaultValue={postAuthor}/>
                     </div>
                   </div>
                   <input type="hidden" name="id" value={postId} ref={(input) => { this.idInput = input;}}/>
