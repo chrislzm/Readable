@@ -71,13 +71,13 @@ class PostEditor extends Component {
                   </div></div>
                   <div className="divTableRow">
                     <div className="divTableLabel">Title</div>
-                    <div className="divTableCell">
+                    <div className="divTableCell" key={postTitle}>
                       <input type="text" name="title" defaultValue={postTitle}/>
                     </div>
                   </div>
                   <div className="divTableRow">
                     <div className="divTableLabel">Body</div>
-                    <div className="divTableCell">
+                    <div className="divTableCell" key={postBody}>
                       <textarea name="body" defaultValue={postBody}/>
                     </div>
                   </div>
