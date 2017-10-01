@@ -7,7 +7,6 @@ import { guid, convertCategoriesToArray } from '../../utils/helpers'
 import * as Actions from '../actions'
 import * as Constants from '../../constants'
 import { withRouter } from 'react-router-dom'
-import '../../style/PostEditor.css'
 
 class PostEditor extends Component {
 

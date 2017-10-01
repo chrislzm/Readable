@@ -93,6 +93,6 @@ div.blueTable {
 .divTable{ display: table; }
 .divTableRow { display: table-row; }
 .divTableHeading { display: table-header-group;}
-.divTableCell, .divTableHead { display: table-cell;}
+.divTableCell, .divTableHead, .divTableLabel { display: table-cell;}
 .divTableHeading { display: table-header-group;}
 .divTableBody { display: table-row-group;}
