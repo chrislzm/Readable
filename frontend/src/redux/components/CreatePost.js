@@ -9,8 +9,17 @@ class CreatePost extends Component {
     const {categoryPath, categoryName} = this.props.currentCategory
     return(
       <div>
+        <div className="SectionTitle">
+          <h2>
+            Add New Post
+          </h2>
+          <div className="SectionTitleNav">
+            <button>
+              <Link to={ `/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
+            </button>
+          </div>
+        </div>
         <PostEditor categoryPath={categoryPath}/>
-        <Link to={'/' + categoryPath}>Back to {capitalize(categoryName)}</Link>
       </div>
     )
   }
