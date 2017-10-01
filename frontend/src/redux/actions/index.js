@@ -13,11 +13,11 @@ export function addNewPost(id,content) {
   }
 }
 
-export function addNewCategory(categoryPath,categoryName) {
+export function addNewCategory(categoryName, categoryPath) {
   return {
     type: ADD_NEW_CATEGORY,
-    categoryPath,
-    categoryName
+    categoryName,
+    categoryPath
   }
 }
 

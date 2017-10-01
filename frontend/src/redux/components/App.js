@@ -18,8 +18,8 @@ class App extends Component {
   componentDidMount() {
     BackendAPI.getCategories().then(categories => {
       for(const category of categories) {
-        const {path, name} = category
-        this.props.dispatch(addNewCategory(path,name))
+        const {name, path} = category
+        this.props.dispatch(addNewCategory(name,path))
       }
     })
     BackendAPI.getAllPosts().then(posts => {
