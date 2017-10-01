@@ -1,5 +1,6 @@
 export const ADD_NEW_POST = 'ADD_NEW_POST'
 export const ADD_NEW_CATEGORY = 'ADD_NEW_CATEGORY'
+export const EDIT_POST = 'EDIT_POST'
 export const DOWNVOTE_POST = 'DOWNVOTE_POST'
 export const UPVOTE_POST = 'UPVOTE_POST'
 export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY'
@@ -17,6 +18,15 @@ export function addNewCategory(categoryPath,categoryName) {
     type: ADD_NEW_CATEGORY,
     categoryPath,
     categoryName
+  }
+}
+
+export function editPost(id,title,body) {
+  return {
+    type: EDIT_POST,
+    id,
+    title,
+    body
   }
 }
 

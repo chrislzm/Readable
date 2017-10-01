@@ -4,6 +4,7 @@ import * as Constants from '../../constants'
 import {
   ADD_NEW_POST,
   ADD_NEW_CATEGORY,
+  EDIT_POST,
   UPVOTE_POST,
   DOWNVOTE_POST,
   SET_CURRENT_CATEGORY
@@ -32,6 +33,15 @@ function posts(state = {}, action) {
       return {
         ...state,
         [id]: content
+      }
+    case EDIT_POST:
+      const {title, body} = action
+      return {
+        ...state,
+        [id]: {...state[id],
+          title,
+          body
+        }
       }
     case UPVOTE_POST:
       return {
