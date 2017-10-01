@@ -12,22 +12,27 @@ class PostEditor extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.idInput.value = guid()
-    this.timestampInput.value = Date.now()
     const post = serializeForm(e.target, { hash: true })
-    if(!post.title) {
-      alert("Error: Title cannot be blank")
-    } else if (!post.body) {
-      alert("Error: Body cannot be blank")
-    } else if (!post.author) {
-      alert("Error: Author cannot be blank")
+    console.log(post.editing)
+    if(post.editing === true) {
+
     } else {
-      BackendAPI.addNewPost(post)
-      let {id,...content} = post
-      content.voteScore = Constants.DEFAULT_VOTES
-      content.deleted = Constants.DEFAULT_DELETED_FLAG
-      this.props.dispatch(Actions.addNewPost(id,content))
-      this.props.history.push('/' + this.props.categoryPath)
+      post.id = guid()
+      post.timestamp = Date.now()
+      if(!post.title) {
+        alert("Error: Title cannot be blank")
+      } else if (!post.body) {
+        alert("Error: Body cannot be blank")
+      } else if (!post.author) {
+        alert("Error: Author cannot be blank")
+      } else {
+        BackendAPI.addNewPost(post)
+        let {id,...content} = post
+        content.voteScore = Constants.DEFAULT_VOTES
+        content.deleted = Constants.DEFAULT_DELETED_FLAG
+        this.props.dispatch(Actions.addNewPost(id,content))
+        this.props.history.push('/' + this.props.categoryPath)
+      }
     }
   }
 
@@ -93,9 +98,8 @@ class PostEditor extends Component {
                         defaultValue={postAuthor}/>
                     </div>
                   </div>
-                  <input type="hidden" name="id" value={postId} ref={(input) => { this.idInput = input;}}/>
-                  <input type="hidden" name="editing" value={editing} ref={(input) => { this.editing = input;}}/>
-                  <input type="hidden" name="timestamp" ref={(input) => { this.timestampInput = input;}}/>
+                  <input type="hidden" name="id" value={postId}/>
+                  <input type="hidden" name="editing" value={editing}/>
                   <div className="divTableRow">
                     <div className="divTableLabel"></div>
                     <div className="divTableCell">
