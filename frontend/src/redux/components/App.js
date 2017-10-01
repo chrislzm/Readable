@@ -62,6 +62,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (store) => (convertCategoriesToArray(store.categories))
+const mapStateToProps = (store) => ({
+  categories: convertCategoriesToArray(store.categories)
+})
 
 export default withRouter(connect(mapStateToProps)(App));

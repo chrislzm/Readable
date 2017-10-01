@@ -8,7 +8,7 @@ export function convertCategoriesToArray(categories) {
   const categoryArray = Object.keys(categories).map(key => (
     {path:key,name:categories[key]}
   ))
-  return {categories:categoryArray}
+  return categoryArray
 }
 
 // https://stackoverflow.com/a/105074/7602403
