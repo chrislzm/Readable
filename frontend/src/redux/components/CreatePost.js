@@ -6,7 +6,8 @@ import PostEditor from './PostEditor'
 
 class CreatePost extends Component {
   render() {
-    const {categoryPath, categoryName} = this.props.currentCategory
+    const categoryName = this.props.currentCategory.name
+    const categoryPath = this.props.currentCategory.path
     return(
       <div>
         <div className="SectionTitle">

@@ -27,7 +27,8 @@ class EditPost extends Component {
   render() {
     const { confirmModalOpen } = this.state
     const postId = this.props.match.params.postId
-    let {categoryName,categoryPath} = this.props.currentCategory
+    let categoryName = this.props.currentCategory.name
+    let categoryPath = this.props.currentCategory.path
     if(this.props.posts[postId]) {
       categoryName = this.props.posts[postId].category.toLowerCase()
       categoryPath = this.props.categories[categoryName]

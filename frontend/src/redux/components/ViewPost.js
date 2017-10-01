@@ -8,7 +8,8 @@ import { capitalize } from '../../utils/helpers'
 
 class ViewPost extends Component {
   render() {
-    const { categoryPath, categoryName }  = this.props.currentCategory
+    const categoryName = this.props.currentCategory.name
+    const categoryPath = this.props.currentCategory.path
     const postId = this.props.match.params.postId
     const post = this.props.posts[postId]
     if(post) {

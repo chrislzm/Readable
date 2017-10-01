@@ -45,7 +45,7 @@ class PostEditor extends Component {
 
   render() {
     let showAuthor, showCategory
-    let postCategory = this.props.categoryName
+    let postCategory = this.props.currentCategory.name
     let postId = this.props.match.params.postId
     let editing = postId ? true : false
     let submitButtonText = editing ? Constants.SUBMIT_EDITED_POST_BUTTON_TEXT : Constants.SUBMIT_NEW_POST_BUTTON_TEXT
@@ -124,7 +124,8 @@ class PostEditor extends Component {
 
     const mapStateToProps = (store) => ({
       categories: convertCategoriesToArray(store.categories),
-      posts:store.posts
+      posts:store.posts,
+      currentCategory: store.currentCategory
     })
 
     export default withRouter(connect(mapStateToProps)(PostEditor))
