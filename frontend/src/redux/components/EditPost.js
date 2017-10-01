@@ -4,32 +4,66 @@ import { Link } from 'react-router-dom'
 import { capitalize } from '../../utils/helpers'
 import PostEditor from './PostEditor'
 import { withRouter } from 'react-router-dom'
+import Modal from 'react-modal'
 
 class EditPost extends Component {
+
+    state = {
+      confirmModalOpen: false
+    }
+
+    openConfirmModal = () => {
+      this.setState(() => ({
+        confirmModalOpen: true
+      }))
+    }
+
+    closeConfirmModal = () => {
+      this.setState(() => ({
+        confirmModalOpen: false
+      }))
+    }
+
   render() {
+    const { confirmModalOpen } = this.state
     const postId = this.props.match.params.postId
     let {categoryName,categoryPath} = this.props.currentCategory
     if(this.props.posts[postId]) {
       categoryName = this.props.posts[postId].category.toLowerCase()
       categoryPath = this.props.categories[categoryName]
     }
+    const pathToViewPost = `/${categoryPath}/${postId}`
 
     return(
-      <div>
+      <div className="EditPost">
         <div className="SectionTitle">
           <h2>
             Editing Post
           </h2>
           <div className="SectionTitleNav">
             <button>
-              <Link to={ `/${categoryPath}/${postId}`}>&lt; Back To Post</Link>
+              <Link to={pathToViewPost}>&lt; Back To Post</Link>
             </button>
             <button>
-              <Link to={ `/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
+              <Link to={`/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
             </button>
           </div>
         </div>
-        <PostEditor categoryPath={categoryPath} editPostId={postId} />
+        <PostEditor categoryPath={categoryPath} editPostId={postId} handleEdit={this.openConfirmModal} />
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          isOpen={confirmModalOpen}
+          onRequestClose={this.closeConfirmModal}
+          contentLabel='Modal'>
+          <div>Changes have been saved!</div>
+          <div>
+            <button>
+              <Link to={pathToViewPost}>View Post</Link>
+            </button>
+            <button onClick={this.closeConfirmModal}>Continue Editing</button>
+          </div>
+        </Modal>
       </div>
     )
   }

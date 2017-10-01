@@ -21,6 +21,7 @@ class PostEditor extends Component {
       }
       BackendAPI.editPost(id,editedPost)
       this.props.dispatch(Actions.editPost(id,title,body))
+      this.props.handleEdit()
     } else {
       post.id = guid()
       post.timestamp = Date.now()
@@ -40,6 +41,7 @@ class PostEditor extends Component {
       }
     }
   }
+
 
   render() {
     let showAuthor, showCategory
@@ -101,28 +103,28 @@ class PostEditor extends Component {
                         type="text"
                         name="author"
                         defaultValue={postAuthor}/>
+                      </div>
                     </div>
-                  </div>
-                  <input type="hidden" name="id" value={postId}/>
-                  <input type="hidden" name="editing" value={editing}/>
-                  <div className="divTableRow">
-                    <div className="divTableLabel"></div>
-                    <div className="divTableCell">
-                      <button>{submitButtonText}</button>
+                    <input type="hidden" name="id" value={postId}/>
+                    <input type="hidden" name="editing" value={editing}/>
+                    <div className="divTableRow">
+                      <div className="divTableLabel"></div>
+                      <div className="divTableCell">
+                        <button>{submitButtonText}</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
-        </div>
-      )
+            </form>
+          </div>
+        )
+      }
     }
-  }
 
-  const mapStateToProps = (store) => ({
-    categories: convertCategoriesToArray(store.categories),
-    posts:store.posts
-  })
+    const mapStateToProps = (store) => ({
+      categories: convertCategoriesToArray(store.categories),
+      posts:store.posts
+    })
 
-  export default withRouter(connect(mapStateToProps)(PostEditor))
+    export default withRouter(connect(mapStateToProps)(PostEditor))
