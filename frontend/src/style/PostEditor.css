@@ -6,15 +6,12 @@ div.blueTable {
   border-collapse: collapse;
   margin: 0 auto;
 }
-.divTable.blueTable .divTableCell, .divTable.blueTable .divTableLabel {
+.divTable.blueTable .divTableCell {
   border: 1px solid #AAAAAA;
   padding: 3px 2px;
 }
-.divTable.blueTable .divTableBody .divTableCell, .divTable.blueTable .divTableBody .divTableLabel {
+.divTable.blueTable .divTableBody .divTableCell {
   font-size: 13px;
-}
-.divTableLabel {
-  font-weight: bold;
 }
 
 .divTableCell input, .divTableCell select, .divTableCell textarea {

@@ -41,10 +41,13 @@ div.blueTable {
 }
 .divTable.blueTable .divTableBody .divTableCell {
   font-size: 13px;
+  padding:5px 10px;
 }
+
 .divTable.blueTable .divTableHeading {
   background: #1C6EA4;
 }
+
 .divTable.blueTable .divTableHeading .divTableHead {
   font-size: 15px;
   color: #FFFFFF;

@@ -24,7 +24,7 @@
 }
 
 
-div.blueTable {
+.ViewPost div.blueTable {
   border: 1px solid #1C6EA4;
   background-color: #EEEEEE;
   width: 90%;
@@ -32,15 +32,21 @@ div.blueTable {
   border-collapse: collapse;
   margin: 0 auto;
 }
-.divTable.blueTable .divTableCell, .divTable.blueTable .divTableLabel {
+.ViewPost .divTable.blueTable .divTableCell, .ViewPost .divTable.blueTable .divTableLabel {
   border: 1px solid #AAAAAA;
-  padding: 3px 2px;
+  padding: 5px 10px;
 }
-.divTable.blueTable .divTableBody .divTableCell, .divTable.blueTable .divTableBody .divTableLabel {
+.ViewPost .divTable.blueTable .divTableBody .divTableCell {
   font-size: 13px;
+  padding:5px 10px;
 }
+
 .divTableLabel {
-  font-weight: bold;
+  background: #1C6EA4;
+  font-size: 15px;
+  color: #FFFFFF;
+  padding:5px 10px;
+  border: 1px solid #AAAAAA;
 }
 
 .divTable{ display: table; }
