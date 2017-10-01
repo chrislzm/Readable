@@ -32,6 +32,20 @@ class PostEditor extends Component {
   }
 
   render() {
+    let postCategory = this.props.categoryName
+    let postId = this.props.match.params.postId
+    let editing = postId ? true : false
+    let submitButtonText = editing ? Constants.SUBMIT_EDITED_POST_BUTTON_TEXT : Constants.SUBMIT_NEW_POST_BUTTON_TEXT
+    let postTitle, postBody, postAuthor
+    if(editing && this.props.posts[postId]) {
+      const postContent = this.props.posts[postId]
+      postTitle = postContent.title
+      postBody = postContent.body
+      postAuthor = postContent.author
+      postCategory = postContent.category
+    } else {
+      postId = postTitle = postBody = postAuthor = ''
+    }
     return (
       <div className="PostEditor">
         <form onSubmit={this.handleSubmit} className="edit-post-form">
@@ -41,11 +55,14 @@ class PostEditor extends Component {
                 <div className="divTableRow">
                   <div className="divTableLabel">Category</div>
                   <div className="divTableCell">
-                    <select name="category" onSubmit={this.handleSubmit} defaultValue={this.props.categoryPath}>
+                    <select
+                      name="category"
+                      onSubmit={this.handleSubmit}
+                      defaultValue={postCategory}
+                      disabled={editing}>
                       {this.props.categories.map(category => (
                         <option
                           value={category.name}
-                          disabled={false}
                           key={category.path}>
                           {capitalize(category.name)}
                         </option>
@@ -55,27 +72,32 @@ class PostEditor extends Component {
                   <div className="divTableRow">
                     <div className="divTableLabel">Title</div>
                     <div className="divTableCell">
-                      <input type="text" name="title"/>
+                      <input type="text" name="title" defaultValue={postTitle}/>
                     </div>
                   </div>
                   <div className="divTableRow">
                     <div className="divTableLabel">Body</div>
                     <div className="divTableCell">
-                      <textarea name="body"/>
+                      <textarea name="body" defaultValue={postBody}/>
                     </div>
                   </div>
                   <div className="divTableRow">
                     <div className="divTableLabel">Author</div>
                     <div className="divTableCell">
-                      <input type="text" name="author"/>
+                      <input
+                        type="text"
+                        name="author"
+                        value={postAuthor}
+                        disabled={editing}/>
                     </div>
                   </div>
-                  <input type="hidden" name="id" ref={(input) => { this.idInput = input;}}/>
+                  <input type="hidden" name="id" value={postId} ref={(input) => { this.idInput = input;}}/>
+                  <input type="hidden" name="editing" value={editing} ref={(input) => { this.editing = input;}}/>
                   <input type="hidden" name="timestamp" ref={(input) => { this.timestampInput = input;}}/>
                   <div className="divTableRow">
                     <div className="divTableLabel"></div>
                     <div className="divTableCell">
-                      <button>Submit Post</button>
+                      <button>{submitButtonText}</button>
                     </div>
                   </div>
                 </div>
@@ -87,6 +109,9 @@ class PostEditor extends Component {
     }
   }
 
-  const mapStateToProps = (store) => (convertCategoriesToArray(store.categories))
+  const mapStateToProps = (store) => ({
+    categories: convertCategoriesToArray(store.categories),
+    posts:store.posts
+  })
 
   export default withRouter(connect(mapStateToProps)(PostEditor))
