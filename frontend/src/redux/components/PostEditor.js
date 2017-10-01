@@ -37,7 +37,7 @@ class PostEditor extends Component {
         content.voteScore = Constants.DEFAULT_VOTES
         content.deleted = Constants.DEFAULT_DELETED_FLAG
         this.props.dispatch(Actions.addNewPost(id,content))
-        this.props.history.push('/' + this.props.categoryPath)
+        this.props.handleAddNewPost(post.category)
       }
     }
   }
