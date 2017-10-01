@@ -3,11 +3,17 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { capitalize } from '../../utils/helpers'
 import PostEditor from './PostEditor'
+import { withRouter } from 'react-router-dom'
 
 class EditPost extends Component {
   render() {
     const postId = this.props.match.params.postId
-    const {categoryPath, categoryName} = this.props.currentCategory
+    let {categoryName,categoryPath} = this.props.currentCategory
+    if(this.props.posts[postId]) {
+      categoryName = this.props.posts[postId].category.toLowerCase()
+      categoryPath = this.props.categories[categoryName]
+    }
+
     return(
       <div>
         <div className="SectionTitle">
@@ -15,6 +21,9 @@ class EditPost extends Component {
             Editing Post
           </h2>
           <div className="SectionTitleNav">
+            <button>
+              <Link to={ `/${categoryPath}/${postId}`}>&lt; Back To Post</Link>
+            </button>
             <button>
               <Link to={ `/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
             </button>
@@ -28,7 +37,8 @@ class EditPost extends Component {
 
 const mapStateToProps = (state) => ({
   categories: state.categories,
-  currentCategory: state.currentCategory
+  currentCategory: state.currentCategory,
+  posts:state.posts
 });
 
-export default connect(mapStateToProps)(EditPost)
+export default withRouter(connect(mapStateToProps)(EditPost))
