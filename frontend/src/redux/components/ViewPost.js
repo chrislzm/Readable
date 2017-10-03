@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import * as Constants from '../../constants'
 import PostActions from './PostActions'
 import { capitalize } from '../../utils/helpers'
+import ListComments from './ListComments'
 
 class ViewPost extends Component {
   render() {
@@ -53,6 +54,7 @@ class ViewPost extends Component {
                 </div>
               </div>
             </div>
+            <ListComments postId={postId}/>
           </div>
         )}
       </div>
