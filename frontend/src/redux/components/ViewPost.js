@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import Moment from 'moment'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as Constants from '../../constants'
+import * as Constants from '../../utils/constants'
 import PostActions from './PostActions'
 import { capitalize } from '../../utils/helpers'
 import ListComments from './ListComments'
+import LeaveComment from './LeaveComment'
 
 class ViewPost extends Component {
   render() {
@@ -54,6 +55,7 @@ class ViewPost extends Component {
                 </div>
               </div>
             </div>
+            <LeaveComment postId={postId}/>
             <ListComments postId={postId}/>
           </div>
         )}
