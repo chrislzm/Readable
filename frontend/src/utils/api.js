@@ -22,8 +22,17 @@ export const getCategoryPosts = (category) => (
   .then(data => data.posts)
 )
 
-export const getPostComments = (postId) => {
+export const getPostComments = (postId) => (
   fetch(`${api}/posts/${postId}/comments`, { headers })
+  .then(res => res.json())
+)
+
+export const addNewComment = (body) => {
+  fetch(`${api}/comments`, {
+    method: 'POST',
+    headers,
+    body:JSON.stringify(body)
+   })
   .then(res => res.json())
 }
 
