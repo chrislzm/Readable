@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as Constants from '../../constants'
+import * as Constants from '../../utils/constants'
 import Moment from 'moment'
 import PostActions from './PostActions'
 import { setCurrentCategory } from '../actions'

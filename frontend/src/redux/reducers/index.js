@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import * as Constants from '../../constants'
+import * as Constants from '../../utils/constants'
 
 import {
   ADD_NEW_POST,

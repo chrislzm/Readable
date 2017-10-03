@@ -4,7 +4,7 @@ import * as BackendAPI from '../../utils/api'
 import * as Actions from '../actions'
 import Modal from 'react-modal'
 import { withRouter } from 'react-router-dom'
-import * as Constants from '../../constants'
+import * as Constants from '../../utils/constants'
 
 class PostActions extends Component {
 
