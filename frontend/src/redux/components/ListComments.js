@@ -6,7 +6,7 @@ class ListComments extends Component {
     const { postId } = this.props
     return (
       <div>
-        <h2>Comments for Post ID "{postId}"</h2>
+        <h2>Previous Comments</h2>
       </div>
     )
   }
