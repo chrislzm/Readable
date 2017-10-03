@@ -25,7 +25,6 @@ class Editor extends Component {
         this.props.handleEdit()
         break
       case Constants.EDITOR_ADD_POST_MODE:
-      // fall through
       default:
         post.id = guid()
         post.timestamp = Date.now()
@@ -51,7 +50,7 @@ class Editor extends Component {
     // These vars hold default values for input fields
     let postId, postCategory, postTitle, postBody, postAuthor
     // These vars toggle input fields/button text for different editing modes
-    let showAuthor, showCategory, showTitle, submitButtonText
+    let showAuthor, showCategory, showTimeStamp, showTitle, submitButtonText
 
     switch(editingMode) {
       case Constants.EDITOR_EDIT_POST_MODE:
@@ -62,18 +61,23 @@ class Editor extends Component {
           postBody = postToEdit.body
           postAuthor = postToEdit.author
           postCategory = postToEdit.category
-          showAuthor = false
-          showCategory = false
+          showAuthor = showCategory = showTimeStamp = false
           showTitle = true
           submitButtonText = Constants.SUBMIT_EDITED_POST_BUTTON_TEXT
         }
         break
+      case Constants.EDITOR_ADD_COMMENT_MODE:
+        postId = this.props.postId
+        showAuthor = true
+        showCategory = showTitle = showTimeStamp = false
+        submitButtonText = Constants.SUBMIT_NEW_COMMENT_BUTTON_TEXT
+        break
       case Constants.EDITOR_ADD_POST_MODE:
-        // fall through
       default:
         postId = postTitle = postBody = postAuthor = ''
         postCategory = this.props.currentCategory.name
         showAuthor = showCategory = showTitle = true
+        showTimeStamp = false
         submitButtonText = Constants.SUBMIT_NEW_POST_BUTTON_TEXT
     }
 
@@ -118,29 +122,38 @@ class Editor extends Component {
                         type="text"
                         name="author"
                         defaultValue={postAuthor}/>
-                      </div>
                     </div>
-                    <input type="hidden" name="id" value={postId}/>
-                    <input type="hidden" name="editingMode" value={editingMode}/>
-                    <div className="divTableRow">
-                      <div className="divTableLabel"></div>
-                      <div className="divTableCell">
-                        <button>{submitButtonText}</button>
-                      </div>
+                  </div>
+                  <div className="divTableRow" style={{display: showTimeStamp ? 'table-row':'none'}}>
+                    <div className="divTableLabel">Time Stamp</div>
+                    <div className="divTableCell">
+                      <input
+                        type="text"
+                        name="timestamp"
+                        defaultValue={postAuthor}/>
                     </div>
+                  </div>
+                <input type="hidden" name="id" value={postId}/>
+                <input type="hidden" name="editingMode" value={editingMode}/>
+                <div className="divTableRow">
+                  <div className="divTableLabel"></div>
+                  <div className="divTableCell">
+                    <button>{submitButtonText}</button>
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
-        )
-      }
-    }
+        </form>
+      </div>
+    )
+  }
+}
 
-    const mapStateToProps = (store) => ({
-      categories: convertCategoriesToArray(store.categories),
-      posts:store.posts,
-      currentCategory: store.currentCategory
-    })
+const mapStateToProps = (store) => ({
+  categories: convertCategoriesToArray(store.categories),
+  posts:store.posts,
+  currentCategory: store.currentCategory
+})
 
-    export default withRouter(connect(mapStateToProps)(Editor))
+export default withRouter(connect(mapStateToProps)(Editor))
