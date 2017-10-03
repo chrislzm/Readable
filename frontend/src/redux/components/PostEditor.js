@@ -5,7 +5,7 @@ import serializeForm from 'form-serialize'
 import * as BackendAPI from '../../utils/api'
 import { guid, convertCategoriesToArray } from '../../utils/helpers'
 import * as Actions from '../actions'
-import * as Constants from '../../constants'
+import * as Constants from '../../utils/constants'
 import { withRouter } from 'react-router-dom'
 
 class PostEditor extends Component {
@@ -44,7 +44,7 @@ class PostEditor extends Component {
 
 
   render() {
-    let showAuthor, showCategory
+    let showAuthor, showCategory, showTitle
     let postCategory = this.props.currentCategory.name
     let postId = this.props.match.params.postId
     let editing = postId ? true : false
@@ -58,9 +58,10 @@ class PostEditor extends Component {
       postCategory = postContent.category
       showAuthor = false
       showCategory = false
+      showTitle = true
     } else {
       postId = postTitle = postBody = postAuthor = ''
-      showAuthor = showCategory = true
+      showAuthor = showCategory = showTitle = true
     }
     return (
       <div className="PostEditor">
@@ -84,7 +85,7 @@ class PostEditor extends Component {
                       ))}
                     </select>
                   </div></div>
-                  <div className="divTableRow">
+                  <div className="divTableRow" style={{display: showTitle ? 'table-row':'none'}}>
                     <div className="divTableLabel">Title</div>
                     <div className="divTableCell" key={postTitle}>
                       <input type="text" name="title" defaultValue={postTitle}/>
