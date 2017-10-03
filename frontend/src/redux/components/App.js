@@ -48,6 +48,7 @@ class App extends Component {
           <Route exact path={`/${category.path}`} key={category.path} render={() =>(
             <ListPosts
               categoryName={category.name}
+              categoryPath={category.path}
             />
           )}/>
         ))}
