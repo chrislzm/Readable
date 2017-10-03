@@ -51,7 +51,11 @@ class EditPost extends Component {
             </button>
           </div>
         </div>
-        <PostEditor categoryPath={categoryPath} editPostId={postId} handleEdit={this.openConfirmModal} />
+        <PostEditor
+          categoryPath={categoryPath}
+          editPostId={postId}
+          handleEdit={this.openConfirmModal}
+          editingMode={Constants.EDITOR_EDIT_POST_MODE}/>
         <Modal
           className='modal'
           overlayClassName='overlay'

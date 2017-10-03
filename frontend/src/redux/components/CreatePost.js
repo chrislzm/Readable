@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { capitalize } from '../../utils/helpers'
+import * as Constants from '../../utils/constants'
 import PostEditor from './PostEditor'
 import { withRouter } from 'react-router-dom'
 import Modal from 'react-modal'
@@ -40,7 +41,10 @@ class CreatePost extends Component {
             </button>
           </div>
         </div>
-        <PostEditor categoryPath={categoryPath} handleAddNewPost={this.openConfirmModal}/>
+        <PostEditor
+          categoryPath={categoryPath}
+          handleAddNewPost={this.openConfirmModal}
+          editingMode={Constants.EDITOR_ADD_POST_MODE}/>
         <Modal
           className='modal'
           overlayClassName='overlay'
