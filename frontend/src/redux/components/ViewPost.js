@@ -56,7 +56,7 @@ class ViewPost extends Component {
               </div>
             </div>
             <LeaveComment postId={postId}/>
-            <ListComments postId={postId}/>
+            <ListComments parentId={postId}/>
           </div>
         )}
       </div>
