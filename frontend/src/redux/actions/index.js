@@ -1,4 +1,5 @@
 export const ADD_NEW_POST = 'ADD_NEW_POST'
+export const ADD_NEW_COMMENT = 'ADD_NEW_COMMENT'
 export const ADD_NEW_CATEGORY = 'ADD_NEW_CATEGORY'
 export const EDIT_POST = 'EDIT_POST'
 export const DOWNVOTE_POST = 'DOWNVOTE_POST'
@@ -18,6 +19,14 @@ export function addNewCategory(categoryName, categoryPath) {
     type: ADD_NEW_CATEGORY,
     categoryName,
     categoryPath
+  }
+}
+
+export function addNewComment(parentId, content) {
+  return {
+    type: ADD_NEW_COMMENT,
+    parentId,
+    content
   }
 }
 

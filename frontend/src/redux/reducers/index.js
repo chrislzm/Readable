@@ -4,6 +4,7 @@ import * as Constants from '../../utils/constants'
 import {
   ADD_NEW_POST,
   ADD_NEW_CATEGORY,
+  ADD_NEW_COMMENT,
   EDIT_POST,
   UPVOTE_POST,
   DOWNVOTE_POST,
@@ -18,6 +19,24 @@ function categories(state = {}, action) {
       return {
         ...state,
         [categoryName]: categoryPath
+      }
+    default:
+      return state
+  }
+}
+
+function comments(state = {}, action) {
+  const { parentId } = action
+
+  switch(action.type) {
+    case ADD_NEW_COMMENT:
+      const {content} = action
+      return {
+        ...state,
+        [parentId]: {
+          ...state[parentId],
+          [content.id]:content
+        }
       }
     default:
       return state
@@ -80,7 +99,8 @@ function currentCategory(state = {
 }
 
 export default combineReducers({
-  currentCategory,
   categories,
+  comments,
+  currentCategory,
   posts
 })
