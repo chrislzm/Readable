@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { capitalize } from '../../utils/helpers'
 import * as Constants from '../../utils/constants'
-import PostEditor from './PostEditor'
+import Editor from './Editor'
 import { withRouter } from 'react-router-dom'
 import Modal from 'react-modal'
 
@@ -51,7 +51,7 @@ class EditPost extends Component {
             </button>
           </div>
         </div>
-        <PostEditor
+        <Editor
           categoryPath={categoryPath}
           editPostId={postId}
           handleEdit={this.openConfirmModal}

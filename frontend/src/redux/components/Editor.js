@@ -8,7 +8,7 @@ import * as Actions from '../actions'
 import * as Constants from '../../utils/constants'
 import { withRouter } from 'react-router-dom'
 
-class PostEditor extends Component {
+class Editor extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
@@ -143,4 +143,4 @@ class PostEditor extends Component {
       currentCategory: store.currentCategory
     })
 
-    export default withRouter(connect(mapStateToProps)(PostEditor))
+    export default withRouter(connect(mapStateToProps)(Editor))
