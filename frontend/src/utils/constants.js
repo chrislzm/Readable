@@ -10,7 +10,7 @@ export const SUBMIT_NEW_POST_BUTTON_TEXT = "Add Post"
 export const SUBMIT_EDITED_POST_BUTTON_TEXT = "Save Changes"
 
 // Edit modes for PostEditor component
-export const ADD_POST_MODE = "ADD_POST_MODE"
-export const EDIT_POST_MODE = "EDIT_POST_MODE"
-export const ADD_COMMENT_MODE = "ADD_COMMENT_MODE"
-export const EDIT_COMMENT_MODE = "EDIT_COMMENT_MODE"
+export const EDITOR_ADD_POST_MODE = "EDITOR_ADD_POST_MODE"
+export const EDITOR_EDIT_POST_MODE = "EDITOR_EDIT_POST_MODE"
+export const EDITOR_ADD_COMMENT_MODE = "EDITOR_ADD_COMMENT_MODE"
+export const EDITOR_COMMENT_MODE = "EDITOR_COMMENT_MODE"
