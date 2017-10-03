@@ -7,7 +7,7 @@ import PostEditor from './PostEditor'
 import { withRouter } from 'react-router-dom'
 import Modal from 'react-modal'
 
-class CreatePost extends Component {
+class AddPost extends Component {
 
   state = {
     confirmModalOpen: false,
@@ -66,4 +66,4 @@ const mapStateToProps = (state) => ({
   currentCategory: state.currentCategory
 });
 
-export default withRouter(connect(mapStateToProps)(CreatePost))
+export default withRouter(connect(mapStateToProps)(AddPost))

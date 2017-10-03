@@ -26,7 +26,7 @@ class ListPosts extends Component {
           <h2>{capitalize(categoryName)}</h2>
           <div className="SectionTitleNav">
             <button>
-              <Link to={`/${Constants.CREATE_POST_PATH}`}>+ Add New Post</Link>
+              <Link to={`/${Constants.ADD_POST_PATH}`}>+ Add New Post</Link>
             </button>
           </div>
         </div>
