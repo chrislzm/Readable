@@ -24,6 +24,27 @@ class Editor extends Component {
         this.props.dispatch(Actions.editPost(id,title,body))
         this.props.handleEdit()
         break
+      case Constants.EDITOR_ADD_COMMENT_MODE:
+        const parentId = post.id
+        if (!post.body) {
+          alert("Error: Body cannot be blank")
+        } else if (!post.author) {
+          alert("Error: Author cannot be blank")
+        } else {
+          const newComment = {
+            id: guid(),
+            timestamp: Date.now(),
+            body: post.body,
+            author: post.author,
+            parentId
+          }
+          BackendAPI.addNewComment(newComment)
+          this.props.dispatch(Actions.addNewComment(parentId,newComment))
+          this.author.value = ''
+          this.body.value = ''
+          this.props.handleEdit()
+        }
+        break
       case Constants.EDITOR_ADD_POST_MODE:
       default:
         post.id = guid()
@@ -112,7 +133,7 @@ class Editor extends Component {
                   <div className="divTableRow">
                     <div className="divTableLabel">Body</div>
                     <div className="divTableCell" key={postBody}>
-                      <textarea name="body" defaultValue={postBody}/>
+                      <textarea name="body" defaultValue={postBody} ref={(input) => { this.body = input }}/>
                     </div>
                   </div>
                   <div className="divTableRow" style={{display: showAuthor ? 'table-row':'none'}}>
@@ -121,7 +142,8 @@ class Editor extends Component {
                       <input
                         type="text"
                         name="author"
-                        defaultValue={postAuthor}/>
+                        defaultValue={postAuthor}
+                        ref={(input) => { this.author = input }}/>
                     </div>
                   </div>
                   <div className="divTableRow" style={{display: showTimeStamp ? 'table-row':'none'}}>
