@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Editor from './Editor'
+import * as Constants from '../../utils/constants'
 
 class LeaveComment extends Component {
   render() {
@@ -7,7 +8,7 @@ class LeaveComment extends Component {
     return (
       <div>
         <h2>Leave a New Comment</h2>
-        <Editor/>
+        <Editor editingMode={Constants.EDITOR_ADD_COMMENT_MODE} postId={postId}/>
       </div>
     )
   }
