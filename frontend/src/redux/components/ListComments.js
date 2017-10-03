@@ -17,6 +17,12 @@ class ListComments extends Component {
     })
   }
 
+  sortDateDescending(a,b) {
+    if(a.timestamp < b.timestamp) return 1
+    if(a.timestamp === b.timestamp) return 0
+    if(a.timestamp > b.timestamp) return -1
+  }
+
   render() {
     const {parentId} = this.props
     const commentGroup = this.props.comments[parentId]
@@ -26,6 +32,7 @@ class ListComments extends Component {
         accumulator.push(commentGroup[commentId])
         return accumulator
       },[])
+      comments.sort(this.sortDateDescending)
     }
     return (
       <div>
