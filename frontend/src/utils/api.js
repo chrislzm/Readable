@@ -22,6 +22,11 @@ export const getCategoryPosts = (category) => (
   .then(data => data.posts)
 )
 
+export const getPostComments = (postId) => {
+  fetch(`${api}/posts/${postId}/comments`, { headers })
+  .then(res => res.json())
+}
+
 export const addNewPost = (body) => {
   fetch(`${api}/posts`, {
     method: 'POST',
