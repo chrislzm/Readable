@@ -2,6 +2,8 @@ export const ADD_NEW_POST = 'ADD_NEW_POST'
 export const ADD_NEW_COMMENT = 'ADD_NEW_COMMENT'
 export const ADD_NEW_CATEGORY = 'ADD_NEW_CATEGORY'
 export const EDIT_POST = 'EDIT_POST'
+export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
+export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
 export const DOWNVOTE_POST = 'DOWNVOTE_POST'
 export const UPVOTE_POST = 'UPVOTE_POST'
 export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY'
@@ -52,6 +54,20 @@ export function upVotePost(id) {
   }
 }
 
+export function downVoteComment(commentId,parentId) {
+  return {
+    type: DOWNVOTE_COMMENT,
+    commentId,
+    parentId
+  }
+}
+export function upVoteComment(commentId,parentId) {
+  return {
+    type: UPVOTE_COMMENT,
+    commentId,
+    parentId
+  }
+}
 export function setCurrentCategory(name, path) {
   return {
     type: SET_CURRENT_CATEGORY,
