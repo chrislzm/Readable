@@ -7,7 +7,7 @@ import Editor from './Editor'
 import { withRouter } from 'react-router-dom'
 import Modal from 'react-modal'
 
-class EditPost extends Component {
+class Edit extends Component {
 
   state = {
     confirmModalOpen: false
@@ -78,4 +78,4 @@ const mapStateToProps = (state) => ({
   posts:state.posts
 });
 
-export default withRouter(connect(mapStateToProps)(EditPost))
+export default withRouter(connect(mapStateToProps)(Edit))

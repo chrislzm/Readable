@@ -11,7 +11,7 @@ import ListPosts from './ListPosts'
 import AddPost from './AddPost'
 import ViewPost from './ViewPost'
 import CategoryBar from './CategoryBar'
-import EditPost from './EditPost'
+import Edit from './Edit'
 
 class App extends Component {
 
@@ -56,7 +56,7 @@ class App extends Component {
           <Route exact path={`/${category.path}/:postId`} key={category.path} component={ViewPost}/>
         ))}
         <Route exact path={`/${Constants.ADD_POST_PATH}`} component={AddPost}/>
-        <Route exact path={`/${Constants.EDIT_POST_PATH}/:postId`} component={EditPost}/>
+        <Route exact path={`/${Constants.EDIT_PATH}/:postId`} component={Edit}/>
       </div>
     );
   }

@@ -39,7 +39,7 @@ class Actions extends Component {
         break
       default:
       case Constants.ACTIONS_POST_MODE:
-        this.props.history.push(`/${Constants.EDIT_POST_PATH}/${postId}`)
+        this.props.history.push(`/${Constants.EDIT_PATH}/${postId}`)
     }
   }
 
