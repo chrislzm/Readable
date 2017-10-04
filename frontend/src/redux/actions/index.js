@@ -1,6 +1,7 @@
 export const ADD_NEW_POST = 'ADD_NEW_POST'
 export const ADD_NEW_COMMENT = 'ADD_NEW_COMMENT'
 export const ADD_NEW_CATEGORY = 'ADD_NEW_CATEGORY'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const EDIT_POST = 'EDIT_POST'
 export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT'
 export const VOTE_ON_POST = 'VOTE_ON_POST'
@@ -36,6 +37,16 @@ export function editPost(id,title,body) {
     id,
     title,
     body
+  }
+}
+
+export function editComment(id,parentId,body,timestamp) {
+  return {
+    type: EDIT_COMMENT,
+    id,
+    parentId,
+    body,
+    timestamp
   }
 }
 

@@ -5,6 +5,7 @@ import {
   ADD_NEW_POST,
   ADD_NEW_CATEGORY,
   ADD_NEW_COMMENT,
+  EDIT_COMMENT,
   EDIT_POST,
   VOTE_ON_COMMENT,
   VOTE_ON_POST,
@@ -46,6 +47,19 @@ function comments(state = {}, action) {
         [parentId]: {
           ...state[parentId],
           [content.id]:content
+        }
+      }
+    case EDIT_COMMENT:
+      const {id, body, timestamp} = action
+      return {
+        ...state,
+        [parentId]: {
+          ...state[parentId],
+          [id]: {
+            ...state[parentId][id],
+            body,
+            timestamp
+          }
         }
       }
     case VOTE_ON_COMMENT:
