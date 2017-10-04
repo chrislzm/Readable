@@ -30,7 +30,9 @@ class ListComments extends Component {
     let numComments = 0
     if(commentGroup) {
       comments = Object.keys(commentGroup).reduce((accumulator, commentId) => {
-        accumulator.push(commentGroup[commentId])
+        let comment = commentGroup[commentId]
+        comment.parentId = parentId
+        accumulator.push(comment)
         return accumulator
       },[])
       comments.sort(this.sortDateDescending)
