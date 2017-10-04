@@ -31,6 +31,9 @@ function comments(state = {}, action) {
   switch(action.type) {
     case ADD_NEW_COMMENT:
       const {content} = action
+      content.voteScore = Constants.DEFAULT_VOTES
+      content.deleted = false
+      content.parentDeleted = false
       return {
         ...state,
         [parentId]: {
