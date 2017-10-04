@@ -6,8 +6,7 @@ import {
   ADD_NEW_CATEGORY,
   ADD_NEW_COMMENT,
   EDIT_POST,
-  UPVOTE_COMMENT,
-  DOWNVOTE_COMMENT,
+  VOTE_COMMENT,
   UPVOTE_POST,
   DOWNVOTE_POST,
   SET_CURRENT_CATEGORY
@@ -28,7 +27,7 @@ function categories(state = {}, action) {
 }
 
 function comments(state = {}, action) {
-  const { parentId, commentId } = action
+  const { parentId } = action
 
   switch(action.type) {
     case ADD_NEW_COMMENT:
@@ -50,25 +49,15 @@ function comments(state = {}, action) {
           [content.id]:content
         }
       }
-    case UPVOTE_COMMENT:
+    case VOTE_COMMENT:
+      const { commentId, delta } = action
       return {
         ...state,
         [parentId]: {
           ...state[parentId],
           [commentId]: {
             ...state[parentId][commentId],
-            voteScore:state[parentId][commentId].voteScore+1
-          }
-        }
-      }
-    case DOWNVOTE_COMMENT:
-      return {
-        ...state,
-        [parentId]: {
-          ...state[parentId],
-          [commentId]: {
-            ...state[parentId][commentId],
-            voteScore:state[parentId][commentId].voteScore-1
+            voteScore:state[parentId][commentId].voteScore+delta
           }
         }
       }
