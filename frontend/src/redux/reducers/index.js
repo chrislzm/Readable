@@ -52,6 +52,7 @@ function posts(state = {}, action) {
   switch(action.type) {
     case ADD_NEW_POST:
       const {content} = action
+      content.deleted = false
       return {
         ...state,
         [id]: content
