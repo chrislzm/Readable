@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as BackendAPI from '../../utils/api'
-import { upVotePost, downVotePost } from '../actions'
+import { upVotePost, downVotePost, upVoteComment, downVoteComment } from '../actions'
 import Modal from 'react-modal'
 import { withRouter } from 'react-router-dom'
 import * as Constants from '../../utils/constants'
@@ -15,6 +15,8 @@ class Actions extends Component {
   upVote(postId,mode,commentId) {
     switch(mode) {
       case Constants.ACTIONS_COMMENT_MODE:
+        BackendAPI.voteOnComment(commentId,{option:"upVote"})
+        this.props.dispatch(upVoteComment(commentId,postId))
         break
       default:
       case Constants.ACTIONS_POST_MODE:
@@ -26,6 +28,8 @@ class Actions extends Component {
   downVote(postId,mode,commentId) {
     switch(mode) {
       case Constants.ACTIONS_COMMENT_MODE:
+        BackendAPI.voteOnComment(commentId,{option:"downVote"})
+        this.props.dispatch(downVoteComment(commentId,postId))
         break
       default:
       case Constants.ACTIONS_POST_MODE:
