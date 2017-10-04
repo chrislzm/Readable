@@ -15,13 +15,10 @@ class Actions extends Component {
   vote(delta,mode,postId,commentId) {
     let optionText
 
-    switch(delta) {
-      case 1:
+    if(delta === 1) {
         optionText = "upVote"
-        break
-      default:
-      case -1:
-        optionText = "downVote"
+    } else { // delta === -1
+      optionText = "downVote"
     }
 
     switch(mode) {
