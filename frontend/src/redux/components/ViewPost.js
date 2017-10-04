@@ -5,6 +5,7 @@ import { capitalize } from '../../utils/helpers'
 import ListComments from './ListComments'
 import LeaveComment from './LeaveComment'
 import Viewer from './Viewer'
+import * as Constants from '../../utils/constants'
 
 class ViewPost extends Component {
   render() {
@@ -28,7 +29,7 @@ class ViewPost extends Component {
                 </button>
               </div>
             </div>
-            <Viewer content={post}/>
+            <Viewer content={post} mode={Constants.ACTIONS_POST_MODE}/>
             <LeaveComment postId={postId}/>
             <ListComments parentId={postId}/>
           </div>

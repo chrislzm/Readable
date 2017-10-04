@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addNewComment } from '../actions'
 import * as BackendAPI from '../../utils/api'
 import Viewer from './Viewer'
+import * as Constants from '../../utils/constants'
 
 class ListComments extends Component {
 
@@ -39,7 +40,10 @@ class ListComments extends Component {
       <div>
         <h2>Comments ({numComments})</h2>
         { comments && comments.map(comment => (
-          <Viewer content={comment} key={comment.id}/>
+          <Viewer
+            content={comment}
+            key={comment.id}
+            mode={Constants.ACTIONS_COMMENT_MODE}/>
           ))}
         { !comments && (
             <div>This post has no comments.</div>

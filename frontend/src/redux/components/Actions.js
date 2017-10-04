@@ -43,7 +43,7 @@ class Actions extends Component {
 
   render() {
     const { confirmModalOpen } = this.state
-    const { postId, postTitle } = this.props
+    const { postId, postTitle, mode } = this.props
     return (
       <div>
         <div>

@@ -6,7 +6,7 @@ import Moment from 'moment'
 class Viewer extends Component {
 
   render() {
-    const {id, title, author, body, timestamp, voteScore} = this.props.content
+    const {id, title, author, body, timestamp, voteScore, mode} = this.props.content
     return (
       <div className="divTable blueTable">
         <div className="divTableBody">
@@ -29,7 +29,7 @@ class Viewer extends Component {
           <div className="divTableRow">
             <div className="divTableLabel">Actions</div>
             <div className="divTableCell">
-              <Actions postId={id} postTitle={title}/>
+              <Actions postId={id} postTitle={title} mode={mode}/>
             </div>
           </div>
         </div>
