@@ -67,15 +67,14 @@ class Editor extends Component {
   }
 
   render() {
-    let { editingMode } = this.props
+    let { editingMode, postId, commentId } = this.props
     // These vars hold default values for input fields
-    let postId, postCategory, postTitle, postBody, postAuthor
+    let postCategory, postTitle, postBody, postAuthor
     // These vars toggle input fields/button text for different editing modes
     let showAuthor, showCategory, showTimeStamp, showTitle, submitButtonText
 
     switch(editingMode) {
       case Constants.EDITOR_EDIT_POST_MODE:
-        postId = this.props.match.params.postId
         const postToEdit = this.props.posts[postId]
         if(postToEdit) {
           postTitle = postToEdit.title
@@ -84,11 +83,15 @@ class Editor extends Component {
           postCategory = postToEdit.category
           showAuthor = showCategory = showTimeStamp = false
           showTitle = true
-          submitButtonText = Constants.SUBMIT_EDITED_POST_BUTTON_TEXT
+          submitButtonText = Constants.SUBMIT_EDIT_BUTTON_TEXT
         }
         break
+      case Constants.EDITOR_EDIT_COMMENT_MODE:
+        showTimeStamp = true
+        showCategory = showTitle = showAuthor = false
+        submitButtonText = Constants.SUBMIT_EDIT_BUTTON_TEXT
+        break
       case Constants.EDITOR_ADD_COMMENT_MODE:
-        postId = this.props.postId
         showAuthor = true
         showCategory = showTitle = showTimeStamp = false
         submitButtonText = Constants.SUBMIT_NEW_COMMENT_BUTTON_TEXT
@@ -175,7 +178,8 @@ class Editor extends Component {
 const mapStateToProps = (store) => ({
   categories: convertCategoriesToArray(store.categories),
   posts:store.posts,
-  currentCategory: store.currentCategory
+  currentCategory: store.currentCategory,
+  comments:store.comments
 })
 
 export default withRouter(connect(mapStateToProps)(Editor))
