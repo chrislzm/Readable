@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as BackendAPI from '../../utils/api'
-import { upVotePost, downVotePost, upVoteComment, downVoteComment } from '../actions'
+import { upVotePost, downVotePost, voteOnComment } from '../actions'
 import Modal from 'react-modal'
 import { withRouter } from 'react-router-dom'
 import * as Constants from '../../utils/constants'
@@ -12,29 +12,27 @@ class Actions extends Component {
     confirmModalOpen: false
   }
 
-  upVote(postId,mode,commentId) {
-    switch(mode) {
-      case Constants.ACTIONS_COMMENT_MODE:
-        BackendAPI.voteOnComment(commentId,{option:"upVote"})
-        this.props.dispatch(upVoteComment(commentId,postId))
-        break
-      default:
-      case Constants.ACTIONS_POST_MODE:
-        BackendAPI.voteOnPost(postId,{option:"upVote"})
-        this.props.dispatch(upVotePost(postId))
-    }
-  }
+  vote(delta,mode,postId,commentId) {
+    let optionText
 
-  downVote(postId,mode,commentId) {
+    switch(delta) {
+      case 1:
+        optionText = "upVote"
+        break
+      default:
+      case -1:
+        optionText = "downVote"
+    }
+
     switch(mode) {
       case Constants.ACTIONS_COMMENT_MODE:
-        BackendAPI.voteOnComment(commentId,{option:"downVote"})
-        this.props.dispatch(downVoteComment(commentId,postId))
+        BackendAPI.voteOnComment(commentId,{option:optionText})
+        this.props.dispatch(voteOnComment(commentId,postId,delta))
         break
       default:
       case Constants.ACTIONS_POST_MODE:
-        BackendAPI.voteOnPost(postId,{option:"downVote"})
-        this.props.dispatch(downVotePost(postId))
+        BackendAPI.voteOnPost(postId,{option:optionText})
+        this.props.dispatch(upVotePost(postId))
     }
   }
 
@@ -79,8 +77,8 @@ class Actions extends Component {
     return (
       <div>
         <div>
-          <button onClick={() => this.upVote(postId,mode,commentId)}>Upvote</button>
-          <button onClick={() => this.downVote(postId,mode,commentId)}>Downvote</button>
+          <button onClick={() => this.vote(1,mode, postId,commentId)}>Upvote</button>
+          <button onClick={() => this.vote(-1,mode, postId,commentId)}>Downvote</button>
           <button onClick={() => this.edit(postId,mode,commentId)}>Edit</button>
           <button onClick={this.openConfirmModal}>Delete</button>
         </div>
