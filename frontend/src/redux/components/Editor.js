@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { capitalize } from '../../utils/helpers'
+import { addNewComment } from '../actions'
 import serializeForm from 'form-serialize'
 import * as BackendAPI from '../../utils/api'
 import { guid, convertCategoriesToArray } from '../../utils/helpers'
@@ -10,12 +11,24 @@ import { withRouter } from 'react-router-dom'
 
 class Editor extends Component {
 
+  componentDidMount() {
+    if(this.props.editingMode === Constants.EDITOR_EDIT_COMMENT_MODE) {
+      const {postId} = this.props
+      BackendAPI.getPostComments(postId).then(comments => {
+        for(const comment of comments) {
+          const {parentId,...content} = comment
+          this.props.dispatch(addNewComment(parentId,content))
+        }
+      })
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
     const post = serializeForm(e.target, { hash: true })
+    let {id, parentId, title, body, timestamp } = post
     switch(post.editingMode) {
       case Constants.EDITOR_EDIT_POST_MODE:
-        const {id, title, body} = post
         const editedPost = {
           title,
           body
@@ -24,8 +37,16 @@ class Editor extends Component {
         this.props.dispatch(Actions.editPost(id,title,body))
         this.props.handleEdit()
         break
+      case Constants.EDITOR_EDIT_COMMENT_MODE:
+        const editedComment = {
+          timestamp,
+          body
+        }
+        BackendAPI.editComment(id,editedComment)
+        this.props.dispatch(Actions.editComment(id,parentId,body,timestamp))
+        this.props.handleEdit()
+        break
       case Constants.EDITOR_ADD_COMMENT_MODE:
-        const parentId = post.id
         if (!post.body) {
           alert("Error: Body cannot be blank")
         } else if (!post.author) {
@@ -69,39 +90,47 @@ class Editor extends Component {
   render() {
     let { editingMode, postId, commentId } = this.props
     // These vars hold default values for input fields
-    let postCategory, postTitle, postBody, postAuthor
+    let id, parentId, category, title, body, author, timestamp
+    id = parentId = category = title = body = author = timestamp = ''
     // These vars toggle input fields/button text for different editing modes
-    let showAuthor, showCategory, showTimeStamp, showTitle, submitButtonText
-
+    let showAuthor, showCategory, showTimestamp, showTitle, submitButtonText
     switch(editingMode) {
       case Constants.EDITOR_EDIT_POST_MODE:
         const postToEdit = this.props.posts[postId]
         if(postToEdit) {
-          postTitle = postToEdit.title
-          postBody = postToEdit.body
-          postAuthor = postToEdit.author
-          postCategory = postToEdit.category
-          showAuthor = showCategory = showTimeStamp = false
+          id = postId
+          title = postToEdit.title
+          body = postToEdit.body
+          author = postToEdit.author
+          category = postToEdit.category
+          showAuthor = showCategory = showTimestamp = false
           showTitle = true
           submitButtonText = Constants.SUBMIT_EDIT_BUTTON_TEXT
         }
         break
       case Constants.EDITOR_EDIT_COMMENT_MODE:
-        showTimeStamp = true
-        showCategory = showTitle = showAuthor = false
-        submitButtonText = Constants.SUBMIT_EDIT_BUTTON_TEXT
+        if(this.props.comments[postId] && this.props.comments[postId][commentId]) {
+          const commentToEdit = this.props.comments[postId][commentId]
+          id = commentId
+          parentId = postId
+          body = commentToEdit.body
+          timestamp = commentToEdit.timestamp
+          showTimestamp = true
+          showCategory = showTitle = showAuthor = false
+          submitButtonText = Constants.SUBMIT_EDIT_BUTTON_TEXT
+        }
         break
       case Constants.EDITOR_ADD_COMMENT_MODE:
+        parentId = postId
         showAuthor = true
-        showCategory = showTitle = showTimeStamp = false
+        showCategory = showTitle = showTimestamp = false
         submitButtonText = Constants.SUBMIT_NEW_COMMENT_BUTTON_TEXT
         break
       case Constants.EDITOR_ADD_POST_MODE:
       default:
-        postId = postTitle = postBody = postAuthor = ''
-        postCategory = this.props.currentCategory.name
+        category = this.props.currentCategory.name
         showAuthor = showCategory = showTitle = true
-        showTimeStamp = false
+        showTimestamp = false
         submitButtonText = Constants.SUBMIT_NEW_POST_BUTTON_TEXT
     }
 
@@ -117,7 +146,7 @@ class Editor extends Component {
                     <select
                       name="category"
                       onSubmit={this.handleSubmit}
-                      defaultValue={postCategory}>
+                      defaultValue={category}>
                       {this.props.categories.map(category => (
                         <option
                           value={category.name}
@@ -129,14 +158,14 @@ class Editor extends Component {
                   </div></div>
                   <div className="divTableRow" style={{display: showTitle ? 'table-row':'none'}}>
                     <div className="divTableLabel">Title</div>
-                    <div className="divTableCell" key={postTitle}>
-                      <input type="text" name="title" defaultValue={postTitle}/>
+                    <div className="divTableCell" key={title}>
+                      <input type="text" name="title" defaultValue={title}/>
                     </div>
                   </div>
                   <div className="divTableRow">
                     <div className="divTableLabel">Body</div>
-                    <div className="divTableCell" key={postBody}>
-                      <textarea name="body" defaultValue={postBody} ref={(input) => { this.body = input }}/>
+                    <div className="divTableCell" key={body}>
+                      <textarea name="body" defaultValue={body} ref={(input) => { this.body = input }}/>
                     </div>
                   </div>
                   <div className="divTableRow" style={{display: showAuthor ? 'table-row':'none'}}>
@@ -145,20 +174,21 @@ class Editor extends Component {
                       <input
                         type="text"
                         name="author"
-                        defaultValue={postAuthor}
+                        defaultValue={author}
                         ref={(input) => { this.author = input }}/>
                     </div>
                   </div>
-                  <div className="divTableRow" style={{display: showTimeStamp ? 'table-row':'none'}}>
+                  <div className="divTableRow" style={{display: showTimestamp ? 'table-row':'none'}}>
                     <div className="divTableLabel">Time Stamp</div>
-                    <div className="divTableCell">
+                    <div className="divTableCell" key={timestamp}>
                       <input
                         type="text"
                         name="timestamp"
-                        defaultValue={postAuthor}/>
+                        defaultValue={timestamp}/>
                     </div>
                   </div>
-                <input type="hidden" name="id" value={postId}/>
+                <input type="hidden" name="id" value={id}/>
+                <input type="hidden" name="parentId" value={parentId}/>
                 <input type="hidden" name="editingMode" value={editingMode}/>
                 <div className="divTableRow">
                   <div className="divTableLabel"></div>
