@@ -7,8 +7,7 @@ import {
   ADD_NEW_COMMENT,
   EDIT_POST,
   VOTE_COMMENT,
-  UPVOTE_POST,
-  DOWNVOTE_POST,
+  VOTE_ON_POST,
   SET_CURRENT_CATEGORY
 } from '../actions'
 
@@ -86,20 +85,13 @@ function posts(state = {}, action) {
           body
         }
       }
-    case UPVOTE_POST:
+    case VOTE_ON_POST:
+      const { delta } = action
       return {
         ...state,
         [id]: {
           ...state[id],
-          voteScore:state[id].voteScore+1
-        }
-      }
-    case DOWNVOTE_POST:
-      return {
-        ...state,
-        [id]: {
-          ...state[id],
-          voteScore:state[id].voteScore-1
+          voteScore:state[id].voteScore+delta
         }
       }
     default:
