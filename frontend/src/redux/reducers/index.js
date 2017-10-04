@@ -6,7 +6,7 @@ import {
   ADD_NEW_CATEGORY,
   ADD_NEW_COMMENT,
   EDIT_POST,
-  VOTE_COMMENT,
+  VOTE_ON_COMMENT,
   VOTE_ON_POST,
   SET_CURRENT_CATEGORY
 } from '../actions'
@@ -48,7 +48,7 @@ function comments(state = {}, action) {
           [content.id]:content
         }
       }
-    case VOTE_COMMENT:
+    case VOTE_ON_COMMENT:
       const { commentId, delta } = action
       return {
         ...state,
