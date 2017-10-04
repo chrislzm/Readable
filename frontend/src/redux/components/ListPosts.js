@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as Constants from '../../utils/constants'
 import Moment from 'moment'
-import PostActions from './PostActions'
+import Actions from './Actions'
 import { setCurrentCategory } from '../actions'
 import { capitalize } from '../../utils/helpers'
 
@@ -51,7 +51,7 @@ class ListPosts extends Component {
                 <div className="divTableCell">{post.author}</div>
                 <div className="divTableCell">{post.voteScore}</div>
                 <div className="divTableCell">
-                  <PostActions postId={post.id} postTitle={post.title}/>
+                  <Actions postId={post.id} postTitle={post.title}/>
                 </div>
               </div>
             ))}

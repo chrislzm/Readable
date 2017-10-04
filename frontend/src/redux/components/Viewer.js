@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PostActions from './PostActions'
+import Actions from './Actions'
 import * as Constants from '../../utils/constants'
 import Moment from 'moment'
 
@@ -29,7 +29,7 @@ class Viewer extends Component {
           <div className="divTableRow">
             <div className="divTableLabel">Actions</div>
             <div className="divTableCell">
-              <PostActions postId={id} postTitle={title}/>
+              <Actions postId={id} postTitle={title}/>
             </div>
           </div>
         </div>

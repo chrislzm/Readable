@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as BackendAPI from '../../utils/api'
-import * as Actions from '../actions'
+import { upVotePost, downVotePost } from '../actions'
 import Modal from 'react-modal'
 import { withRouter } from 'react-router-dom'
 import * as Constants from '../../utils/constants'
 
-class PostActions extends Component {
+class Actions extends Component {
 
   state = {
     confirmModalOpen: false
@@ -14,12 +14,12 @@ class PostActions extends Component {
 
   upVote(postId) {
     BackendAPI.voteOnPost(postId,{option:"upVote"})
-    this.props.dispatch(Actions.upVotePost(postId))
+    this.props.dispatch(upVotePost(postId))
   }
 
   downVote(postId) {
     BackendAPI.voteOnPost(postId,{option:"downVote"})
-    this.props.dispatch(Actions.downVotePost(postId))
+    this.props.dispatch(downVotePost(postId))
   }
 
   edit(postId) {
@@ -69,4 +69,4 @@ class PostActions extends Component {
   }
 }
 
-  export default withRouter(connect()(PostActions))
+  export default withRouter(connect()(Actions))
