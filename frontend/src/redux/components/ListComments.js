@@ -27,18 +27,19 @@ class ListComments extends Component {
     const {parentId} = this.props
     const commentGroup = this.props.comments[parentId]
     let comments
+    let numComments = 0
     if(commentGroup) {
       comments = Object.keys(commentGroup).reduce((accumulator, commentId) => {
         accumulator.push(commentGroup[commentId])
         return accumulator
       },[])
       comments.sort(this.sortDateDescending)
+      numComments = comments.length
     }
     return (
       <div>
-        <h2>Comments</h2>
-        {
-          comments && comments.map(comment => (
+        <h2>Comments ({numComments})</h2>
+        { comments && comments.map(comment => (
             <div className="divTable blueTable" key={comment.id}>
               <div className="divTableBody">
                 <div className="divTableRow">
@@ -65,8 +66,10 @@ class ListComments extends Component {
                 </div>
               </div>
             </div>
-          ))
-        }
+          ))}
+        { !comments && (
+            <div>This post has no comments.</div>
+          )}
       </div>
     )
   }
