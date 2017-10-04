@@ -6,6 +6,8 @@ import {
   ADD_NEW_CATEGORY,
   ADD_NEW_COMMENT,
   EDIT_POST,
+  UPVOTE_COMMENT,
+  DOWNVOTE_COMMENT,
   UPVOTE_POST,
   DOWNVOTE_POST,
   SET_CURRENT_CATEGORY
@@ -26,19 +28,48 @@ function categories(state = {}, action) {
 }
 
 function comments(state = {}, action) {
-  const { parentId } = action
+  const { parentId, commentId } = action
 
   switch(action.type) {
     case ADD_NEW_COMMENT:
       const {content} = action
-      content.voteScore = Constants.DEFAULT_VOTES
-      content.deleted = false
-      content.parentDeleted = false
+      // Set defaults if they were not defined
+      if(!content.voteScore) {
+        content.voteScore = Constants.DEFAULT_VOTES
+      }
+      if (!content.deleted) {
+        content.deleted = false
+      }
+      if (!content.parentDeleted) {
+        content.parentDeleted = false
+      }
       return {
         ...state,
         [parentId]: {
           ...state[parentId],
           [content.id]:content
+        }
+      }
+    case UPVOTE_COMMENT:
+      return {
+        ...state,
+        [parentId]: {
+          ...state[parentId],
+          [commentId]: {
+            ...state[parentId][commentId],
+            voteScore:state[parentId][commentId].voteScore+1
+          }
+        }
+      }
+    case DOWNVOTE_COMMENT:
+      return {
+        ...state,
+        [parentId]: {
+          ...state[parentId],
+          [commentId]: {
+            ...state[parentId][commentId],
+            voteScore:state[parentId][commentId].voteScore-1
+          }
         }
       }
     default:
