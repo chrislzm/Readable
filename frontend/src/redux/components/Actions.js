@@ -13,17 +13,35 @@ class Actions extends Component {
   }
 
   upVote(postId,mode,commentId) {
-    BackendAPI.voteOnPost(postId,{option:"upVote"})
-    this.props.dispatch(upVotePost(postId))
+    switch(mode) {
+      case Constants.ACTIONS_COMMENT_MODE:
+        break
+      default:
+      case Constants.ACTIONS_POST_MODE:
+        BackendAPI.voteOnPost(postId,{option:"upVote"})
+        this.props.dispatch(upVotePost(postId))
+    }
   }
 
   downVote(postId,mode,commentId) {
-    BackendAPI.voteOnPost(postId,{option:"downVote"})
-    this.props.dispatch(downVotePost(postId))
+    switch(mode) {
+      case Constants.ACTIONS_COMMENT_MODE:
+        break
+      default:
+      case Constants.ACTIONS_POST_MODE:
+        BackendAPI.voteOnPost(postId,{option:"downVote"})
+        this.props.dispatch(downVotePost(postId))
+    }
   }
 
   edit(postId,mode,commentId) {
-    this.props.history.push(`/${Constants.EDIT_POST_PATH}/${postId}`)
+    switch(mode) {
+      case Constants.ACTIONS_COMMENT_MODE:
+        break
+      default:
+      case Constants.ACTIONS_POST_MODE:
+        this.props.history.push(`/${Constants.EDIT_POST_PATH}/${postId}`)
+    }
   }
 
   delete(postId,mode,commentId) {
