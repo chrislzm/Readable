@@ -12,21 +12,21 @@ class Actions extends Component {
     confirmModalOpen: false
   }
 
-  upVote(postId) {
+  upVote(postId,mode,commentId) {
     BackendAPI.voteOnPost(postId,{option:"upVote"})
     this.props.dispatch(upVotePost(postId))
   }
 
-  downVote(postId) {
+  downVote(postId,mode,commentId) {
     BackendAPI.voteOnPost(postId,{option:"downVote"})
     this.props.dispatch(downVotePost(postId))
   }
 
-  edit(postId) {
+  edit(postId,mode,commentId) {
     this.props.history.push(`/${Constants.EDIT_POST_PATH}/${postId}`)
   }
 
-  delete(postId) {
+  delete(postId,mode,commentId) {
   }
 
   openConfirmModal = () => {
@@ -43,13 +43,23 @@ class Actions extends Component {
 
   render() {
     const { confirmModalOpen } = this.state
-    const { id, title, mode } = this.props
+    const { postId, commentId, title, mode } = this.props
+    let modalMessage
+    switch(mode) {
+      case Constants.ACTIONS_COMMENT_MODE:
+        modalMessage = "Really delete this comment?"
+        break
+      default:
+      case Constants.ACTIONS_POST_MODE:
+        modalMessage = `Really delete "${title}"?`
+        break
+  }
     return (
       <div>
         <div>
-          <button onClick={() => this.upVote(id)}>Upvote</button>
-          <button onClick={() => this.downVote(id)}>Downvote</button>
-          <button onClick={() => this.edit(id)}>Edit</button>
+          <button onClick={() => this.upVote(postId,mode,commentId)}>Upvote</button>
+          <button onClick={() => this.downVote(postId,mode,commentId)}>Downvote</button>
+          <button onClick={() => this.edit(postId,mode,commentId)}>Edit</button>
           <button onClick={this.openConfirmModal}>Delete</button>
         </div>
         <Modal
@@ -58,7 +68,7 @@ class Actions extends Component {
           isOpen={confirmModalOpen}
           onRequestClose={this.closeConfirmModal}
           contentLabel='Modal'>
-          <div>Really delete "{title}"?</div>
+          <div>{modalMessage}</div>
           <div>
             <button>Delete</button>
             <button onClick={this.closeConfirmModal}>Cancel</button>
