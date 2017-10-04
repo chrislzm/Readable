@@ -27,7 +27,7 @@ class Edit extends Component {
 
   render() {
     const { confirmModalOpen } = this.state
-    const postId = this.props.match.params.postId
+    const { postId, commentId } = this.props.match.params
     let categoryName = this.props.currentCategory.name
     let categoryPath = this.props.currentCategory.path
     if(this.props.posts[postId]) {
@@ -35,6 +35,13 @@ class Edit extends Component {
       categoryPath = this.props.categories[categoryName]
     }
     const pathToViewPost = `/${categoryPath}/${postId}`
+
+    let editingMode
+    if(commentId) {
+      editingMode = Constants.EDITOR_EDIT_COMMENT_MODE
+    } else {
+      editingMode = Constants.EDITOR_EDIT_POST_MODE
+    }
 
     return(
       <div className="EditPost">
@@ -53,9 +60,10 @@ class Edit extends Component {
         </div>
         <Editor
           categoryPath={categoryPath}
-          editPostId={postId}
+          postId={postId}
+          commentId={commentId}
           handleEdit={this.openConfirmModal}
-          editingMode={Constants.EDITOR_EDIT_POST_MODE}/>
+          editingMode={editingMode}/>
         <Modal
           className='modal'
           overlayClassName='overlay'
