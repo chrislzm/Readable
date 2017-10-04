@@ -36,10 +36,12 @@ class Edit extends Component {
     }
     const pathToViewPost = `/${categoryPath}/${postId}`
 
-    let editingMode
+    let editingMode, titleText
     if(commentId) {
+      titleText = "Editing Comment"
       editingMode = Constants.EDITOR_EDIT_COMMENT_MODE
     } else {
+      titleText = "Editing Post"
       editingMode = Constants.EDITOR_EDIT_POST_MODE
     }
 
@@ -47,7 +49,7 @@ class Edit extends Component {
       <div className="EditPost">
         <div className="SectionTitle">
           <h2>
-            Editing Post
+            {titleText}
           </h2>
           <div className="SectionTitleNav">
             <button>
