@@ -7,7 +7,7 @@ export const SITE_TITLE = "My React+Redux Powered Forum"
 export const ADD_POST_PATH = "addPost"
 export const EDIT_PATH = "edit"
 export const SUBMIT_NEW_POST_BUTTON_TEXT = "Add Post"
-export const SUBMIT_EDITED_POST_BUTTON_TEXT = "Save Changes"
+export const SUBMIT_EDIT_BUTTON_TEXT = "Save Changes"
 export const SUBMIT_NEW_COMMENT_BUTTON_TEXT = "Add Comment"
 
 // Edit modes for PostEditor component
