@@ -43,13 +43,13 @@ class Actions extends Component {
 
   render() {
     const { confirmModalOpen } = this.state
-    const { postId, postTitle, mode } = this.props
+    const { id, title, mode } = this.props
     return (
       <div>
         <div>
-          <button onClick={() => this.upVote(postId)}>Upvote</button>
-          <button onClick={() => this.downVote(postId)}>Downvote</button>
-          <button onClick={() => this.edit(postId)}>Edit</button>
+          <button onClick={() => this.upVote(id)}>Upvote</button>
+          <button onClick={() => this.downVote(id)}>Downvote</button>
+          <button onClick={() => this.edit(id)}>Edit</button>
           <button onClick={this.openConfirmModal}>Delete</button>
         </div>
         <Modal
@@ -58,7 +58,7 @@ class Actions extends Component {
           isOpen={confirmModalOpen}
           onRequestClose={this.closeConfirmModal}
           contentLabel='Modal'>
-          <div>Really delete "{postTitle}"?</div>
+          <div>Really delete "{title}"?</div>
           <div>
             <button>Delete</button>
             <button onClick={this.closeConfirmModal}>Cancel</button>

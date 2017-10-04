@@ -52,8 +52,8 @@ class ListPosts extends Component {
                 <div className="divTableCell">{post.voteScore}</div>
                 <div className="divTableCell">
                   <Actions
-                    postId={post.id}
-                    postTitle={post.title}
+                    id={post.id}
+                    title={post.title}
                     mode={Constants.ACTIONS_POST_MODE}/>
                 </div>
               </div>

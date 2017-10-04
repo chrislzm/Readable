@@ -29,7 +29,7 @@ class Viewer extends Component {
           <div className="divTableRow">
             <div className="divTableLabel">Actions</div>
             <div className="divTableCell">
-              <Actions postId={id} postTitle={title} mode={mode}/>
+              <Actions id={id} title={title} mode={mode}/>
             </div>
           </div>
         </div>
