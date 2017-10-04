@@ -56,7 +56,7 @@ class App extends Component {
           <Route exact path={`/${category.path}/:postId`} key={category.path} component={ViewPost}/>
         ))}
         <Route exact path={`/${Constants.ADD_POST_PATH}`} component={AddPost}/>
-        <Route exact path={`/${Constants.EDIT_PATH}/:postId`} component={Edit}/>
+        <Route exact path={`/${Constants.EDIT_PATH}/:postId/:commentId?`} component={Edit}/>
       </div>
     );
   }
