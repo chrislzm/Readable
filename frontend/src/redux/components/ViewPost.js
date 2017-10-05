@@ -27,7 +27,7 @@ class ViewPost extends Component {
     }
     return (
       <div>
-        { post && (
+        { post && !post.deleted && (
           <div className="VieWPost">
             <div className="SectionTitle">
               <h2>{post.category}: "{ post.title }"</h2>
@@ -40,6 +40,20 @@ class ViewPost extends Component {
             <Viewer content={post} mode={Constants.ACTIONS_POST_MODE}/>
             <LeaveComment postId={postId}/>
             <ListComments parentId={postId}/>
+          </div>
+        )}
+        { post && post.deleted  && (
+          <div className="VieWPost">
+            <div className="SectionTitle">
+              <h2>Post Deleted</h2>
+            </div>
+          </div>
+        )}
+        { !post && (
+          <div className="VieWPost">
+            <div className="SectionTitle">
+              <h2>Post not found</h2>
+            </div>
           </div>
         )}
       </div>

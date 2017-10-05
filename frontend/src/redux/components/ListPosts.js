@@ -10,7 +10,8 @@ import * as BackendAPI from '../../utils/api'
 
 class ListPosts extends Component {
 
-  filter(postCategory,categoryName) {
+  filter(postDeleted, postCategory,categoryName) {
+    if(postDeleted) return false
     if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) return true
     return postCategory.toLowerCase() === categoryName.toLowerCase()
   }
@@ -35,6 +36,7 @@ class ListPosts extends Component {
 
   render() {
     const { categoryName, posts} = this.props
+    console.log(posts)
     return(
       <div className="ListPosts">
         <div className="SectionTitle">
@@ -58,7 +60,7 @@ class ListPosts extends Component {
             </div>
           </div>
           <div className="divTableBody">
-            { posts.filter(post => this.filter(post.category,categoryName)).map(post => (
+            { posts.filter(post => this.filter(post.deleted,post.category,categoryName)).map(post => (
               <div className="divTableRow" key={post.id}>
                 <div className="divTableCell">{capitalize(post.category)}</div>
                 <div className="divTableCell"><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></div>
