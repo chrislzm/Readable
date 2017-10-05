@@ -7,7 +7,8 @@ export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT'
 export const VOTE_ON_POST = 'VOTE_ON_POST'
 export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY'
 
-export function addNewPost(id,content) {
+export function addNewPost(post) {
+  const {id,...content} = post
   return {
     type: ADD_NEW_POST,
     id,

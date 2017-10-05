@@ -19,18 +19,17 @@ class ListPosts extends Component {
     const { categoryName, categoryPath } = this.props
     this.props.dispatch(setCurrentCategory(categoryName, categoryPath))
     if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) {
-      BackendAPI.getAllPosts().then(posts => this.addPostsToStore(posts))
-      console.log("Got all posts")
+      BackendAPI.getAllPosts().then(posts => {
+        for(const post of posts) {
+          this.props.dispatch(addNewPost(post))
+        }
+      })
     } else {
-      BackendAPI.getCategoryPosts(categoryName).then(posts => this.addPostsToStore(posts))
-      console.log(`Got ${categoryName} posts`)
-    }
-  }
-
-  addPostsToStore(posts) {
-    for(const post of posts) {
-      const {id,...content} = post
-      this.props.dispatch(addNewPost(id,content))
+      BackendAPI.getCategoryPosts(categoryName).then(posts => {
+        for(const post of posts) {
+          this.props.dispatch(addNewPost(post))
+        }
+      })
     }
   }
 
