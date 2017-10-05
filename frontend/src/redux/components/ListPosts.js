@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import * as Constants from '../../utils/constants'
 import Moment from 'moment'
 import Actions from './Actions'
-import { setCurrentCategory } from '../actions'
+import { addNewPost, setCurrentCategory } from '../actions'
 import { capitalize } from '../../utils/helpers'
+import * as BackendAPI from '../../utils/api'
 
 class ListPosts extends Component {
 
@@ -15,7 +16,22 @@ class ListPosts extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(setCurrentCategory(this.props.categoryName, this.props.categoryPath))
+    const { categoryName, categoryPath } = this.props
+    this.props.dispatch(setCurrentCategory(categoryName, categoryPath))
+    if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) {
+      BackendAPI.getAllPosts().then(posts => this.addPostsToStore(posts))
+      console.log("Got all posts")
+    } else {
+      BackendAPI.getCategoryPosts(categoryName).then(posts => this.addPostsToStore(posts))
+      console.log(`Got ${categoryName} posts`)
+    }
+  }
+
+  addPostsToStore(posts) {
+    for(const post of posts) {
+      const {id,...content} = post
+      this.props.dispatch(addNewPost(id,content))
+    }
   }
 
   render() {

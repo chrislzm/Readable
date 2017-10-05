@@ -4,7 +4,7 @@ import { Route, withRouter } from 'react-router-dom'
 import '../../style/App.css'
 import '../../style/divTable.css'
 import * as BackendAPI from '../../utils/api'
-import { addNewPost, addNewCategory } from '../actions'
+import { addNewCategory } from '../actions'
 import { convertCategoriesToArray } from '../../utils/helpers'
 import * as Constants from '../../utils/constants'
 import ListPosts from './ListPosts'
@@ -20,12 +20,6 @@ class App extends Component {
       for(const category of categories) {
         const {name, path} = category
         this.props.dispatch(addNewCategory(name,path))
-      }
-    })
-    BackendAPI.getAllPosts().then(posts => {
-      for(const post of posts) {
-        const {id,...content} = post
-        this.props.dispatch(addNewPost(id,content))
       }
     })
   }

@@ -19,7 +19,6 @@ export const getAllPosts = () => (
 export const getCategoryPosts = (category) => (
   fetch(`${api}/${category}/posts`, { headers })
   .then(res => res.json())
-  .then(data => data.posts)
 )
 
 export const getPostComments = (postId) => (
