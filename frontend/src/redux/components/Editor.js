@@ -75,8 +75,6 @@ class Editor extends Component {
         break
       case Constants.EDITOR_ADD_POST_MODE:
       default:
-        post.id = guid()
-        post.timestamp = Date.now()
         if(!post.title) {
           alert("Error: Title cannot be blank")
         } else if (!post.body) {
@@ -84,11 +82,12 @@ class Editor extends Component {
         } else if (!post.author) {
           alert("Error: Author cannot be blank")
         } else {
+          post.id = guid()
+          post.timestamp = Date.now()
+          post.voteScore = Constants.DEFAULT_VOTES
+          post.deleted = Constants.DEFAULT_DELETED_FLAG
           BackendAPI.addNewPost(post)
-          let {id,...content} = post
-          content.voteScore = Constants.DEFAULT_VOTES
-          content.deleted = Constants.DEFAULT_DELETED_FLAG
-          this.props.dispatch(Actions.addNewPost(id,content))
+          this.props.dispatch(Actions.addNewPost(post))
           this.props.handleAddNewPost(post.category)
         }
     }
