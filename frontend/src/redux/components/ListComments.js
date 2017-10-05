@@ -9,7 +9,7 @@ class ListComments extends Component {
 
   componentDidMount() {
     const {parentId} = this.props
-    BackendAPI.getPostComments(parentId).then(comments => {
+    BackendAPI.getAllComments(parentId).then(comments => {
       for(const comment of comments) {
         const {parentId,...content} = comment
         this.props.dispatch(addNewComment(parentId,content))
