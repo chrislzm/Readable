@@ -1,6 +1,7 @@
 export const ADD_NEW_POST = 'ADD_NEW_POST'
 export const ADD_NEW_COMMENT = 'ADD_NEW_COMMENT'
 export const ADD_NEW_CATEGORY = 'ADD_NEW_CATEGORY'
+export const DELETE_POST = 'DELETE_POST'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const EDIT_POST = 'EDIT_POST'
 export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT'
@@ -29,6 +30,13 @@ export function addNewComment(parentId, content) {
     type: ADD_NEW_COMMENT,
     parentId,
     content
+  }
+}
+
+export function deletePost(id) {
+  return {
+    type: DELETE_POST,
+    id
   }
 }
 

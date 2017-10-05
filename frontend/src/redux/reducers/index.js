@@ -5,6 +5,7 @@ import {
   ADD_NEW_POST,
   ADD_NEW_CATEGORY,
   ADD_NEW_COMMENT,
+  DELETE_POST,
   EDIT_COMMENT,
   EDIT_POST,
   VOTE_ON_COMMENT,
@@ -89,6 +90,13 @@ function posts(state = {}, action) {
       return {
         ...state,
         [id]: content
+      }
+    case DELETE_POST:
+      return {
+        ...state,
+        [id]: {...state[id],
+          deleted:true
+        }
       }
     case EDIT_POST:
       const {title, body} = action
