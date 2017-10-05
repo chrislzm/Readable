@@ -5,7 +5,9 @@ import {
   ADD_NEW_POST,
   ADD_NEW_CATEGORY,
   ADD_NEW_COMMENT,
-  DELETE_POST,
+  DELETE_COMMENT,
+  DELETE_COMMENT_PARENT,
+  DELETE_POST_COMMENT,
   EDIT_COMMENT,
   EDIT_POST,
   VOTE_ON_COMMENT,
@@ -48,6 +50,30 @@ function comments(state = {}, action) {
         [parentId]: {
           ...state[parentId],
           [content.id]:content
+        }
+      }
+    case DELETE_COMMENT:
+      const { commentId } = action
+      return {
+        ...state,
+        [parentId]: {
+          ...state[parentId],
+          [commentId]: {
+            ...state[parentId][commentId],
+            deleted:true
+          }
+        }
+      }
+    case DELETE_COMMENT_PARENT:
+      const { commentId } = action
+      return {
+        ...state,
+        [parentId]: {
+          ...state[parentId],
+          [commentId]: {
+            ...state[parentId][commentId],
+            parentDeleted:true
+          }
         }
       }
     case EDIT_COMMENT:
