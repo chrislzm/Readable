@@ -7,7 +7,7 @@ import {
   ADD_NEW_COMMENT,
   DELETE_COMMENT,
   DELETE_COMMENT_PARENT,
-  DELETE_POST_COMMENT,
+  DELETE_POST,
   EDIT_COMMENT,
   EDIT_POST,
   VOTE_ON_COMMENT,
@@ -53,25 +53,25 @@ function comments(state = {}, action) {
         }
       }
     case DELETE_COMMENT:
-      const { commentId } = action
+      const cid = action.commentId
       return {
         ...state,
         [parentId]: {
           ...state[parentId],
-          [commentId]: {
-            ...state[parentId][commentId],
+          [cid]: {
+            ...state[parentId][cid],
             deleted:true
           }
         }
       }
     case DELETE_COMMENT_PARENT:
-      const { commentId } = action
+      const { commentID } = action.commentId
       return {
         ...state,
         [parentId]: {
           ...state[parentId],
-          [commentId]: {
-            ...state[parentId][commentId],
+          [commentID]: {
+            ...state[parentId][commentID],
             parentDeleted:true
           }
         }
