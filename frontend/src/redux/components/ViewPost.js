@@ -6,8 +6,16 @@ import ListComments from './ListComments'
 import LeaveComment from './LeaveComment'
 import Viewer from './Viewer'
 import * as Constants from '../../utils/constants'
+import { addNewPost } from '../actions'
+import * as BackendAPI from '../../utils/api'
 
 class ViewPost extends Component {
+
+  componentDidMount() {
+    const { postId } = this.props.match.params
+    BackendAPI.getPost(postId).then(post => this.props.dispatch(addNewPost(post)))
+  }
+
   render() {
     const categoryName = this.props.currentCategory.name
     const categoryPath = this.props.currentCategory.path
