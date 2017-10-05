@@ -26,7 +26,7 @@ class ListComments extends Component {
   render() {
     const {parentId} = this.props
     const commentGroup = this.props.comments[parentId]
-    let comments
+    let comments, filteredComments
     let numComments = 0
     if(commentGroup) {
       comments = Object.keys(commentGroup).reduce((accumulator, commentId) => {
@@ -35,19 +35,19 @@ class ListComments extends Component {
         accumulator.push(comment)
         return accumulator
       },[])
-      comments.sort(this.sortDateDescending)
-      numComments = comments.length
+      filteredComments = comments.filter(comment => !comment.deleted).sort(this.sortDateDescending)
+      numComments = filteredComments.length
     }
     return (
       <div>
         <h2>Comments ({numComments})</h2>
-        { comments && comments.map(comment => (
+        { numComments > 0 && filteredComments.map(comment => (
           <Viewer
             content={comment}
             key={comment.id}
             mode={Constants.ACTIONS_COMMENT_MODE}/>
           ))}
-        { !comments && (
+        { numComments == 0 && (
             <div>This post has no comments.</div>
           )}
       </div>
