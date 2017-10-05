@@ -47,7 +47,7 @@ class ListComments extends Component {
             key={comment.id}
             mode={Constants.ACTIONS_COMMENT_MODE}/>
           ))}
-        { numComments == 0 && (
+        { numComments === 0 && (
             <div>This post has no comments.</div>
           )}
       </div>
