@@ -5,6 +5,14 @@ const headers = {
   'Authorization': 'whatever-you-want'
 }
 
+export const deletePost = (id) => {
+  fetch(`${api}/posts/${id}`, {
+    method: 'DELETE',
+    headers
+   })
+  .then(res => res.json())
+}
+
 export const getCategories = () => (
   fetch(`${api}/categories`, { headers })
   .then(res => res.json())
