@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as BackendAPI from '../../utils/api'
-import { deletePost, voteOnPost, voteOnComment } from '../actions'
+import { deleteComment, deletePost, voteOnPost, voteOnComment } from '../actions'
 import Modal from 'react-modal'
 import { withRouter } from 'react-router-dom'
 import * as Constants from '../../utils/constants'
@@ -45,8 +45,16 @@ class Actions extends Component {
   }
 
   delete(postId,mode,commentId,deleteHandler) {
-    BackendAPI.deletePost(postId)
-    this.props.dispatch(deletePost(postId))
+    switch(mode) {
+      case Constants.ACTIONS_COMMENT_MODE:
+        this.props.dispatch(deleteComment(commentId,postId))
+        BackendAPI.deleteComment(commentId)
+        break
+      default:
+      case Constants.ACTIONS_POST_MODE:
+        this.props.dispatch(deletePost(postId))
+        BackendAPI.deletePost(postId)
+    }
   }
 
   openConfirmModal = () => {
