@@ -64,18 +64,6 @@ function comments(state = {}, action) {
           }
         }
       }
-    case DELETE_COMMENT_PARENT:
-      const { commentID } = action.commentId
-      return {
-        ...state,
-        [parentId]: {
-          ...state[parentId],
-          [commentID]: {
-            ...state[parentId][commentID],
-            parentDeleted:true
-          }
-        }
-      }
     case EDIT_COMMENT:
       const {id, body, timestamp} = action
       return {
