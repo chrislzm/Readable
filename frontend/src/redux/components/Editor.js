@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { capitalize } from '../../utils/helpers'
-import { addNewComment } from '../actions'
+import { addNewComment, addNewPost } from '../actions'
 import serializeForm from 'form-serialize'
 import * as BackendAPI from '../../utils/api'
 import { guid, convertCategoriesToArray } from '../../utils/helpers'
@@ -13,14 +13,19 @@ import Moment from 'moment'
 class Editor extends Component {
 
   componentDidMount() {
-    if(this.props.editingMode === Constants.EDITOR_EDIT_COMMENT_MODE) {
-      const {postId} = this.props
-      BackendAPI.getAllComments(postId).then(comments => {
-        for(const comment of comments) {
-          const {parentId,...content} = comment
-          this.props.dispatch(addNewComment(parentId,content))
-        }
-      })
+    const { editingMode} = this.props
+    switch(editingMode) {
+      case Constants.EDITOR_EDIT_COMMENT_MODE:
+        const { commentId } = this.props
+        BackendAPI.getComment(commentId).then(comment => {
+            const {parentId,...content} = comment
+            this.props.dispatch(addNewComment(parentId,content))
+        })
+        break
+      case Constants.EDITOR_EDIT_POST_MODE:
+        const { postId } = this.props
+        BackendAPI.getPost(postId).then(post => this.props.dispatch(addNewPost(post)))
+      default:
     }
   }
 
