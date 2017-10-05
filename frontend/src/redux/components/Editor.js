@@ -8,6 +8,7 @@ import { guid, convertCategoriesToArray } from '../../utils/helpers'
 import * as Actions from '../actions'
 import * as Constants from '../../utils/constants'
 import { withRouter } from 'react-router-dom'
+import Moment from 'moment'
 
 class Editor extends Component {
 
@@ -38,13 +39,19 @@ class Editor extends Component {
         this.props.handleEdit()
         break
       case Constants.EDITOR_EDIT_COMMENT_MODE:
-        const editedComment = {
-          timestamp,
-          body
+        const newTimeStamp = Moment(timestamp, Constants.DEFAULT_DATE_FORMAT)
+        if(!newTimeStamp.isValid) {
+          alert("Time Stamp must be in a valid date format: MM-DD-YYYY HH:MM AM/PM")
+        } else {
+          const timestamp = newTimeStamp.format("x")
+          const editedComment = {
+            timestamp,
+            body
+          }
+          BackendAPI.editComment(id,editedComment)
+          this.props.dispatch(Actions.editComment(id,parentId,body,timestamp))
+          this.props.handleEdit()
         }
-        BackendAPI.editComment(id,editedComment)
-        this.props.dispatch(Actions.editComment(id,parentId,body,timestamp))
-        this.props.handleEdit()
         break
       case Constants.EDITOR_ADD_COMMENT_MODE:
         if (!post.body) {
@@ -184,7 +191,7 @@ class Editor extends Component {
                       <input
                         type="text"
                         name="timestamp"
-                        defaultValue={timestamp}/>
+                        defaultValue={Moment(timestamp, "x").format(Constants.DEFAULT_DATE_FORMAT)}/>
                     </div>
                   </div>
                 <input type="hidden" name="id" value={id}/>
