@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as BackendAPI from '../../utils/api'
-import { voteOnPost, voteOnComment } from '../actions'
+import { deletePost, voteOnPost, voteOnComment } from '../actions'
 import Modal from 'react-modal'
 import { withRouter } from 'react-router-dom'
 import * as Constants from '../../utils/constants'
@@ -44,7 +44,9 @@ class Actions extends Component {
     }
   }
 
-  delete(postId,mode,commentId) {
+  delete(postId,mode,commentId,deleteHandler) {
+    BackendAPI.deletePost(postId)
+    this.props.dispatch(deletePost(postId))
   }
 
   openConfirmModal = () => {
@@ -61,7 +63,7 @@ class Actions extends Component {
 
   render() {
     const { confirmModalOpen } = this.state
-    const { postId, commentId, title, mode } = this.props
+    const { postId, commentId, title, mode, deleteHandler } = this.props
     let modalMessage
     switch(mode) {
       case Constants.ACTIONS_COMMENT_MODE:
@@ -71,7 +73,7 @@ class Actions extends Component {
       case Constants.ACTIONS_POST_MODE:
         modalMessage = `Really delete "${title}"?`
         break
-  }
+      }
     return (
       <div>
         <div>
@@ -88,7 +90,7 @@ class Actions extends Component {
           contentLabel='Modal'>
           <div>{modalMessage}</div>
           <div>
-            <button>Delete</button>
+            <button onClick={() => this.delete(postId,mode,commentId,deleteHandler)}>Delete</button>
             <button onClick={this.closeConfirmModal}>Cancel</button>
           </div>
         </Modal>
