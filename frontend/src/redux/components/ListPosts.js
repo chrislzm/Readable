@@ -54,7 +54,7 @@ class ListPosts extends Component {
             <div className="divTableRow">
               <div className="divTableHead">Category</div>
               <div className="divTableHead">Post Title</div>
-              <div className="divTableHead">Date</div>
+              <div className="divTableHead"><div className="sortableColumnLabel">Date</div><div className="arrow-up"></div></div>
               <div className="divTableHead">Author</div>
               <div className="divTableHead">Votes</div>
               <div className="divTableHead">Actions</div>
