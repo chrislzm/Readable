@@ -12,6 +12,8 @@ class ListPosts extends Component {
 
   state = {
     sortMethod: Helpers.sortByDateDescending,
+    sortField: Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP,
+    sortAscending: false,
     sortDateArrowClass: Constants.CSS_CLASS_ARROW_DOWN,
     sortVotesArrowClass: Constants.CSS_CLASS_ARROW_NONE
   }
