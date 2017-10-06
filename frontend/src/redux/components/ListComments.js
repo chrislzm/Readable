@@ -48,7 +48,7 @@ class ListComments extends Component {
             mode={Constants.ACTIONS_COMMENT_MODE}/>
           ))}
         { numComments === 0 && (
-            <div>This post has no comments.</div>
+            <div className="StatusMessage">This post has no comments yet</div>
           )}
       </div>
     )
