@@ -14,18 +14,12 @@ class Editor extends Component {
 
   componentDidMount() {
     const { editingMode} = this.props
-    switch(editingMode) {
-      case Constants.EDITOR_EDIT_COMMENT_MODE:
-        const { commentId } = this.props
-        BackendAPI.getComment(commentId).then(comment => {
-            const {parentId,...content} = comment
-            this.props.dispatch(addNewComment(parentId,content))
-        })
-        break
-      case Constants.EDITOR_EDIT_POST_MODE:
-        const { postId } = this.props
-        BackendAPI.getPost(postId).then(post => this.props.dispatch(addNewPost(post)))
-      default:
+    if(editingMode === Constants.EDITOR_EDIT_COMMENT_MODE) {
+      const { commentId } = this.props
+      BackendAPI.getComment(commentId).then(comment => {
+          const {parentId,...content} = comment
+          this.props.dispatch(addNewComment(parentId,content))
+      })
     }
   }
 
@@ -44,9 +38,9 @@ class Editor extends Component {
         this.props.handleEdit()
         break
       case Constants.EDITOR_EDIT_COMMENT_MODE:
-        const newTimeStamp = Moment(timestamp, Constants.DEFAULT_DATE_FORMAT)
-        if(!newTimeStamp.isValid) {
-          alert("Time Stamp must be in a valid date format: MM-DD-YYYY HH:MM AM/PM")
+        const newTimeStamp = Moment(timestamp,Constants.EDITOR_DATE_FORMAT)
+        if(!newTimeStamp.isValid()) {
+          alert("Time Stamp must be in a valid date format: MM-DD-YYYY hh:mm:SS.SSS AM/PM")
         } else {
           const timestamp = newTimeStamp.format("x")
           const editedComment = {
@@ -79,6 +73,7 @@ class Editor extends Component {
         }
         break
       case Constants.EDITOR_ADD_POST_MODE:
+      // fall through
       default:
         if(!post.title) {
           alert("Error: Title cannot be blank")
@@ -195,7 +190,7 @@ class Editor extends Component {
                       <input
                         type="text"
                         name="timestamp"
-                        defaultValue={Moment(timestamp, "x").format(Constants.DEFAULT_DATE_FORMAT)}/>
+                        defaultValue={Moment(timestamp, "x").format(Constants.EDITOR_DATE_FORMAT)}/>
                     </div>
                   </div>
                 <input type="hidden" name="id" value={id}/>
