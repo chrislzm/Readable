@@ -12,10 +12,10 @@ class ListPosts extends Component {
 
   state = {
     sortMethod: Helpers.sortByDateDescending,
-    sortField: Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP,
     sortAscending: false,
-    sortDateArrowClass: Constants.CSS_CLASS_ARROW_DOWN,
-    sortVotesArrowClass: Constants.CSS_CLASS_ARROW_NONE
+    sortField: Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP,
+    sortDateArrowStyle: Constants.CSS_CLASS_ARROW_DOWN,
+    sortVotesArrowStyle: Constants.CSS_CLASS_ARROW_NONE
   }
 
   filter(postDeleted, postCategory,categoryName) {
@@ -41,7 +41,7 @@ class ListPosts extends Component {
       })
     }
   }
-
+  
   render() {
     const { categoryName, posts} = this.props
     const filteredPosts = posts.filter(post => this.filter(post.deleted,post.category,categoryName))
@@ -67,11 +67,11 @@ class ListPosts extends Component {
                 <div className="divTableHead">Author</div>
                 <div className="divTableHead">
                   <div className="sortableColumnLabel">Date</div>
-                  <div className={this.state.sortDateArrowClass}></div>
+                  <div className={this.state.sortDateArrowStyle}></div>
                 </div>
                 <div className="divTableHead">
                   <div className="sortableColumnLabel">Votes</div>
-                  <div className={this.state.sortVotesArrowClass}></div>
+                  <div className={this.state.sortVotesArrowStyle}></div>
                 </div>
                 <div className="divTableHead">Actions</div>
               </div>
