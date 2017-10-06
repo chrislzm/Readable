@@ -36,16 +36,19 @@ class ListPosts extends Component {
 
   render() {
     const { categoryName, posts} = this.props
+    const postsToList = posts.filter(post => this.filter(post.deleted,post.category,categoryName))
+    let numPosts = postsToList.length
     return(
       <div className="ListPosts">
         <div className="SectionTitle">
-          <h2>{capitalize(categoryName)}</h2>
+          <h2>{capitalize(categoryName)} ({numPosts})</h2>
           <div className="SectionTitleNav">
             <button>
               <Link to={`/${Constants.ADD_POST_PATH}`}>+ Add New Post</Link>
             </button>
           </div>
         </div>
+        { numPosts > 0 && (
         <div className="divTable blueTable">
           <div className="divTableHeading">
             <div className="divTableRow">
@@ -59,7 +62,7 @@ class ListPosts extends Component {
             </div>
           </div>
           <div className="divTableBody">
-            { posts.filter(post => this.filter(post.deleted,post.category,categoryName)).map(post => (
+            { postsToList.map(post => (
               <div className="divTableRow" key={post.id}>
                 <div className="divTableCell">{capitalize(post.category)}</div>
                 <div className="divTableCell"><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></div>
@@ -76,6 +79,10 @@ class ListPosts extends Component {
             ))}
           </div>
         </div>
+        )}
+        { numPosts == 0 && (
+          <div className="StatusMessage">No posts here yet</div>
+        )}
       </div>
     )
   }
