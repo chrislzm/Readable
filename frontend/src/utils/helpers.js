@@ -21,3 +21,17 @@ export function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
 }
+
+export function sortByDateDescending(a,b) {
+  return sortByDate(a,b,false)
+}
+
+export function sortByDateAscending(a,b) {
+  return sortByDate(a,b,true)
+}
+
+function sortByDate(a,b,ascending) {
+  if((a.timestamp < b.timestamp) ^ ascending) return 1
+  if(a.timestamp === b.timestamp) return 0
+  if((a.timestamp > b.timestamp) ^ ascending) return -1
+}
