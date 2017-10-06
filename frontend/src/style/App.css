@@ -62,6 +62,11 @@
   text-decoration: none;
 }
 
+.StatusMessage {
+  margin:40px;
+  font-style:italic;
+}
+
 .modal {
   position: absolute;
   line-height: 2.5em;
