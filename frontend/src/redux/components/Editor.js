@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { capitalize } from '../../utils/helpers'
-import { addNewComment, addNewPost } from '../actions'
+import { addNewComment } from '../actions'
 import serializeForm from 'form-serialize'
 import * as BackendAPI from '../../utils/api'
 import { guid, convertCategoriesToArray } from '../../utils/helpers'

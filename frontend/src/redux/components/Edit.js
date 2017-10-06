@@ -7,7 +7,7 @@ import Editor from './Editor'
 import { withRouter } from 'react-router-dom'
 import Modal from 'react-modal'
 import * as BackendAPI from '../../utils/api'
-import { addNewComment, addNewPost } from '../actions'
+import { addNewPost } from '../actions'
 
 class Edit extends Component {
 
