@@ -20,3 +20,14 @@ export const EDITOR_EDIT_COMMENT_MODE = "EDITOR_EDIT_COMMENT_MODE"
 // Action modes for Action componentDidMount
 export const ACTIONS_POST_MODE = "ACTIONS_POST_MODE"
 export const ACTIONS_COMMENT_MODE = "ACTIONS_COMMENT_MODE"
+
+// Sorting for list posts
+export const LIST_POSTS_SORT_TIMESTAMP_DESCENDING = "LIST_POSTS_SORT_TIMESTAMP_DESCENDING"
+export const LIST_POSTS_SORT_TIMESTAMP_ASCENDING = "LIST_POSTS_SORT_TIMESTAMP_ASCENDING"
+export const LIST_POSTS_SORT_VOTES_DESCENDING = "LIST_POSTS_SORT_VOTES_DESCENDING"
+export const LIST_POSTS_SORT_VOTES_ASCENDING = "LIST_POSTS_SORT_VOTES_ASCENDING"
+
+// CSS constants for sorting direction arrows
+export const CSS_CLASS_ARROW_UP = "arrow-up"
+export const CSS_CLASS_ARROW_DOWN = "arrow-down"
+export const CSS_CLASS_ARROW_NONE = "arrow-none"
