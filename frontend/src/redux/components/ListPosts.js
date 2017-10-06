@@ -5,7 +5,7 @@ import * as Constants from '../../utils/constants'
 import Moment from 'moment'
 import Actions from './Actions'
 import { addNewPost, setCurrentCategory } from '../actions'
-import { capitalize } from '../../utils/helpers'
+import * as Helpers from '../../utils/helpers'
 import * as BackendAPI from '../../utils/api'
 
 class ListPosts extends Component {
@@ -41,7 +41,7 @@ class ListPosts extends Component {
     return(
       <div className="ListPosts">
         <div className="SectionTitle">
-          <h2>{capitalize(categoryName)} ({numPosts})</h2>
+          <h2>{Helpers.capitalize(categoryName)} ({numPosts})</h2>
           <div className="SectionTitleNav">
             <button>
               <Link to={`/${Constants.ADD_POST_PATH}`}>+ Add New Post</Link>
@@ -64,7 +64,7 @@ class ListPosts extends Component {
           <div className="divTableBody">
             { postsToList.map(post => (
               <div className="divTableRow" key={post.id}>
-                <div className="divTableCell">{capitalize(post.category)}</div>
+                <div className="divTableCell">{Helpers.capitalize(post.category)}</div>
                 <div className="divTableCell"><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></div>
                 <div className="divTableCell">{Moment(post.timestamp, "x").format(Constants.DEFAULT_DATE_FORMAT)}</div>
                 <div className="divTableCell">{post.author}</div>
