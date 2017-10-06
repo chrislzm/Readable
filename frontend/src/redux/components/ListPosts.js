@@ -36,7 +36,6 @@ class ListPosts extends Component {
 
   render() {
     const { categoryName, posts} = this.props
-    console.log(posts)
     return(
       <div className="ListPosts">
         <div className="SectionTitle">
