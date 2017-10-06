@@ -4,6 +4,7 @@ import { addNewComment } from '../actions'
 import * as BackendAPI from '../../utils/api'
 import Viewer from './Viewer'
 import * as Constants from '../../utils/constants'
+import { sortByDateDescending } from '../../utils/helpers'
 
 class ListComments extends Component {
 
@@ -17,11 +18,6 @@ class ListComments extends Component {
     })
   }
 
-  sortDateDescending(a,b) {
-    if(a.timestamp < b.timestamp) return 1
-    if(a.timestamp === b.timestamp) return 0
-    if(a.timestamp > b.timestamp) return -1
-  }
 
   render() {
     const {parentId} = this.props
@@ -35,7 +31,7 @@ class ListComments extends Component {
         accumulator.push(comment)
         return accumulator
       },[])
-      filteredComments = comments.filter(comment => !comment.deleted).sort(this.sortDateDescending)
+      filteredComments = comments.filter(comment => !comment.deleted).sort(sortByDateDescending)
       numComments = filteredComments.length
     }
     return (
