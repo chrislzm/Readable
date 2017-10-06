@@ -1,21 +1,37 @@
-.arrow-down, .arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-
+.arrow-up, .arrow-down, .arrow-none {
+	width: 0;
+	height: 0;
+	border: 7px solid transparent;
   float:left;
-  margin:5px 0 0 10px;
+  margin-left:10px;
+	position: relative;
+	top: -5px;
 }
-
-.arrow-down {
-  border-top: 10px solid #f00;
+.arrow-up:after, .arrow-down:after, .arrow-none:after {
+	content: '';
+	position: absolute;
+	left: -7px;
+	top: 9px;
+	width: 0;
+	height: 0;
+	border: 7px solid transparent;
 }
 
 .arrow-up {
-  border-bottom: 10px solid #f00;
+  border-bottom-color: red;
 }
 
+.arrow-down:after {
+  border-top-color: red;
+}
+
+.arrow-down, .arrow-none {
+  border-bottom-color: grey;
+}
+
+.arrow-up:after, .arrow-none:after {
+  border-top-color: grey;
+}
 
 .sortableColumnLabel {
   float:left;
@@ -43,6 +59,7 @@ div.blueTable {
 .divTable.blueTable .divTableHeading .divTableHead {
   font-size: 15px;
   color: #FFFFFF;
+  vertical-align: middle;
 }
 
 .divTableCell input, .divTableCell select, .divTableCell textarea {
