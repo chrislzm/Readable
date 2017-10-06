@@ -81,7 +81,7 @@ class ListPosts extends Component {
         </div>
         )}
         { numPosts == 0 && (
-          <div className="StatusMessage">No posts here yet</div>
+          <div className="StatusMessage">Nothing here yet. Be the first—<Link to={`/${Constants.ADD_POST_PATH}`}>Add a new post!</Link></div>
         )}
       </div>
     )
