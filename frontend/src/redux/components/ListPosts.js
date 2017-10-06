@@ -10,6 +10,12 @@ import * as BackendAPI from '../../utils/api'
 
 class ListPosts extends Component {
 
+  state = {
+    sortMethod: Helpers.sortByDateDescending,
+    sortDateArrowClass: Constants.CSS_CLASS_ARROW_DOWN,
+    sortVotesArrowClass: Constants.CSS_CLASS_ARROW_NONE
+  }
+
   filter(postDeleted, postCategory,categoryName) {
     if(postDeleted) return false
     if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) return true
@@ -36,8 +42,10 @@ class ListPosts extends Component {
 
   render() {
     const { categoryName, posts} = this.props
-    const postsToList = posts.filter(post => this.filter(post.deleted,post.category,categoryName))
-    let numPosts = postsToList.length
+    const filteredPosts = posts.filter(post => this.filter(post.deleted,post.category,categoryName))
+    const sortedPosts = posts.sort(this.state.sortMethod)
+
+    let numPosts = sortedPosts.length
     return(
       <div className="ListPosts">
         <div className="SectionTitle">
@@ -49,36 +57,42 @@ class ListPosts extends Component {
           </div>
         </div>
         { numPosts > 0 && (
-        <div className="divTable blueTable">
-          <div className="divTableHeading">
-            <div className="divTableRow">
-              <div className="divTableHead">Category</div>
-              <div className="divTableHead">Post Title</div>
-              <div className="divTableHead"><div className="sortableColumnLabel">Date</div><div className="arrow-up"></div></div>
-              <div className="divTableHead">Author</div>
-              <div className="divTableHead">Votes</div>
-              <div className="divTableHead">Actions</div>
-
+          <div className="divTable blueTable">
+            <div className="divTableHeading">
+              <div className="divTableRow">
+                <div className="divTableHead">Category</div>
+                <div className="divTableHead">Post Title</div>
+                <div className="divTableHead">Author</div>
+                <div className="divTableHead">
+                  <div className="sortableColumnLabel">Date</div>
+                  <div className={this.state.sortDateArrowClass}></div>
+                </div>
+                <div className="divTableHead">
+                  <div className="sortableColumnLabel">Votes</div>
+                  <div className={this.state.sortVotesArrowClass}></div>
+                </div>
+                <div className="divTableHead">Actions</div>
+              </div>
+            </div>
+            <div className="divTableBody">
+              { sortedPosts.map(post => (
+                <div className="divTableRow" key={post.id}>
+                  <div className="divTableCell">{Helpers.capitalize(post.category)}</div>
+                  <div className="divTableCell"><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></div>
+                  <div className="divTableCell">{post.author}</div>
+                  <div className="divTableCell">{Moment(post.timestamp, "x").format(Constants.DEFAULT_DATE_FORMAT)}</div>
+                  <div className="divTableCell">{post.voteScore}</div>
+                  <div className="divTableCell">
+                    <Actions
+                      postId={post.id}
+                      title={post.title}
+                      mode={Constants.ACTIONS_POST_MODE}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="divTableBody">
-            { postsToList.map(post => (
-              <div className="divTableRow" key={post.id}>
-                <div className="divTableCell">{Helpers.capitalize(post.category)}</div>
-                <div className="divTableCell"><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></div>
-                <div className="divTableCell">{Moment(post.timestamp, "x").format(Constants.DEFAULT_DATE_FORMAT)}</div>
-                <div className="divTableCell">{post.author}</div>
-                <div className="divTableCell">{post.voteScore}</div>
-                <div className="divTableCell">
-                  <Actions
-                    postId={post.id}
-                    title={post.title}
-                    mode={Constants.ACTIONS_POST_MODE}/>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
         )}
         { numPosts == 0 && (
           <div className="StatusMessage">Nothing here yet. Be the first—<Link to={`/${Constants.ADD_POST_PATH}`}>Add a new post!</Link></div>
@@ -87,6 +101,7 @@ class ListPosts extends Component {
     )
   }
 }
+
 const mapStateToProps = (state) => ({
   posts: Object.keys(state.posts).map(id => {
     let post = state.posts[id]
