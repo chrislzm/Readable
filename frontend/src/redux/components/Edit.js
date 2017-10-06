@@ -6,11 +6,18 @@ import * as Constants from '../../utils/constants'
 import Editor from './Editor'
 import { withRouter } from 'react-router-dom'
 import Modal from 'react-modal'
+import * as BackendAPI from '../../utils/api'
+import { addNewComment, addNewPost } from '../actions'
 
 class Edit extends Component {
 
   state = {
     confirmModalOpen: false
+  }
+
+  componentDidMount() {
+    const { postId } = this.props.match.params
+    BackendAPI.getPost(postId).then(post => this.props.dispatch(addNewPost(post)))
   }
 
   openConfirmModal = () => {
