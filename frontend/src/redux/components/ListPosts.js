@@ -11,11 +11,11 @@ import * as BackendAPI from '../../utils/api'
 class ListPosts extends Component {
 
   state = {
-    sortMethod: Helpers.sortByDateDescending,
+    sortMethod: Helpers.sortByVotesDescending,
     sortAscending: false,
-    sortField: Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP,
-    sortDateArrowStyle: Constants.CSS_CLASS_ARROW_DOWN,
-    sortVotesArrowStyle: Constants.CSS_CLASS_ARROW_NONE
+    sortField: Constants.LIST_POSTS_SORT_FIELD_VOTES,
+    sortDateArrowStyle: Constants.CSS_CLASS_ARROW_NONE,
+    sortVotesArrowStyle: Constants.CSS_CLASS_ARROW_DOWN
   }
 
   filter(postDeleted, postCategory,categoryName) {
