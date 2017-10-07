@@ -10,23 +10,21 @@ import Modal from 'react-modal'
 class AddPost extends Component {
 
   state = {
-    confirmModalOpen: false,
-    newPostCategory: this.props.currentCategory.name
+    modalOpen: false,
   }
 
-  openConfirmModal = (categoryName) => {
+  openModal = (categoryName) => {
     this.setState(() => ({
-      confirmModalOpen: true,
-      newPostCategory: categoryName
+      modalOpen: true,
     }))
   }
 
-  closeConfirmModal = (categoryPath) => {
+  closeModal = (categoryPath) => {
     this.props.history.push(`/${categoryPath}`)
   }
 
   render() {
-    const { confirmModalOpen } = this.state
+    const { modalOpen, modalMessage } = this.state
     const categoryName = this.props.currentCategory.name
     const categoryPath = this.props.currentCategory.path
     return(
@@ -42,18 +40,17 @@ class AddPost extends Component {
           </div>
         </div>
         <Editor
-          categoryPath={categoryPath}
-          handleAddNewPost={this.openConfirmModal}
+          handleAddNewPost={this.openModal}
           editingMode={Constants.EDITOR_ADD_POST_MODE}/>
         <Modal
           className='modal'
           overlayClassName='overlay'
-          isOpen={confirmModalOpen}
-          onRequestClose={this.closeConfirmModal}
+          isOpen={modalOpen}
+          onRequestClose={this.closeModal}
           contentLabel='Modal'>
-          <div>Post has been added to {capitalize(this.state.newPostCategory)}!</div>
+          <div>Post has been added!</div>
           <div>
-            <button onClick={() => this.closeConfirmModal(categoryPath)}>OK</button>
+            <button onClick={() => this.closeModal(categoryPath)}>OK</button>
           </div>
         </Modal>
       </div>
