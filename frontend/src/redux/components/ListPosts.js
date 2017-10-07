@@ -18,7 +18,7 @@ class ListPosts extends Component {
     sortVotesArrowStyle: Constants.CSS_CLASS_ARROW_DOWN
   }
 
-  filter(postDeleted, postCategory,categoryName) {
+  postFilter(postDeleted, postCategory, categoryName) {
     if(postDeleted) return false
     if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) return true
     return postCategory.toLowerCase() === categoryName.toLowerCase()
@@ -82,7 +82,7 @@ class ListPosts extends Component {
 
   render() {
     const { categoryName, posts} = this.props
-    const filteredPosts = posts.filter(post => this.filter(post.deleted,post.category,categoryName))
+    const filteredPosts = posts.filter(post => this.postFilter(post.deleted,post.category,categoryName))
     const sortedPosts = filteredPosts.sort(this.state.sortMethod)
 
     let numPosts = sortedPosts.length
