@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
-import '../../style/App.css'
-import '../../style/divTable.css'
-import * as BackendAPI from '../../utils/api'
-import { addNewCategory } from '../actions'
-import { convertCategoriesToArray } from '../../utils/helpers'
 import * as Constants from '../../utils/constants'
-import ListPosts from './ListPosts'
+import * as BackendAPI from '../../utils/api'
+import * as Helpers from '../../utils/helpers'
+import * as ReduxStoreActions from '../actions'
 import AddPost from './AddPost'
-import ViewPost from './ViewPost'
 import CategoryBar from './CategoryBar'
 import Edit from './Edit'
+import ListPosts from './ListPosts'
+import ViewPost from './ViewPost'
+import '../../style/App.css'
+import '../../style/divTable.css'
 
 class App extends Component {
 
@@ -19,7 +19,7 @@ class App extends Component {
     BackendAPI.getCategories().then(categories => {
       for(const category of categories) {
         const {name, path} = category
-        this.props.dispatch(addNewCategory(name,path))
+        this.props.dispatch(ReduxStoreActions.addNewCategory(name,path))
       }
     })
   }
@@ -57,7 +57,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (store) => ({
-  categories: convertCategoriesToArray(store.categories)
+  categories: Helpers.convertCategoriesToArray(store.categories)
 })
 
 export default withRouter(connect(mapStateToProps)(App));
