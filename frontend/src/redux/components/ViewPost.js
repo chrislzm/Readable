@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { capitalize } from '../../utils/helpers'
-import ListComments from './ListComments'
-import LeaveComment from './LeaveComment'
-import Viewer from './Viewer'
-import * as Constants from '../../utils/constants'
-import { addNewPost } from '../actions'
 import * as BackendAPI from '../../utils/api'
+import * as Constants from '../../utils/constants'
+import * as Helpers from '../../utils/helpers'
+import * as ReduxStoreActions from '../actions'
+import LeaveComment from './LeaveComment'
+import ListComments from './ListComments'
+import Viewer from './Viewer'
 
 class ViewPost extends Component {
 
@@ -16,7 +16,7 @@ class ViewPost extends Component {
     BackendAPI.getPost(postId).then(post => {
       // Verify this is an existing post--if it is, it will have data
       if(Object.keys(post).length > 0) {
-        this.props.dispatch(addNewPost(post))
+        this.props.dispatch(ReduxStoreActions.addNewPost(post))
       }
     })
   }
@@ -28,7 +28,7 @@ class ViewPost extends Component {
     let post = this.props.posts[postId]
     if(post) {
       post.id = postId
-      post.category = capitalize(post.category)
+      post.category = Helpers.capitalize(post.category)
     }
     return (
       <div>
@@ -38,7 +38,7 @@ class ViewPost extends Component {
               <h2>{post.category}: "{ post.title }"</h2>
               <div className="SectionTitleNav">
                 <button>
-                  <Link to={ `/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
+                  <Link to={ `/${categoryPath}`}>&lt; Back To {Helpers.capitalize(categoryName)}</Link>
                 </button>
               </div>
             </div>
