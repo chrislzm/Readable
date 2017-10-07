@@ -17,7 +17,12 @@ class Edit extends Component {
 
   componentDidMount() {
     const { postId } = this.props.match.params
-    BackendAPI.getPost(postId).then(post => this.props.dispatch(addNewPost(post)))
+    BackendAPI.getPost(postId).then(post => {
+      // Verify this is an existing post--if it is, it will have data
+      if(Object.keys(post).length > 0) {
+        this.props.dispatch(addNewPost(post))
+      }
+    })
   }
 
   openModal = () => {
