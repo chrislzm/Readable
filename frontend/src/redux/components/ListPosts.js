@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as Constants from '../../utils/constants'
 import Moment from 'moment'
-import Actions from './Actions'
-import { addNewPost, setCurrentCategory } from '../actions'
-import * as Helpers from '../../utils/helpers'
 import * as BackendAPI from '../../utils/api'
+import * as Constants from '../../utils/constants'
+import * as Helpers from '../../utils/helpers'
+import * as ReduxStoreActions from '../actions'
+import Actions from './Actions'
 
 class ListPosts extends Component {
 
@@ -26,17 +26,17 @@ class ListPosts extends Component {
 
   componentDidMount() {
     const { categoryName, categoryPath } = this.props
-    this.props.dispatch(setCurrentCategory(categoryName, categoryPath))
+    this.props.dispatch(ReduxStoreActions.setCurrentCategory(categoryName, categoryPath))
     if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) {
       BackendAPI.getAllPosts().then(posts => {
         for(const post of posts) {
-          this.props.dispatch(addNewPost(post))
+          this.props.dispatch(ReduxStoreActions.addNewPost(post))
         }
       })
     } else {
       BackendAPI.getCategoryPosts(categoryName).then(posts => {
         for(const post of posts) {
-          this.props.dispatch(addNewPost(post))
+          this.props.dispatch(ReduxStoreActions.addNewPost(post))
         }
       })
     }
