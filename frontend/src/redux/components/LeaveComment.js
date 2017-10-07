@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Editor from './Editor'
-import * as Constants from '../../utils/constants'
 import Modal from 'react-modal'
+import * as Constants from '../../utils/constants'
+import Editor from './Editor'
 
 class LeaveComment extends Component {
 
