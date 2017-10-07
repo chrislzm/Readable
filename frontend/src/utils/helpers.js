@@ -4,6 +4,7 @@ export function capitalize (str = '') {
     : str[0].toUpperCase() + str.slice(1)
 }
 
+// Used in both App.js and Editor.js
 export function convertCategoriesToArray(categories) {
   const categoryArray = Object.keys(categories).map(key => (
     {path:key,name:categories[key]}
