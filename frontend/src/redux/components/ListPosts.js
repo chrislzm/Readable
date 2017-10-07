@@ -41,11 +41,49 @@ class ListPosts extends Component {
       })
     }
   }
-  
+
+  toggleSort(sortField) {
+    let sortMethod, sortAscending, sortDateArrowStyle, sortVotesArrowStyle
+
+    if(this.state.sortField === sortField) {
+      sortAscending = !this.state.sortAscending
+    } else {
+      sortAscending = this.state.sortAscending
+    }
+
+    if(sortField === Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP) {
+      sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+      if(sortAscending) {
+        sortMethod = Helpers.sortByDateAscending
+        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_UP
+      } else {
+        sortMethod = Helpers.sortByDateDescending
+        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
+      }
+    } else {
+      sortDateArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+      if(sortAscending) {
+        sortMethod = Helpers.sortByVotesAscending
+        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_UP
+      } else {
+        sortMethod = Helpers.sortByVotesDescending
+        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
+      }
+    }
+
+    this.setState({
+      sortMethod,
+      sortAscending,
+      sortField,
+      sortVotesArrowStyle,
+      sortDateArrowStyle
+    })
+  }
+
   render() {
     const { categoryName, posts} = this.props
     const filteredPosts = posts.filter(post => this.filter(post.deleted,post.category,categoryName))
-    const sortedPosts = posts.sort(this.state.sortMethod)
+    const sortedPosts = filteredPosts.sort(this.state.sortMethod)
 
     let numPosts = sortedPosts.length
     return(
@@ -65,11 +103,11 @@ class ListPosts extends Component {
                 <div className="divTableHead">Category</div>
                 <div className="divTableHead">Post Title</div>
                 <div className="divTableHead">Author</div>
-                <div className="divTableHead">
+                <div className="divTableHead" onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP)}>
                   <div className="sortableColumnLabel">Date</div>
                   <div className={this.state.sortDateArrowStyle}></div>
                 </div>
-                <div className="divTableHead">
+                <div className="divTableHead" onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_VOTES)}>
                   <div className="sortableColumnLabel">Votes</div>
                   <div className={this.state.sortVotesArrowStyle}></div>
                 </div>
@@ -96,7 +134,7 @@ class ListPosts extends Component {
             </div>
           </div>
         )}
-        { numPosts == 0 && (
+        { numPosts === 0 && (
           <div className="StatusMessage">Nothing here yet. Be the first—<Link to={`/${Constants.ADD_POST_PATH}`}>Add a new post!</Link></div>
         )}
       </div>
