@@ -14,9 +14,7 @@ class AddPost extends Component {
   }
 
   openModal = (categoryName) => {
-    this.setState(() => ({
-      modalOpen: true,
-    }))
+    this.setState({modalOpen: true})
   }
 
   closeModal = (categoryPath) => {

@@ -21,15 +21,11 @@ class Edit extends Component {
   }
 
   openModal = () => {
-    this.setState(() => ({
-      modalOpen: true
-    }))
+    this.setState({modalOpen: true})
   }
 
   closeModal = () => {
-    this.setState(() => ({
-      modalOpen: false
-    }))
+    this.setState({modalOpen: false})
   }
 
   render() {

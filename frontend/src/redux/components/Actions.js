@@ -12,6 +12,14 @@ class Actions extends Component {
     modalOpen: false
   }
 
+  openModal = () => {
+    this.setState({modalOpen: true})
+  }
+
+  closeModal = () => {
+    this.setState({modalOpen: false})
+  }
+
   vote(delta,mode,postId,commentId) {
     let optionText
 
@@ -55,18 +63,6 @@ class Actions extends Component {
         this.props.dispatch(deletePost(postId))
         BackendAPI.deletePost(postId)
     }
-  }
-
-  openModal = () => {
-    this.setState(() => ({
-      modalOpen: true
-    }))
-  }
-
-  closeModal = () => {
-    this.setState(() => ({
-      modalOpen: false
-    }))
   }
 
   render() {
