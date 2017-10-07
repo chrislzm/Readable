@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { capitalize } from '../../utils/helpers'
-import * as Constants from '../../utils/constants'
-import Editor from './Editor'
-import { withRouter } from 'react-router-dom'
 import Modal from 'react-modal'
+import { connect } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
+import Editor from './Editor'
+import * as Constants from '../../utils/constants'
+import * as Helpers from '../../utils/helpers'
 
 class AddPost extends Component {
 
@@ -33,7 +32,7 @@ class AddPost extends Component {
           </h2>
           <div className="SectionTitleNav">
             <button>
-              <Link to={ `/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
+              <Link to={ `/${categoryPath}`}>&lt; Back To {Helpers.capitalize(categoryName)}</Link>
             </button>
           </div>
         </div>
