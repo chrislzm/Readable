@@ -4,7 +4,7 @@ import { addNewComment } from '../actions'
 import * as BackendAPI from '../../utils/api'
 import Viewer from './Viewer'
 import * as Constants from '../../utils/constants'
-import { sortByDateDescending } from '../../utils/helpers'
+import * as Helpers from '../../utils/helpers'
 
 class ListComments extends Component {
 
@@ -31,7 +31,7 @@ class ListComments extends Component {
         accumulator.push(comment)
         return accumulator
       },[])
-      filteredComments = comments.filter(comment => !comment.deleted).sort(sortByDateDescending)
+      filteredComments = comments.filter(comment => !comment.deleted).sort(Helpers.sortByVotesDescending)
       numComments = filteredComments.length
     }
     return (
