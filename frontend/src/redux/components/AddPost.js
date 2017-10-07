@@ -24,7 +24,7 @@ class AddPost extends Component {
   }
 
   render() {
-    const { modalOpen, modalMessage } = this.state
+    const { modalOpen } = this.state
     const categoryName = this.props.currentCategory.name
     const categoryPath = this.props.currentCategory.path
     return(
