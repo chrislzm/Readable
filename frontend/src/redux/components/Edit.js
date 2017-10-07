@@ -38,12 +38,12 @@ class Edit extends Component {
     const { postId, commentId } = this.props.match.params
     let categoryName = this.props.currentCategory.name
     let categoryPath = this.props.currentCategory.path
+    let pathToViewPost
     if(this.props.posts[postId]) {
       categoryName = this.props.posts[postId].category.toLowerCase()
       categoryPath = this.props.categories[categoryName]
+      pathToViewPost = `/${categoryPath}/${postId}`
     }
-    const pathToViewPost = `/${categoryPath}/${postId}`
-
     let editingMode, titleText
     if(commentId) {
       titleText = "Editing Comment"
@@ -60,9 +60,11 @@ class Edit extends Component {
             {titleText}
           </h2>
           <div className="SectionTitleNav">
+            { pathToViewPost && (
             <button>
               <Link to={pathToViewPost}>&lt; View Post</Link>
             </button>
+          )}
             <button>
               <Link to={`/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
             </button>
