@@ -37,6 +37,16 @@ class Edit extends Component {
     const { modalOpen } = this.state
     const { postId, commentId } = this.props.match.params
 
+    let editingMode, titleText
+
+    if(commentId) {
+      titleText = "Editing Comment"
+      editingMode = Constants.EDITOR_EDIT_COMMENT_MODE
+    } else {
+      titleText = "Editing Post"
+      editingMode = Constants.EDITOR_EDIT_POST_MODE
+    }
+
     let postExists, pathToViewPost, categoryName, categoryPath
 
     if(this.props.posts[postId]) {
@@ -46,18 +56,9 @@ class Edit extends Component {
       categoryPath = this.props.categories[categoryName]
     } else {
       postExists = false
+      // Use default category name and path for linking instead
       categoryName = this.props.currentCategory.name
       categoryPath = this.props.currentCategory.path
-    }
-
-    let editingMode, titleText
-
-    if(commentId) {
-      titleText = "Editing Comment"
-      editingMode = Constants.EDITOR_EDIT_COMMENT_MODE
-    } else {
-      titleText = "Editing Post"
-      editingMode = Constants.EDITOR_EDIT_POST_MODE
     }
 
     return(
