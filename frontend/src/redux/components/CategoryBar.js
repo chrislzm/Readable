@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const CategoryBar = (props) => {
+function CategoryBar(props) {
   const { categories, currentCategory } = props
   return (
     <ul className="CategoryBar">
