@@ -1,6 +1,6 @@
 import React from 'react'
-import Actions from './Actions'
 import * as Constants from '../../utils/constants'
+import Actions from './Actions'
 import Moment from 'moment'
 
 function Viewer (props) {
