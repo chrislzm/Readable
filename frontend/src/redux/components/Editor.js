@@ -17,8 +17,10 @@ class Editor extends Component {
     if(editingMode === Constants.EDITOR_EDIT_COMMENT_MODE) {
       const { commentId } = this.props
       BackendAPI.getComment(commentId).then(comment => {
-          const {parentId,...content} = comment
-          this.props.dispatch(addNewComment(parentId,content))
+          if(Object.keys(comment).length > 0) {
+            const {parentId,...content} = comment
+            this.props.dispatch(addNewComment(parentId,content))
+          }
       })
     }
   }
@@ -98,6 +100,7 @@ class Editor extends Component {
     // These vars hold default values for input fields
     let id, parentId, category, title, body, author, timestamp
     id = parentId = category = title = body = author = timestamp = ''
+    let editDataNotFound = false
     // These vars toggle input fields/button text for different editing modes
     let showAuthor, showCategory, showTimestamp, showTitle, submitButtonText
     switch(editingMode) {
@@ -109,9 +112,12 @@ class Editor extends Component {
           body = postToEdit.body
           author = postToEdit.author
           category = postToEdit.category
+          timestamp = postToEdit.timestamp
           showAuthor = showCategory = showTimestamp = false
           showTitle = true
           submitButtonText = Constants.SUBMIT_EDIT_BUTTON_TEXT
+        } else {
+          editDataNotFound = true
         }
         break
       case Constants.EDITOR_EDIT_COMMENT_MODE:
@@ -124,6 +130,8 @@ class Editor extends Component {
           showTimestamp = true
           showCategory = showTitle = showAuthor = false
           submitButtonText = Constants.SUBMIT_EDIT_BUTTON_TEXT
+        } else {
+          editDataNotFound = true
         }
         break
       case Constants.EDITOR_ADD_COMMENT_MODE:
@@ -142,6 +150,11 @@ class Editor extends Component {
 
     return (
       <div className="PostEditor">
+        { // If timestamp data is empty, then this post/comment has been deleted
+          editDataNotFound && (
+            <div className="StatusMessage">Not found</div>
+          )}
+        { !editDataNotFound && (
         <form onSubmit={this.handleSubmit} className="edit-post-form">
           <div className="edit-post-details">
             <div className="divTable blueTable">
@@ -206,6 +219,7 @@ class Editor extends Component {
             </div>
           </div>
         </form>
+      )}
       </div>
     )
   }
