@@ -6,40 +6,40 @@ import Modal from 'react-modal'
 class LeaveComment extends Component {
 
   state = {
-    confirmModalOpen: false
+    modalOpen: false
   }
 
-  openConfirmModal = () => {
+  openModal = () => {
     this.setState(() => ({
-      confirmModalOpen: true
+      modalOpen: true
     }))
   }
 
-  closeConfirmModal = () => {
+  closeModal = () => {
     this.setState(() => ({
-      confirmModalOpen: false
+      modalOpen: false
     }))
   }
 
   render() {
-    const { confirmModalOpen } = this.state
+    const { modalOpen } = this.state
     const { postId } = this.props
     return (
       <div>
         <h2>Leave a New Comment</h2>
         <Editor
           editingMode={Constants.EDITOR_ADD_COMMENT_MODE}
-          handleEdit={this.openConfirmModal}
+          handleEdit={this.openModal}
           postId={postId}/>
         <Modal
           className='modal'
           overlayClassName='overlay'
-          isOpen={confirmModalOpen}
-          onRequestClose={this.closeConfirmModal}
+          isOpen={modalOpen}
+          onRequestClose={this.closeModal}
           contentLabel='Modal'>
           <div>Comment has been added!</div>
           <div>
-            <button onClick={this.closeConfirmModal}>OK</button>
+            <button onClick={this.closeModal}>OK</button>
           </div>
         </Modal>
       </div>
