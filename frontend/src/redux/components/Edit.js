@@ -15,6 +15,14 @@ class Edit extends Component {
     modalOpen: false
   }
 
+  openModal = () => {
+    this.setState({modalOpen: true})
+  }
+
+  closeModal = () => {
+    this.setState({modalOpen: false})
+  }
+
   componentDidMount() {
     const { postId } = this.props.match.params
     BackendAPI.getPost(postId).then(post => {
@@ -25,26 +33,25 @@ class Edit extends Component {
     })
   }
 
-  openModal = () => {
-    this.setState({modalOpen: true})
-  }
-
-  closeModal = () => {
-    this.setState({modalOpen: false})
-  }
-
   render() {
     const { modalOpen } = this.state
     const { postId, commentId } = this.props.match.params
-    let categoryName = this.props.currentCategory.name
-    let categoryPath = this.props.currentCategory.path
-    let pathToViewPost
+
+    let postExists, pathToViewPost, categoryName, categoryPath
+
     if(this.props.posts[postId]) {
+      postExists = true
+      pathToViewPost = `/${categoryPath}/${postId}`
       categoryName = this.props.posts[postId].category.toLowerCase()
       categoryPath = this.props.categories[categoryName]
-      pathToViewPost = `/${categoryPath}/${postId}`
+    } else {
+      postExists = false
+      categoryName = this.props.currentCategory.name
+      categoryPath = this.props.currentCategory.path
     }
+
     let editingMode, titleText
+
     if(commentId) {
       titleText = "Editing Comment"
       editingMode = Constants.EDITOR_EDIT_COMMENT_MODE
@@ -60,7 +67,7 @@ class Edit extends Component {
             {titleText}
           </h2>
           <div className="SectionTitleNav">
-            { pathToViewPost && (
+            { postExists && (
             <button>
               <Link to={pathToViewPost}>&lt; View Post</Link>
             </button>
@@ -70,6 +77,11 @@ class Edit extends Component {
             </button>
           </div>
         </div>
+        { !postExists && (
+          <div className="StatusMessage">Not found</div>
+        )}
+        { postExists && (
+          <div>
         <Editor
           categoryPath={categoryPath}
           postId={postId}
@@ -87,6 +99,8 @@ class Edit extends Component {
             <button onClick={this.closeModal}>OK</button>
           </div>
         </Modal>
+      </div>
+       )}
       </div>
     )
   }
