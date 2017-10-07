@@ -35,3 +35,17 @@ function sortByDate(a,b,ascending) {
   if(a.timestamp === b.timestamp) return 0
   if((a.timestamp > b.timestamp) ^ ascending) return -1
 }
+
+export function sortByVotesDescending(a,b) {
+  return sortByVotes(a,b,false)
+}
+
+export function sortByVotesAscending(a,b) {
+  return sortByVotes(a,b,true)
+}
+
+function sortByVotes(a,b,ascending) {
+  if((a.voteScore < b.voteScore) ^ ascending) return 1
+  if(a.voteScore === b.voteScore) return 0
+  if((a.voteScore > b.voteScore) ^ ascending) return -1
+}
