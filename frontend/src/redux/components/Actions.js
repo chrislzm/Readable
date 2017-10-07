@@ -9,7 +9,7 @@ import * as Constants from '../../utils/constants'
 class Actions extends Component {
 
   state = {
-    confirmModalOpen: false
+    modalOpen: false
   }
 
   vote(delta,mode,postId,commentId) {
@@ -57,20 +57,20 @@ class Actions extends Component {
     }
   }
 
-  openConfirmModal = () => {
+  openModal = () => {
     this.setState(() => ({
-      confirmModalOpen: true
+      modalOpen: true
     }))
   }
 
-  closeConfirmModal = () => {
+  closeModal = () => {
     this.setState(() => ({
-      confirmModalOpen: false
+      modalOpen: false
     }))
   }
 
   render() {
-    const { confirmModalOpen } = this.state
+    const { modalOpen } = this.state
     const { postId, commentId, title, mode, deleteHandler } = this.props
     let modalMessage
     switch(mode) {
@@ -88,18 +88,18 @@ class Actions extends Component {
           <button onClick={() => this.vote(1,mode, postId,commentId)}>Upvote</button>
           <button onClick={() => this.vote(-1,mode, postId,commentId)}>Downvote</button>
           <button onClick={() => this.edit(postId,mode,commentId)}>Edit</button>
-          <button onClick={this.openConfirmModal}>Delete</button>
+          <button onClick={this.openModal}>Delete</button>
         </div>
         <Modal
           className='modal'
           overlayClassName='overlay'
-          isOpen={confirmModalOpen}
-          onRequestClose={this.closeConfirmModal}
+          isOpen={modalOpen}
+          onRequestClose={this.closeModal}
           contentLabel='Modal'>
           <div>{modalMessage}</div>
           <div>
             <button onClick={() => this.delete(postId,mode,commentId,deleteHandler)}>Delete</button>
-            <button onClick={this.closeConfirmModal}>Cancel</button>
+            <button onClick={this.closeModal}>Cancel</button>
           </div>
         </Modal>
       </div>
