@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { capitalize } from '../../utils/helpers'
-import * as Constants from '../../utils/constants'
-import Editor from './Editor'
-import { withRouter } from 'react-router-dom'
 import Modal from 'react-modal'
+import { connect } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
 import * as BackendAPI from '../../utils/api'
-import { addNewPost } from '../actions'
+import * as Constants from '../../utils/constants'
+import * as Helpers from '../../utils/helpers'
+import * as ReduxStoreActions from '../actions'
+import Editor from './Editor'
 
 class Edit extends Component {
 
@@ -28,7 +27,7 @@ class Edit extends Component {
     BackendAPI.getPost(postId).then(post => {
       // Verify this is an existing post--if it is, it will have data
       if(Object.keys(post).length > 0) {
-        this.props.dispatch(addNewPost(post))
+        this.props.dispatch(ReduxStoreActions.addNewPost(post))
       }
     })
   }
@@ -74,7 +73,7 @@ class Edit extends Component {
             </button>
           )}
             <button>
-              <Link to={`/${categoryPath}`}>&lt; Back To {capitalize(categoryName)}</Link>
+              <Link to={`/${categoryPath}`}>&lt; Back To {Helpers.capitalize(categoryName)}</Link>
             </button>
           </div>
         </div>
