@@ -12,7 +12,7 @@ import { addNewPost } from '../actions'
 class Edit extends Component {
 
   state = {
-    confirmModalOpen: false
+    modalOpen: false
   }
 
   componentDidMount() {
@@ -20,20 +20,20 @@ class Edit extends Component {
     BackendAPI.getPost(postId).then(post => this.props.dispatch(addNewPost(post)))
   }
 
-  openConfirmModal = () => {
+  openModal = () => {
     this.setState(() => ({
-      confirmModalOpen: true
+      modalOpen: true
     }))
   }
 
-  closeConfirmModal = () => {
+  closeModal = () => {
     this.setState(() => ({
-      confirmModalOpen: false
+      modalOpen: false
     }))
   }
 
   render() {
-    const { confirmModalOpen } = this.state
+    const { modalOpen } = this.state
     const { postId, commentId } = this.props.match.params
     let categoryName = this.props.currentCategory.name
     let categoryPath = this.props.currentCategory.path
@@ -71,17 +71,17 @@ class Edit extends Component {
           categoryPath={categoryPath}
           postId={postId}
           commentId={commentId}
-          handleEdit={this.openConfirmModal}
+          handleEdit={this.openModal}
           editingMode={editingMode}/>
         <Modal
           className='modal'
           overlayClassName='overlay'
-          isOpen={confirmModalOpen}
-          onRequestClose={this.closeConfirmModal}
+          isOpen={modalOpen}
+          onRequestClose={this.closeModal}
           contentLabel='Modal'>
           <div>Changes have been saved!</div>
           <div>
-            <button onClick={this.closeConfirmModal}>OK</button>
+            <button onClick={this.closeModal}>OK</button>
           </div>
         </Modal>
       </div>
