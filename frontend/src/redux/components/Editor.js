@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { capitalize } from '../../utils/helpers'
-import { addNewComment } from '../actions'
-import serializeForm from 'form-serialize'
-import * as BackendAPI from '../../utils/api'
-import { guid, convertCategoriesToArray } from '../../utils/helpers'
-import * as Actions from '../actions'
-import * as Constants from '../../utils/constants'
 import { withRouter } from 'react-router-dom'
 import Moment from 'moment'
+import serializeForm from 'form-serialize'
+import * as BackendAPI from '../../utils/api'
+import * as Constants from '../../utils/constants'
+import * as Helpers from '../../utils/helpers'
+import * as ReduxStoreActions from '../actions'
 
 class Editor extends Component {
 
@@ -19,7 +17,7 @@ class Editor extends Component {
       BackendAPI.getComment(commentId).then(comment => {
           if(Object.keys(comment).length > 0) {
             const {parentId,...content} = comment
-            this.props.dispatch(addNewComment(parentId,content))
+            this.props.dispatch(ReduxStoreActions.addNewComment(parentId,content))
           }
       })
     }
@@ -36,7 +34,7 @@ class Editor extends Component {
           body
         }
         BackendAPI.editPost(id,editedPost)
-        this.props.dispatch(Actions.editPost(id,title,body))
+        this.props.dispatch(ReduxStoreActions.editPost(id,title,body))
         this.props.handleEdit()
         break
       case Constants.EDITOR_EDIT_COMMENT_MODE:
@@ -50,7 +48,7 @@ class Editor extends Component {
             body
           }
           BackendAPI.editComment(id,editedComment)
-          this.props.dispatch(Actions.editComment(id,parentId,body,timestamp))
+          this.props.dispatch(ReduxStoreActions.editComment(id,parentId,body,timestamp))
           this.props.handleEdit()
         }
         break
@@ -61,14 +59,14 @@ class Editor extends Component {
           alert("Error: Author cannot be blank")
         } else {
           const newComment = {
-            id: guid(),
+            id: Helpers.guid(),
             timestamp: Date.now(),
             body: post.body,
             author: post.author,
             parentId
           }
           BackendAPI.addNewComment(newComment)
-          this.props.dispatch(Actions.addNewComment(parentId,newComment))
+          this.props.dispatch(ReduxStoreActions.addNewComment(parentId,newComment))
           this.author.value = ''
           this.body.value = ''
           this.props.handleEdit()
@@ -84,12 +82,12 @@ class Editor extends Component {
         } else if (!post.author) {
           alert("Error: Author cannot be blank")
         } else {
-          post.id = guid()
+          post.id = Helpers.guid()
           post.timestamp = Date.now()
           post.voteScore = Constants.DEFAULT_VOTES
           post.deleted = Constants.DEFAULT_DELETED_FLAG
           BackendAPI.addNewPost(post)
-          this.props.dispatch(Actions.addNewPost(post))
+          this.props.dispatch(ReduxStoreActions.addNewPost(post))
           this.props.handleAddNewPost(post.category)
         }
     }
@@ -170,7 +168,7 @@ class Editor extends Component {
                         <option
                           value={category.name}
                           key={category.path}>
-                          {capitalize(category.name)}
+                          {Helpers.capitalize(category.name)}
                         </option>
                       ))}
                     </select>
@@ -226,7 +224,7 @@ class Editor extends Component {
 }
 
 const mapStateToProps = (store) => ({
-  categories: convertCategoriesToArray(store.categories),
+  categories: Helpers.convertCategoriesToArray(store.categories),
   posts:store.posts,
   currentCategory: store.currentCategory,
   comments:store.comments
