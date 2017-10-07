@@ -6,6 +6,7 @@
   margin-left:10px;
 	position: relative;
 	top: -5px;
+  cursor: pointer; cursor: hand;
 }
 .arrow-up:after, .arrow-down:after, .arrow-none:after {
 	content: '';
@@ -15,6 +16,7 @@
 	width: 0;
 	height: 0;
 	border: 7px solid transparent;
+  cursor: pointer; cursor: hand;
 }
 
 .arrow-up {
@@ -35,6 +37,7 @@
 
 .sortableColumnLabel {
   float:left;
+  cursor: pointer; cursor: hand;
 }
 
 div.blueTable {
