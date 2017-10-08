@@ -9,8 +9,7 @@
   display the correct page (component) to the user based on the current URL.
 
   Props:
-    Redux Store State (mapped to props)
-
+    Redux Store State: Mapped to props
 */
 
 import React, { Component } from 'react'
