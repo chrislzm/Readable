@@ -1,59 +1,27 @@
-const api = "http://localhost:3001"
+const apiServerURL = "http://localhost:3001"
 
 const headers = {
   'Content-Type': 'application/json',
   'Authorization': 'whatever-you-want'
 }
 
-export const deleteComment = (id) => {
-  fetch(`${api}/comments/${id}`, {
-    method: 'DELETE',
-    headers
-   })
-  .then(res => res.json())
-}
-
-export const deletePost = (id) => {
-  fetch(`${api}/posts/${id}`, {
-    method: 'DELETE',
-    headers
-   })
-  .then(res => res.json())
-}
+/* Category Methods */
 
 export const getCategories = () => (
-  fetch(`${api}/categories`, { headers })
+  fetch(`${apiServerURL}/categories`, { headers })
   .then(res => res.json())
   .then(data => data.categories)
 )
 
-export const getAllPosts = () => (
-  fetch(`${api}/posts`, { headers })
-  .then(res => res.json())
-)
-
 export const getCategoryPosts = (category) => (
-  fetch(`${api}/${category}/posts`, { headers })
+  fetch(`${apiServerURL}/${category}/posts`, { headers })
   .then(res => res.json())
 )
 
-export const getPost = (id) => (
-  fetch(`${api}/posts/${id}`, { headers })
-  .then(res => res.json())
-)
-
-export const getAllComments = (postId) => (
-  fetch(`${api}/posts/${postId}/comments`, { headers })
-  .then(res => res.json())
-)
-
-export const getComment = (commentId) => (
-  fetch(`${api}/comments/${commentId}`, { headers })
-  .then(res => res.json())
-)
+/* Comment Methods */
 
 export const addNewComment = (body) => {
-  fetch(`${api}/comments`, {
+  fetch(`${apiServerURL}/comments`, {
     method: 'POST',
     headers,
     body:JSON.stringify(body)
@@ -61,17 +29,16 @@ export const addNewComment = (body) => {
   .then(res => res.json())
 }
 
-export const addNewPost = (body) => {
-  fetch(`${api}/posts`, {
-    method: 'POST',
-    headers,
-    body:JSON.stringify(body)
+export const deleteComment = (id) => {
+  fetch(`${apiServerURL}/comments/${id}`, {
+    method: 'DELETE',
+    headers
    })
   .then(res => res.json())
 }
 
 export const editComment = (id,body) => {
-  fetch(`${api}/comments/${id}`, {
+  fetch(`${apiServerURL}/comments/${id}`, {
     method: 'PUT',
     headers,
     body:JSON.stringify(body)
@@ -79,17 +46,18 @@ export const editComment = (id,body) => {
   .then(res => res.json())
 }
 
-export const editPost = (id,body) => {
-  fetch(`${api}/posts/${id}`, {
-    method: 'PUT',
-    headers,
-    body:JSON.stringify(body)
-   })
+export const getAllComments = (postId) => (
+  fetch(`${apiServerURL}/posts/${postId}/comments`, { headers })
   .then(res => res.json())
-}
+)
+
+export const getComment = (commentId) => (
+  fetch(`${apiServerURL}/comments/${commentId}`, { headers })
+  .then(res => res.json())
+)
 
 export const voteOnComment = (id,body) => {
-  fetch(`${api}/comments/${id}`, {
+  fetch(`${apiServerURL}/comments/${id}`, {
     method: 'POST',
     headers,
     body:JSON.stringify(body)
@@ -97,8 +65,45 @@ export const voteOnComment = (id,body) => {
   .then(res => res.json())
 }
 
+/* Post Methods */
+
+export const addNewPost = (body) => {
+  fetch(`${apiServerURL}/posts`, {
+    method: 'POST',
+    headers,
+    body:JSON.stringify(body)
+   })
+  .then(res => res.json())
+}
+
+export const deletePost = (id) => {
+  fetch(`${apiServerURL}/posts/${id}`, {
+    method: 'DELETE',
+    headers
+   })
+  .then(res => res.json())
+}
+
+export const editPost = (id,body) => {
+  fetch(`${apiServerURL}/posts/${id}`, {
+    method: 'PUT',
+    headers,
+    body:JSON.stringify(body)
+   })
+  .then(res => res.json())
+}
+
+export const getAllPosts = () => (
+  fetch(`${apiServerURL}/posts`, { headers })
+  .then(res => res.json())
+)
+export const getPost = (id) => (
+  fetch(`${apiServerURL}/posts/${id}`, { headers })
+  .then(res => res.json())
+)
+
 export const voteOnPost = (id,body) => {
-  fetch(`${api}/posts/${id}`, {
+  fetch(`${apiServerURL}/posts/${id}`, {
     method: 'POST',
     headers,
     body:JSON.stringify(body)
