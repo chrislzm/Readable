@@ -50,9 +50,9 @@ class Edit extends Component {
 
     if(this.props.posts[postId]) {
       postExists = true
-      pathToViewPost = `/${categoryPath}/${postId}`
       categoryName = this.props.posts[postId].category.toLowerCase()
       categoryPath = this.props.categories[categoryName]
+      pathToViewPost = `/${categoryPath}/${postId}`
     } else {
       postExists = false
       // Use default category name and path for linking instead
