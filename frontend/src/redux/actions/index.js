@@ -3,10 +3,12 @@
   By Chris Leung
 
   Description:
+  
   Contains all Redux Store actions and action type constants used in Readable.
   Actions and parameters are self-explanatory, with exception of post and
   comment content. For a description of the structure of these two objects,
   please see README.md
+
 */
 
 export const ADD_NEW_POST = 'ADD_NEW_POST'
