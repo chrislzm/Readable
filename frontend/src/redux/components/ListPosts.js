@@ -14,8 +14,8 @@ class ListPosts extends Component {
     sortMethod: Helpers.sortByVotesDescending,
     sortAscending: false,
     sortField: Constants.LIST_POSTS_SORT_FIELD_VOTES,
-    sortDateArrowStyle: Constants.CSS_CLASS_ARROW_NONE,
-    sortVotesArrowStyle: Constants.CSS_CLASS_ARROW_DOWN
+    sortDateArrowStyle: Constants.CSS_ARROW_NONE,
+    sortVotesArrowStyle: Constants.CSS_ARROW_DOWN
   }
 
   postFilter(postDeleted, postCategory, categoryName) {
@@ -52,22 +52,22 @@ class ListPosts extends Component {
     }
 
     if(sortField === Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP) {
-      sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+      sortVotesArrowStyle = Constants.CSS_ARROW_NONE
       if(sortAscending) {
         sortMethod = Helpers.sortByDateAscending
-        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_UP
+        sortDateArrowStyle = Constants.CSS_ARROW_UP
       } else {
         sortMethod = Helpers.sortByDateDescending
-        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
+        sortDateArrowStyle = Constants.CSS_ARROW_DOWN
       }
     } else {
-      sortDateArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+      sortDateArrowStyle = Constants.CSS_ARROW_NONE
       if(sortAscending) {
         sortMethod = Helpers.sortByVotesAscending
-        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_UP
+        sortVotesArrowStyle = Constants.CSS_ARROW_UP
       } else {
         sortMethod = Helpers.sortByVotesDescending
-        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
+        sortVotesArrowStyle = Constants.CSS_ARROW_DOWN
       }
     }
 
@@ -92,7 +92,7 @@ class ListPosts extends Component {
           <h2>{Helpers.capitalize(categoryName)} ({numPosts})</h2>
           <div className="SectionTitleNav">
             <button>
-              <Link to={`/${Constants.ADD_POST_PATH}`}>+ Add New Post</Link>
+              <Link to={`/${Constants.URL_PATH_ADD_POST}`}>+ Add New Post</Link>
             </button>
           </div>
         </div>
@@ -120,7 +120,7 @@ class ListPosts extends Component {
                   <div className="divTableCell">{Helpers.capitalize(post.category)}</div>
                   <div className="divTableCell"><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></div>
                   <div className="divTableCell">{post.author}</div>
-                  <div className="divTableCell">{Moment(post.timestamp, "x").format(Constants.DISPLAY_DATE_FORMAT)}</div>
+                  <div className="divTableCell">{Moment(post.timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</div>
                   <div className="divTableCell">{post.voteScore}</div>
                   <div className="divTableCell">
                     <Actions
@@ -135,7 +135,7 @@ class ListPosts extends Component {
           </div>
         )}
         { numPosts === 0 && (
-          <div className="StatusMessage">Nothing here yet. Be the first—<Link to={`/${Constants.ADD_POST_PATH}`}>Add a new post!</Link></div>
+          <div className="StatusMessage">Nothing here yet. Be the first—<Link to={`/${Constants.URL_PATH_ADD_POST}`}>Add a new post!</Link></div>
         )}
       </div>
     )

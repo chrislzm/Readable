@@ -44,11 +44,11 @@ class Actions extends Component {
   edit(postId,mode,commentId) {
     switch(mode) {
       case Constants.ACTIONS_MODE_COMMENT:
-        this.props.history.push(`/${Constants.EDIT_PATH}/${postId}/${commentId}`)
+        this.props.history.push(`/${Constants.URL_PATH_EDIT}/${postId}/${commentId}`)
         break
       default:
       case Constants.ACTIONS_MODE_POST:
-        this.props.history.push(`/${Constants.EDIT_PATH}/${postId}`)
+        this.props.history.push(`/${Constants.URL_PATH_EDIT}/${postId}`)
     }
   }
 

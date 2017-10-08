@@ -25,7 +25,7 @@ function Viewer (props) {
         </div>
         <div className="divTableRow">
           <div className="divTableLabel">Date</div>
-          <div className="divTableCell">{Moment(timestamp, "x").format(Constants.DISPLAY_DATE_FORMAT)}</div>
+          <div className="divTableCell">{Moment(timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</div>
         </div>
         <div className="divTableRow">
           <div className="divTableLabel">Votes</div>

@@ -2,14 +2,14 @@ export const DEFAULT_CATEGORY_PATH = ''
 export const DEFAULT_CATEGORY_NAME = 'All Posts'
 export const DEFAULT_VOTES = 1 // Default # votes for posts and comments
 export const DEFAULT_DELETED_FLAG = false
-export const DISPLAY_DATE_FORMAT = "MM-DD-YYYY hh:mm A"
-export const EDITOR_DATE_FORMAT = "MM-DD-YYYY hh:mm:ss.SSS A"
+export const DATE_FORMAT_DISPLAY = "MM-DD-YYYY hh:mm A"
+export const DATE_FORMAT_EDITOR = "MM-DD-YYYY hh:mm:ss.SSS A"
 export const SITE_TITLE = "My React+Redux Powered Forum"
-export const ADD_POST_PATH = "addPost"
-export const EDIT_PATH = "edit"
-export const SUBMIT_NEW_POST_BUTTON_TEXT = "Add Post"
-export const SUBMIT_EDIT_BUTTON_TEXT = "Save Changes"
-export const SUBMIT_NEW_COMMENT_BUTTON_TEXT = "Add Comment"
+export const URL_PATH_ADD_POST = "addPost"
+export const URL_PATH_EDIT = "edit"
+export const SUBMIT_BUTTON_TEXT_NEW_POST = "Add Post"
+export const SUBMIT_BUTTON_TEXT_EDIT = "Save Changes"
+export const SUBMIT_BUTTON_TEXT_NEW_COMMENT = "Add Comment"
 
 // Edit modes for PostEditor component
 export const EDITOR_MODE_ADD_POST = "EDITOR_MODE_ADD_POST"
@@ -26,6 +26,6 @@ export const LIST_POSTS_SORT_FIELD_TIMESTAMP = "LIST_POSTS_SORT_FIELD_TIMESTAMP"
 export const LIST_POSTS_SORT_FIELD_VOTES = "LIST_POSTS_SORT_FIELD_VOTES"
 
 // CSS constants for sorting direction arrows
-export const CSS_CLASS_ARROW_UP = "arrow-up"
-export const CSS_CLASS_ARROW_DOWN = "arrow-down"
-export const CSS_CLASS_ARROW_NONE = "arrow-none"
+export const CSS_ARROW_UP = "arrow-up"
+export const CSS_ARROW_DOWN = "arrow-down"
+export const CSS_ARROW_NONE = "arrow-none"
