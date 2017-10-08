@@ -15,9 +15,11 @@
   Props:
     mode: <String Constant> Value must be ACTIONS_MODE_COMMENT if being used
       with a comment, or ACTIONS_MODE_POST if being used with a post.
-    postId: <String> Required in both post and comment mode.
+    postId: <String>  Required. Contains the id of the parent post when we are
+      in comment mode.
     commentId: <String> Required in comment mode only.
     title: <String> Required in post mode only. Contains the post title.
+
 */
 
 import React, { Component } from 'react'
