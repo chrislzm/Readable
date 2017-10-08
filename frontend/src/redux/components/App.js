@@ -1,3 +1,18 @@
+/*
+  Readable: App.js
+  By Chris Leung
+
+  Description:
+
+  React component that controls the UI of the application. Shows the site title
+  and a navigation bar at the top of every page. Uses React Router to
+  display the correct page (component) to the user based on the current URL.
+
+  Props:
+    Redux Store State (mapped to props)
+
+*/
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
@@ -25,9 +40,9 @@ class App extends Component {
   }
 
   render() {
-    // Setup categories with default category that shows all posts
+    // Add default category to array of categories that shows all posts
     let categories = [{path:Constants.DEFAULT_CATEGORY_PATH,name:Constants.DEFAULT_CATEGORY_NAME}]
-    // If categories have been loaded from store
+    // If categories have been loaded from Redux Store, add them
     if(this.props.categories) {
       categories = [...categories,...this.props.categories]
     }
@@ -39,18 +54,32 @@ class App extends Component {
         </div>
         <CategoryBar categories={categories}/>
         { categories.map(category => (
-          <Route exact path={`/${category.path}`} key={category.path} render={() =>(
-            <ListPosts
-              categoryName={category.name}
-              categoryPath={category.path}
-            />
-          )}/>
+          <Route
+            exact path={`/${category.path}`}
+            key={category.path}
+            render={() =>(
+              <ListPosts
+                categoryName={category.name}
+                categoryPath={category.path}
+              />
+            )}
+          />
         ))}
         { categories.map(category => (
-          <Route exact path={`/${category.path}/:postId`} key={category.path} component={ViewPost}/>
+          <Route
+            exact path={`/${category.path}/:postId`}
+            key={category.path}
+            component={ViewPost}
+          />
         ))}
-        <Route exact path={`/${Constants.PATH_ADD_POST}`} component={AddPost}/>
-        <Route exact path={`/${Constants.PATH_EDIT}/:postId/:commentId?`} component={Edit}/>
+        <Route
+          exact path={`/${Constants.PATH_ADD_POST}`}
+          component={AddPost}
+        />
+        <Route
+          exact path={`/${Constants.PATH_EDIT}/:postId/:commentId?`}
+          component={Edit}
+        />
       </div>
     );
   }
