@@ -15,13 +15,13 @@ import {
 } from '../actions'
 
 function categories(state = {}, action) {
-  const { categoryName, categoryPath } = action
+  const { name, path } = action
 
   switch(action.type) {
     case ADD_NEW_CATEGORY:
       return {
         ...state,
-        [categoryName]: categoryPath
+        [name]: path
       }
     default:
       return state

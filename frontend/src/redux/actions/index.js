@@ -29,11 +29,11 @@ export function addNewPost(post) {
   }
 }
 
-export function addNewCategory(categoryName, categoryPath) {
+export function addNewCategory(name, path) {
   return {
     type: ADD_NEW_CATEGORY,
-    categoryName,
-    categoryPath
+    name,
+    path
   }
 }
 
