@@ -38,7 +38,7 @@ class AddPost extends Component {
         </div>
         <Editor
           handleAddNewPost={this.openModal}
-          editingMode={Constants.EDITOR_ADD_POST_MODE}/>
+          editingMode={Constants.EDITOR_MODE_ADD_POST}/>
         <Modal
           className='modal'
           overlayClassName='overlay'

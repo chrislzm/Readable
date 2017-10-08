@@ -40,10 +40,10 @@ class Edit extends Component {
 
     if(commentId) {
       titleText = "Editing Comment"
-      editingMode = Constants.EDITOR_EDIT_COMMENT_MODE
+      editingMode = Constants.EDITOR_MODE_EDIT_COMMENT
     } else {
       titleText = "Editing Post"
-      editingMode = Constants.EDITOR_EDIT_POST_MODE
+      editingMode = Constants.EDITOR_MODE_EDIT_POST
     }
 
     let postExists, pathToViewPost, categoryName, categoryPath

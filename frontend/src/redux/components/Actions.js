@@ -30,12 +30,12 @@ class Actions extends Component {
     }
 
     switch(mode) {
-      case Constants.ACTIONS_COMMENT_MODE:
+      case Constants.ACTIONS_MODE_COMMENT:
         BackendAPI.voteOnComment(commentId,{option:optionText})
         this.props.dispatch(ReduxStoreActions.voteOnComment(commentId,postId,delta))
         break
       default:
-      case Constants.ACTIONS_POST_MODE:
+      case Constants.ACTIONS_MODE_POST:
         BackendAPI.voteOnPost(postId,{option:optionText})
         this.props.dispatch(ReduxStoreActions.voteOnPost(postId,delta))
     }
@@ -43,23 +43,23 @@ class Actions extends Component {
 
   edit(postId,mode,commentId) {
     switch(mode) {
-      case Constants.ACTIONS_COMMENT_MODE:
+      case Constants.ACTIONS_MODE_COMMENT:
         this.props.history.push(`/${Constants.EDIT_PATH}/${postId}/${commentId}`)
         break
       default:
-      case Constants.ACTIONS_POST_MODE:
+      case Constants.ACTIONS_MODE_POST:
         this.props.history.push(`/${Constants.EDIT_PATH}/${postId}`)
     }
   }
 
   delete(postId,mode,commentId,deleteHandler) {
     switch(mode) {
-      case Constants.ACTIONS_COMMENT_MODE:
+      case Constants.ACTIONS_MODE_COMMENT:
         this.props.dispatch(ReduxStoreActions.deleteComment(commentId,postId))
         BackendAPI.deleteComment(commentId)
         break
       default:
-      case Constants.ACTIONS_POST_MODE:
+      case Constants.ACTIONS_MODE_POST:
         this.props.dispatch(ReduxStoreActions.deletePost(postId))
         BackendAPI.deletePost(postId)
     }
@@ -70,11 +70,11 @@ class Actions extends Component {
     const { postId, commentId, title, mode, deleteHandler } = this.props
     let modalMessage
     switch(mode) {
-      case Constants.ACTIONS_COMMENT_MODE:
+      case Constants.ACTIONS_MODE_COMMENT:
         modalMessage = "Really delete this comment?"
         break
       default:
-      case Constants.ACTIONS_POST_MODE:
+      case Constants.ACTIONS_MODE_POST:
         modalMessage = `Really delete "${title}"?`
         break
       }

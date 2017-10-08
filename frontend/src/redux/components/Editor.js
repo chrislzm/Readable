@@ -12,7 +12,7 @@ class Editor extends Component {
 
   componentDidMount() {
     const { editingMode} = this.props
-    if(editingMode === Constants.EDITOR_EDIT_COMMENT_MODE) {
+    if(editingMode === Constants.EDITOR_MODE_EDIT_COMMENT) {
       const { commentId } = this.props
       BackendAPI.getComment(commentId).then(comment => {
           if(Object.keys(comment).length > 0) {
@@ -28,7 +28,7 @@ class Editor extends Component {
     const post = serializeForm(e.target, { hash: true })
     let {id, parentId, title, body, timestamp } = post
     switch(post.editingMode) {
-      case Constants.EDITOR_EDIT_POST_MODE:
+      case Constants.EDITOR_MODE_EDIT_POST:
         const editedPost = {
           title,
           body
@@ -37,7 +37,7 @@ class Editor extends Component {
         this.props.dispatch(ReduxStoreActions.editPost(id,title,body))
         this.props.handleEdit()
         break
-      case Constants.EDITOR_EDIT_COMMENT_MODE:
+      case Constants.EDITOR_MODE_EDIT_COMMENT:
         const newTimeStamp = Moment(timestamp,Constants.EDITOR_DATE_FORMAT)
         if(!newTimeStamp.isValid()) {
           alert("Time Stamp must be in a valid date format: MM-DD-YYYY hh:mm:SS.SSS AM/PM")
@@ -52,7 +52,7 @@ class Editor extends Component {
           this.props.handleEdit()
         }
         break
-      case Constants.EDITOR_ADD_COMMENT_MODE:
+      case Constants.EDITOR_MODE_ADD_COMMENT:
         if (!post.body) {
           alert("Error: Body cannot be blank")
         } else if (!post.author) {
@@ -72,7 +72,7 @@ class Editor extends Component {
           this.props.handleEdit()
         }
         break
-      case Constants.EDITOR_ADD_POST_MODE:
+      case Constants.EDITOR_MODE_ADD_POST:
       // fall through
       default:
         if(!post.title) {
@@ -102,7 +102,7 @@ class Editor extends Component {
     // These vars toggle input fields/button text for different editing modes
     let showAuthor, showCategory, showTimestamp, showTitle, submitButtonText
     switch(editingMode) {
-      case Constants.EDITOR_EDIT_POST_MODE:
+      case Constants.EDITOR_MODE_EDIT_POST:
         const postToEdit = this.props.posts[postId]
         if(postToEdit) {
           id = postId
@@ -118,7 +118,7 @@ class Editor extends Component {
           editDataNotFound = true
         }
         break
-      case Constants.EDITOR_EDIT_COMMENT_MODE:
+      case Constants.EDITOR_MODE_EDIT_COMMENT:
         if(this.props.comments[postId] && this.props.comments[postId][commentId]) {
           const commentToEdit = this.props.comments[postId][commentId]
           id = commentId
@@ -132,13 +132,13 @@ class Editor extends Component {
           editDataNotFound = true
         }
         break
-      case Constants.EDITOR_ADD_COMMENT_MODE:
+      case Constants.EDITOR_MODE_ADD_COMMENT:
         parentId = postId
         showAuthor = true
         showCategory = showTitle = showTimestamp = false
         submitButtonText = Constants.SUBMIT_NEW_COMMENT_BUTTON_TEXT
         break
-      case Constants.EDITOR_ADD_POST_MODE:
+      case Constants.EDITOR_MODE_ADD_POST:
       default:
         category = this.props.currentCategory.name
         showAuthor = showCategory = showTitle = true

@@ -8,7 +8,7 @@ function Viewer (props) {
   let { id, parentId } = props.content
   const { mode } = props
   let commentId
-  if(mode === Constants.ACTIONS_COMMENT_MODE) {
+  if(mode === Constants.ACTIONS_MODE_COMMENT) {
     commentId = id
     id = parentId
   }

@@ -41,7 +41,7 @@ class ListComments extends Component {
           <Viewer
             content={comment}
             key={comment.id}
-            mode={Constants.ACTIONS_COMMENT_MODE}/>
+            mode={Constants.ACTIONS_MODE_COMMENT}/>
           ))}
         { numComments === 0 && (
             <div className="StatusMessage">This post has no comments yet</div>

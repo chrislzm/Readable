@@ -24,7 +24,7 @@ class LeaveComment extends Component {
       <div>
         <h2>Leave a New Comment</h2>
         <Editor
-          editingMode={Constants.EDITOR_ADD_COMMENT_MODE}
+          editingMode={Constants.EDITOR_MODE_ADD_COMMENT}
           handleEdit={this.openModal}
           postId={postId}/>
         <Modal
