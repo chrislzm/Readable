@@ -1,3 +1,22 @@
+/*
+  Readable: components/AddPost.js
+  By Chris Leung
+
+  Description:
+
+  React component that allows the user to add a post. It utilizes the Editor.js
+  component, which entirely handles the form display, input, validation, and
+  submission of form data to the local Redux store and backend API server.
+
+  Contains one modal window that displays a confirmation message after the post
+  has been successfully added.
+
+  The URL path to this component is set in constants.js "PATH_ADD_POST".
+
+  Props:
+    Redux Store State (mapped to props)
+*/
+
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
