@@ -10,6 +10,8 @@ import * as ReduxStoreActions from '../actions'
 
 class Editor extends Component {
 
+  // If we are in comment editing mode then load the comment from the API server
+  // and save it to the Redux Store
   componentDidMount() {
     const { editingMode} = this.props
     if(editingMode === Constants.EDITOR_MODE_EDIT_COMMENT) {
@@ -33,18 +35,28 @@ class Editor extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const post = serializeForm(e.target, { hash: true })
-    let {id, parentId, title, body, timestamp } = post
+    let {id, parentId, title, body, author, timestamp } = post
+
+    // Every mode requires a body
+    if (!body) {
+      alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_BODY)
+      return
+    }
 
     switch(post.editingMode) {
       // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST:
-        const editedPost = {
-          title,
-          body
+        if(!title) {
+          alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
+        } else {
+          const editedPost = {
+            title,
+            body
+          }
+          BackendAPI.editPost(id,editedPost)
+          this.props.dispatch(ReduxStoreActions.editPost(id,title,body))
+          this.props.handleEdit()
         }
-        BackendAPI.editPost(id,editedPost)
-        this.props.dispatch(ReduxStoreActions.editPost(id,title,body))
-        this.props.handleEdit()
         break
       // Mode: Editing an existing comment
       case Constants.EDITOR_MODE_EDIT_COMMENT:
@@ -65,16 +77,14 @@ class Editor extends Component {
         break
       // Mode: Adding a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
-        if (!post.body) {
-          alert("Error: Body cannot be blank")
-        } else if (!post.author) {
-          alert("Error: Author cannot be blank")
+        if (!author) {
+          alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
           const newComment = {
             id: Helpers.guid(),
             timestamp: Date.now(),
-            body: post.body,
-            author: post.author,
+            body,
+            author,
             parentId
           }
           BackendAPI.addNewComment(newComment)
@@ -88,12 +98,10 @@ class Editor extends Component {
       case Constants.EDITOR_MODE_ADD_POST:
       // fall through
       default:
-        if(!post.title) {
-          alert("Error: Title cannot be blank")
-        } else if (!post.body) {
-          alert("Error: Body cannot be blank")
-        } else if (!post.author) {
-          alert("Error: Author cannot be blank")
+        if(!title) {
+          alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
+        } else if (!author) {
+          alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
           post.id = Helpers.guid()
           post.timestamp = Date.now()
