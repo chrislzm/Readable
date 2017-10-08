@@ -20,14 +20,14 @@ class ListPosts extends Component {
 
   postFilter(postDeleted, postCategory, categoryName) {
     if(postDeleted) return false
-    if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) return true
+    if(categoryName === Constants.DEFAULT_CATEGORY_NAME) return true
     return postCategory.toLowerCase() === categoryName.toLowerCase()
   }
 
   componentDidMount() {
     const { categoryName, categoryPath } = this.props
     this.props.dispatch(ReduxStoreActions.setCurrentCategory(categoryName, categoryPath))
-    if(categoryName === Constants.ALL_POSTS_CATEGORY_NAME) {
+    if(categoryName === Constants.DEFAULT_CATEGORY_NAME) {
       BackendAPI.getAllPosts().then(posts => {
         for(const post of posts) {
           this.props.dispatch(ReduxStoreActions.addNewPost(post))

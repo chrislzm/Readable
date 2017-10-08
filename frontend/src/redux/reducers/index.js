@@ -135,8 +135,8 @@ function posts(state = {}, action) {
 }
 
 function currentCategory(state = {
-  name: Constants.ALL_POSTS_CATEGORY_NAME,
-  path: Constants.ALL_POSTS_CATEGORY_PATH
+  name: Constants.DEFAULT_CATEGORY_NAME,
+  path: Constants.DEFAULT_CATEGORY_PATH
 }, action) {
 
     const { name, path } = action

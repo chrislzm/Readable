@@ -26,7 +26,7 @@ class App extends Component {
 
   render() {
     // Setup categories with default category that shows all posts
-    let categories = [{path:Constants.ALL_POSTS_CATEGORY_PATH,name:Constants.ALL_POSTS_CATEGORY_NAME}]
+    let categories = [{path:Constants.DEFAULT_CATEGORY_PATH,name:Constants.DEFAULT_CATEGORY_NAME}]
     // If categories have been loaded from store
     if(this.props.categories) {
       categories = [...categories,...this.props.categories]
