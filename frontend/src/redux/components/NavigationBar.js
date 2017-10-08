@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-function CategoryBar(props) {
+function NavigationBar(props) {
   const { categories, currentCategory } = props
   return (
     <ul className="CategoryBar">
@@ -20,4 +20,4 @@ const mapStateToProps = (store) => ({
   currentCategory:store.currentCategory
 })
 
-export default connect(mapStateToProps)(CategoryBar)
+export default connect(mapStateToProps)(NavigationBar)

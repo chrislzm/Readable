@@ -21,9 +21,9 @@ import * as BackendAPI from '../../utils/api'
 import * as Helpers from '../../utils/helpers'
 import * as ReduxStoreActions from '../actions'
 import AddPost from './AddPost'
-import CategoryBar from './CategoryBar'
 import Edit from './Edit'
 import ListPosts from './ListPosts'
+import NavigationBar from './NavigationBar'
 import ViewPost from './ViewPost'
 import '../../style/App.css'
 import '../../style/divTable.css'
@@ -52,7 +52,7 @@ class App extends Component {
         <div className="App-header">
           <h2>{Constants.SITE_TITLE}</h2>
         </div>
-        <CategoryBar categories={categories}/>
+        <NavigationBar categories={categories}/>
         { categories.map(category => (
           <Route
             exact path={`/${category.path}`}
