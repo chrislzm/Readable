@@ -48,6 +48,7 @@ class Editor extends Component {
         break
       // Mode: Editing an existing comment
       case Constants.EDITOR_MODE_EDIT_COMMENT:
+        // Verify whether the user's timestamp is in a valid format
         const newTimeStamp = Moment(timestamp,Constants.DATE_FORMAT_EDITOR)
         if(!newTimeStamp.isValid()) {
           alert("Time Stamp must be in a valid date format: MM-DD-YYYY hh:mm:SS.SSS AM/PM")
@@ -100,7 +101,7 @@ class Editor extends Component {
           post.deleted = Constants.DEFAULT_DELETED_FLAG
           BackendAPI.addNewPost(post)
           this.props.dispatch(ReduxStoreActions.addNewPost(post))
-          this.props.handleAddNewPost(post.category)
+          this.props.handleEdit()
         }
     }
   }

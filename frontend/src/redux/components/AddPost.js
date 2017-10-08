@@ -14,7 +14,7 @@
   The URL path to this component is set in constants.js "PATH_ADD_POST".
 
   Props:
-    Redux Store State (mapped to props)
+    Redux Store State: Mapped to props
 */
 
 import React, { Component } from 'react'
@@ -31,7 +31,7 @@ class AddPost extends Component {
     modalOpen: false,
   }
 
-  openModal = (categoryName) => {
+  openModal = () => {
     this.setState({modalOpen: true})
   }
 
@@ -56,7 +56,7 @@ class AddPost extends Component {
           </div>
         </div>
         <Editor
-          handleAddNewPost={this.openModal}
+          handleEdit={this.openModal}
           editingMode={Constants.EDITOR_MODE_ADD_POST}/>
         <Modal
           className='modal'
