@@ -144,7 +144,7 @@ class Actions extends Component {
           contentLabel='Modal'>
           <div>{modalMessage}</div>
           <div>
-            <button onClick={() => this.delete(postId,mode,commentId,deleteHandler)}>Delete</button>
+            <button onClick={() => this.delete(postId,mode,commentId)}>Delete</button>
             <button onClick={this.closeModal}>Cancel</button>
           </div>
         </Modal>
