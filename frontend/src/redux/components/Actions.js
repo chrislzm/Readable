@@ -1,3 +1,22 @@
+/*
+  Readable: components/Actions.js
+  By Chris Leung
+
+  Description:
+
+  React component that displays a group of action buttons for posts or
+  comments. The actions are "Upvote", "Downvote", "Edit", and "Delete".
+
+  This component is used by ListComments.js, ListPosts.js, and ViewPost.js
+
+  Props:
+    mode: <String Constant> Value must be ACTIONS_MODE_COMMENT if being used
+      with a comment, or ACTIONS_MODE_POST if being used with a post.
+    postId: <String> Required in both post and comment mode.
+    commentId: <String> Required in comment mode only.
+    title: <String> Required in post mode only. Contains the post title.
+*/
+
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
@@ -20,27 +39,45 @@ class Actions extends Component {
     this.setState({modalOpen: false})
   }
 
+  /*
+    Method: vote
+    Description: Handles a click on the "Upvote" or "Downvote" buttons.
+    Parameters:
+      delta: <Integer> Either 1 or -1, representing upvote and downvote
+      mode: Same as prop (see above)
+      postId: Same as prop (see above)
+      commentId: Same as prop (see above)
+  */
   vote(delta,mode,postId,commentId) {
-    let optionText
+    let apiVoteOptionValue
 
     if(delta === 1) {
-        optionText = "upVote"
+        apiVoteOptionValue = "upVote"
     } else { // delta === -1
-      optionText = "downVote"
+      apiVoteOptionValue = "downVote"
     }
 
     switch(mode) {
       case Constants.ACTIONS_MODE_COMMENT:
-        BackendAPI.voteOnComment(commentId,{option:optionText})
+        BackendAPI.voteOnComment(commentId,{option:apiVoteOptionValue})
         this.props.dispatch(ReduxStoreActions.voteOnComment(commentId,postId,delta))
         break
       default:
       case Constants.ACTIONS_MODE_POST:
-        BackendAPI.voteOnPost(postId,{option:optionText})
+        BackendAPI.voteOnPost(postId,{option:apiVoteOptionValue})
         this.props.dispatch(ReduxStoreActions.voteOnPost(postId,delta))
     }
   }
 
+  /*
+    Method: edit
+    Description: Handles a click on the "Edit"" button by routing the user's
+      browser to the edit page for that comment/post.
+    Parameters:
+      postId: Same as prop (see above)
+      mode: Same as prop (see above)
+      commentId: Same as prop (see above)
+  */
   edit(postId,mode,commentId) {
     switch(mode) {
       case Constants.ACTIONS_MODE_COMMENT:
@@ -52,7 +89,17 @@ class Actions extends Component {
     }
   }
 
-  delete(postId,mode,commentId,deleteHandler) {
+  /*
+    Method: delete
+    Description: Handles a click on the "Delete"" button, deleting the selected
+      post or comment. Note that this component's modal is displayed prior to
+      this that first allows the user to confirm or cancel the delete.
+    Parameters:
+      postId: Same as prop (see above)
+      mode: Same as prop (see above)
+      commentId: Same as prop (see above)
+  */
+  delete(postId,mode,commentId) {
     switch(mode) {
       case Constants.ACTIONS_MODE_COMMENT:
         this.props.dispatch(ReduxStoreActions.deleteComment(commentId,postId))
@@ -67,7 +114,7 @@ class Actions extends Component {
 
   render() {
     const { modalOpen } = this.state
-    const { postId, commentId, title, mode, deleteHandler } = this.props
+    const { postId, commentId, title, mode } = this.props
     let modalMessage
     switch(mode) {
       case Constants.ACTIONS_MODE_COMMENT:
@@ -103,4 +150,4 @@ class Actions extends Component {
   }
 }
 
-  export default withRouter(connect()(Actions))
+export default withRouter(connect()(Actions))
