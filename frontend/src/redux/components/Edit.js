@@ -1,3 +1,27 @@
+/*
+  Readable: components/Edit.js
+  By Chris Leung
+
+  Description:
+
+  React component that allows the user to edit a post or comment. It utilizes
+  the Editor.js component, which entirely handles the form display, input,
+  validation, and submission of form data to the local Redux store and backend
+  API server.
+
+  Contains one modal window that displays a confirmation message after the post
+  or comment has been successfully edited (and changes have been saved).
+
+  The URL path to this component is set in constants.js "PATH_EDIT".
+
+  Props:
+    postId: <String> Required. Contains the id of the parent post when we are
+      editing a comment.
+    commentId: <String> If an argument is provided, then will be editing the
+      comment in the commentId provided where its parentId === postId.
+    Redux Store State: Mapped to props
+*/
+
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
@@ -36,18 +60,22 @@ class Edit extends Component {
     const { modalOpen } = this.state
     const { postId, commentId } = this.props.match.params
 
-    let editingMode, titleText
+    let editingMode, sectionTitle
 
+    // If a commentId was passed in, then we are editing a comment. Set mode.
     if(commentId) {
-      titleText = "Editing Comment"
       editingMode = Constants.EDITOR_MODE_EDIT_COMMENT
+      sectionTitle = Constants.EDIT_SECTION_TITLE_COMMENT
     } else {
-      titleText = "Editing Post"
       editingMode = Constants.EDITOR_MODE_EDIT_POST
+      sectionTitle = Constants.EDIT_SECTION_TITLE_POST
     }
 
-    let postExists, pathToViewPost, categoryName, categoryPath
-
+    // When true, displays content. When false, displays "Not found" message
+    let postExists
+    // These variables are used to generate button links back to post & category
+    let pathToViewPost, categoryName, categoryPath
+    // Test whether post exists/has been loaded into the Redux Store
     if(this.props.posts[postId]) {
       postExists = true
       categoryName = this.props.posts[postId].category.toLowerCase()
@@ -64,7 +92,7 @@ class Edit extends Component {
       <div className="EditPost">
         <div className="SectionTitle">
           <h2>
-            {titleText}
+            {sectionTitle}
           </h2>
           <div className="SectionTitleNav">
             { postExists && (
