@@ -27,6 +27,11 @@ export const EDITOR_MODE_EDIT_POST = "EDITOR_MODE_EDIT_POST"
 export const EDITOR_MODE_ADD_COMMENT = "EDITOR_MODE_ADD_COMMENT"
 export const EDITOR_MODE_EDIT_COMMENT = "EDITOR_MODE_EDIT_COMMENT"
 
+// Editor error messages
+export const EDITOR_ERROR_MESSAGE_BLANK_BODY = "Error: Body cannot be blank"
+export const EDITOR_ERROR_MESSAGE_BLANK_AUTHOR = "Error: Author cannot be blank"
+export const EDITOR_ERROR_MESSAGE_BLANK_TITLE = "Error: Title cannot be blank"
+
 // Action modes for Action componentDidMount
 export const ACTIONS_MODE_POST = "ACTIONS_MODE_POST"
 export const ACTIONS_MODE_COMMENT = "ACTIONS_MODE_COMMENT"
