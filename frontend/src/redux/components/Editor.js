@@ -23,11 +23,20 @@ class Editor extends Component {
     }
   }
 
+  /*
+    Method: handleSubmit
+    Description: Handles edit form submission. Decides what action to take based
+      on the current editing mode.
+    Parameters:
+      e: <Event> The form submission event.
+  */
   handleSubmit = (e) => {
     e.preventDefault()
     const post = serializeForm(e.target, { hash: true })
     let {id, parentId, title, body, timestamp } = post
+
     switch(post.editingMode) {
+      // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST:
         const editedPost = {
           title,
@@ -37,6 +46,7 @@ class Editor extends Component {
         this.props.dispatch(ReduxStoreActions.editPost(id,title,body))
         this.props.handleEdit()
         break
+      // Mode: Editing an existing comment
       case Constants.EDITOR_MODE_EDIT_COMMENT:
         const newTimeStamp = Moment(timestamp,Constants.DATE_FORMAT_EDITOR)
         if(!newTimeStamp.isValid()) {
@@ -52,6 +62,7 @@ class Editor extends Component {
           this.props.handleEdit()
         }
         break
+      // Mode: Adding a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
         if (!post.body) {
           alert("Error: Body cannot be blank")
@@ -72,6 +83,7 @@ class Editor extends Component {
           this.props.handleEdit()
         }
         break
+      // Mode: Adding a new post
       case Constants.EDITOR_MODE_ADD_POST:
       // fall through
       default:
@@ -95,16 +107,29 @@ class Editor extends Component {
 
   render() {
     let { editingMode, postId, commentId } = this.props
-    // These vars hold default values for input fields
+
+    // These vars hold values used to pre-populate input fields
     let id, parentId, category, title, body, author, timestamp
     id = parentId = category = title = body = author = timestamp = ''
-    let editDataNotFound = false
-    // These vars toggle input fields/button text for different editing modes
-    let showAuthor, showCategory, showTimestamp, showTitle, submitButtonText
+
+    // editDataFound: When true, display content, when false, display "Not
+    // Found" message. This will only be set to false if we are editing a
+    // post/comment and its data does not exist in the Redux Store.
+    let editDataFound = true
+
+    // These vars control showing/hiding certain input fields depending on the
+    // editing mode
+    let showAuthor, showCategory, showTimestamp, showTitle
+
+    let submitButtonText
+
     switch(editingMode) {
+      // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST:
         const postToEdit = this.props.posts[postId]
-        if(postToEdit) {
+        if(!postToEdit) {
+          editDataFound = false
+        } else {
           id = postId
           title = postToEdit.title
           body = postToEdit.body
@@ -114,12 +139,13 @@ class Editor extends Component {
           showAuthor = showCategory = showTimestamp = false
           showTitle = true
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
-        } else {
-          editDataNotFound = true
         }
         break
+      // Mode: Editing an existing comment
       case Constants.EDITOR_MODE_EDIT_COMMENT:
-        if(this.props.comments[postId] && this.props.comments[postId][commentId]) {
+        if(!this.props.comments[postId] || !this.props.comments[postId][commentId]) {
+          editDataFound = false
+        } else {
           const commentToEdit = this.props.comments[postId][commentId]
           id = commentId
           parentId = postId
@@ -128,16 +154,16 @@ class Editor extends Component {
           showTimestamp = true
           showCategory = showTitle = showAuthor = false
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
-        } else {
-          editDataNotFound = true
         }
         break
+      // Mode: Add a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
         parentId = postId
         showAuthor = true
         showCategory = showTitle = showTimestamp = false
         submitButtonText = Constants.SUBMIT_BUTTON_TEXT_NEW_COMMENT
         break
+      // Mode: Add a new post
       case Constants.EDITOR_MODE_ADD_POST:
       default:
         category = this.props.currentCategory.name
@@ -148,16 +174,17 @@ class Editor extends Component {
 
     return (
       <div className="PostEditor">
-        { // If timestamp data is empty, then this post/comment has been deleted
-          editDataNotFound && (
+        { !editDataFound && (
             <div className="StatusMessage">Not found</div>
           )}
-        { !editDataNotFound && (
+        { editDataFound && (
         <form onSubmit={this.handleSubmit} className="edit-post-form">
           <div className="edit-post-details">
             <div className="divTable blueTable">
               <div className="divTableBody">
-                <div className="divTableRow" style={{display: showCategory ? 'table-row':'none'}}>
+                <div
+                  className="divTableRow"
+                  style={{display: showCategory ? 'table-row':'none'}}>
                   <div className="divTableLabel">Category</div>
                   <div className="divTableCell">
                     <select
@@ -173,7 +200,9 @@ class Editor extends Component {
                       ))}
                     </select>
                   </div></div>
-                  <div className="divTableRow" style={{display: showTitle ? 'table-row':'none'}}>
+                  <div
+                    className="divTableRow"
+                    style={{display: showTitle ? 'table-row':'none'}}>
                     <div className="divTableLabel">Title</div>
                     <div className="divTableCell" key={title}>
                       <input type="text" name="title" defaultValue={title}/>
@@ -185,7 +214,9 @@ class Editor extends Component {
                       <textarea name="body" defaultValue={body} ref={(input) => { this.body = input }}/>
                     </div>
                   </div>
-                  <div className="divTableRow" style={{display: showAuthor ? 'table-row':'none'}}>
+                  <div
+                    className="divTableRow"
+                    style={{display: showAuthor ? 'table-row':'none'}}>
                     <div className="divTableLabel">Author</div>
                     <div className="divTableCell">
                       <input
@@ -195,7 +226,9 @@ class Editor extends Component {
                         ref={(input) => { this.author = input }}/>
                     </div>
                   </div>
-                  <div className="divTableRow" style={{display: showTimestamp ? 'table-row':'none'}}>
+                  <div
+                    className="divTableRow"
+                    style={{display: showTimestamp ? 'table-row':'none'}}>
                     <div className="divTableLabel">Time Stamp</div>
                     <div className="divTableCell" key={timestamp}>
                       <input
