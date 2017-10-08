@@ -7,6 +7,9 @@
   React component that displays a group of action buttons for posts or
   comments. The actions are "Upvote", "Downvote", "Edit", and "Delete".
 
+  Contains one modal window that displays a delete confirmation message and
+  two buttons to confirm or cancel the delete operation.
+
   This component is used by ListComments.js, ListPosts.js, and ViewPost.js
 
   Props:
