@@ -6,8 +6,8 @@ export const DEFAULT_CATEGORY_NAME = 'All Posts'
 export const DATE_FORMAT_DISPLAY = "MM-DD-YYYY hh:mm A"
 export const DATE_FORMAT_EDITOR = "MM-DD-YYYY hh:mm:ss.SSS A"
 
-export const URL_PATH_ADD_POST = "addPost"
-export const URL_PATH_EDIT = "edit"
+export const PATH_ADD_POST = "addPost"
+export const PATH_EDIT = "edit"
 
 // Default values for posts and comment properties
 export const DEFAULT_VOTES = 1

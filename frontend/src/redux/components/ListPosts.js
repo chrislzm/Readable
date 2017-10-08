@@ -92,7 +92,7 @@ class ListPosts extends Component {
           <h2>{Helpers.capitalize(categoryName)} ({numPosts})</h2>
           <div className="SectionTitleNav">
             <button>
-              <Link to={`/${Constants.URL_PATH_ADD_POST}`}>+ Add New Post</Link>
+              <Link to={`/${Constants.PATH_ADD_POST}`}>+ Add New Post</Link>
             </button>
           </div>
         </div>
@@ -135,7 +135,7 @@ class ListPosts extends Component {
           </div>
         )}
         { numPosts === 0 && (
-          <div className="StatusMessage">Nothing here yet. Be the first—<Link to={`/${Constants.URL_PATH_ADD_POST}`}>Add a new post!</Link></div>
+          <div className="StatusMessage">Nothing here yet. Be the first—<Link to={`/${Constants.PATH_ADD_POST}`}>Add a new post!</Link></div>
         )}
       </div>
     )
