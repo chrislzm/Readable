@@ -1,12 +1,18 @@
+export const SITE_TITLE = "My React+Redux Powered Forum"
+
 export const DEFAULT_CATEGORY_PATH = ''
 export const DEFAULT_CATEGORY_NAME = 'All Posts'
-export const DEFAULT_VOTES = 1 // Default # votes for posts and comments
-export const DEFAULT_DELETED_FLAG = false
+
 export const DATE_FORMAT_DISPLAY = "MM-DD-YYYY hh:mm A"
 export const DATE_FORMAT_EDITOR = "MM-DD-YYYY hh:mm:ss.SSS A"
-export const SITE_TITLE = "My React+Redux Powered Forum"
+
 export const URL_PATH_ADD_POST = "addPost"
 export const URL_PATH_EDIT = "edit"
+
+// Default values for posts and comment properties
+export const DEFAULT_VOTES = 1
+export const DEFAULT_DELETED_FLAG = false
+
 export const SUBMIT_BUTTON_TEXT_NEW_POST = "Add Post"
 export const SUBMIT_BUTTON_TEXT_EDIT = "Save Changes"
 export const SUBMIT_BUTTON_TEXT_NEW_COMMENT = "Add Comment"
