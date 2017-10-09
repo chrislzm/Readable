@@ -9,6 +9,8 @@ export const DATE_FORMAT_EDITOR = "MM-DD-YYYY hh:mm:ss.SSS A"
 export const PATH_ADD_POST = "addPost"
 export const PATH_EDIT = "edit"
 
+export const ERROR_MESSAGE_CONTENT_NOT_FOUND = "Not found"
+
 // Default values for posts and comment properties
 export const DEFAULT_VOTES = 1
 export const DEFAULT_DELETED_FLAG = false
@@ -31,6 +33,7 @@ export const EDITOR_MODE_EDIT_COMMENT = "EDITOR_MODE_EDIT_COMMENT"
 export const EDITOR_ERROR_MESSAGE_BLANK_BODY = "Error: Body cannot be blank"
 export const EDITOR_ERROR_MESSAGE_BLANK_AUTHOR = "Error: Author cannot be blank"
 export const EDITOR_ERROR_MESSAGE_BLANK_TITLE = "Error: Title cannot be blank"
+export const EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP = "Time Stamp must be in a valid date format: MM-DD-YYYY hh:mm:SS.SSS AM/PM"
 
 // Action modes for Action componentDidMount
 export const ACTIONS_MODE_POST = "ACTIONS_MODE_POST"
