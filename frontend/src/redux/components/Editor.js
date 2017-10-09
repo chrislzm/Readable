@@ -11,7 +11,7 @@
   (3) editing existing posts (EDITOR_MODE_EDIT_POST)
   (4) editing existing comments (EDITOR_MODE_EDIT_COMMENT)
 
-  Editing mode is setby passing one of the EDITOR_MODE constants above into the
+  Editing mode is set by passing one of the EDITOR_MODE constants above into the
   editingMode prop. These constants are defined in constants.js
 
   Props:
@@ -66,7 +66,7 @@ class Editor extends Component {
     const post = serializeForm(e.target, { hash: true })
     let {id, parentId, title, body, author, timestamp } = post
 
-    // Every mode requires a body
+    // Every editing mode requires a body
     if (!body) {
       alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_BODY)
       return
@@ -92,7 +92,7 @@ class Editor extends Component {
         // Verify whether the user's timestamp is in a valid format
         const newTimeStamp = Moment(timestamp,Constants.DATE_FORMAT_EDITOR)
         if(!newTimeStamp.isValid()) {
-          alert("Time Stamp must be in a valid date format: MM-DD-YYYY hh:mm:SS.SSS AM/PM")
+          alert(Constants.EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP)
         } else {
           const timestamp = newTimeStamp.format("x")
           const editedComment = {
@@ -146,13 +146,16 @@ class Editor extends Component {
   render() {
     let { editingMode, postId, commentId } = this.props
 
-    // These vars hold values used to pre-populate input fields
+    // These vars hold the values used to pre-populate input fields
     let id, parentId, category, title, body, author, timestamp
     id = parentId = category = title = body = author = timestamp = ''
 
-    // editDataFound: When true, display content, when false, display "Not
-    // Found" message. This will only be set to false if we are editing a
-    // post/comment and its data does not exist in the Redux Store.
+    // editDataFound <boolean>: When true, we are either adding a new post/
+    // comment, or editing an existing post/comment+pre-populating fields with
+    // data from the Redux store. When false, this means we are editing a
+    // post/content but its content was not found in the Redux store. This
+    // causes a "Content Not Found" message to appear instead of the form and
+    // input fields.
     let editDataFound = true
 
     // These vars control showing/hiding certain input fields depending on the
@@ -166,6 +169,7 @@ class Editor extends Component {
       case Constants.EDITOR_MODE_EDIT_POST:
         const postToEdit = this.props.posts[postId]
         if(!postToEdit) {
+          // Display "Content not found" message if the post doesn't exist
           editDataFound = false
         } else {
           id = postId
@@ -182,6 +186,7 @@ class Editor extends Component {
       // Mode: Editing an existing comment
       case Constants.EDITOR_MODE_EDIT_COMMENT:
         if(!this.props.comments[postId] || !this.props.comments[postId][commentId]) {
+          // Display "Content not found" message if post/comment doesn't exist
           editDataFound = false
         } else {
           const commentToEdit = this.props.comments[postId][commentId]
@@ -213,7 +218,7 @@ class Editor extends Component {
     return (
       <div className="PostEditor">
         { !editDataFound && (
-            <div className="StatusMessage">Not found</div>
+            <div className="StatusMessage">{Constants.ERROR_MESSAGE_CONTENT_NOT_FOUND}</div>
           )}
         { editDataFound && (
         <form onSubmit={this.handleSubmit} className="edit-post-form">
