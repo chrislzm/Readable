@@ -1,3 +1,23 @@
+/*
+  Readable: components/AddComment.js
+  By Chris Leung
+
+  Description:
+
+  React component that allows the user to add a comment to a post. It utilizes
+  the Editor.js component, which entirely handles the form display, input,
+  input validation, and submission of form data to the local Redux store and
+  backend API server.
+
+  Contains one modal window that displays a confirmation message after the new
+  comment has been successfully added.
+
+  Props:
+    postId: <String> Required. Contains the id of the parent post to which we
+      are adding a comment.
+*/
+
+
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import * as Constants from '../../utils/constants'
