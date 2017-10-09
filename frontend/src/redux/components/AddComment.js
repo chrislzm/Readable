@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import * as Constants from '../../utils/constants'
 import Editor from './Editor'
 
-class LeaveComment extends Component {
+class AddComment extends Component {
 
   state = {
     modalOpen: false
@@ -43,4 +43,4 @@ class LeaveComment extends Component {
   }
 }
 
-export default LeaveComment;
+export default AddComment

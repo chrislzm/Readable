@@ -5,7 +5,7 @@ import * as BackendAPI from '../../utils/api'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as ReduxStoreActions from '../actions'
-import LeaveComment from './LeaveComment'
+import AddComment from './AddComment'
 import ListComments from './ListComments'
 import Viewer from './Viewer'
 
@@ -43,7 +43,7 @@ class ViewPost extends Component {
               </div>
             </div>
             <Viewer content={post} mode={Constants.ACTIONS_MODE_POST}/>
-            <LeaveComment postId={postId}/>
+            <AddComment postId={postId}/>
             <ListComments parentId={postId}/>
           </div>
         )}
