@@ -1,3 +1,32 @@
+/*
+  Readable: components/Editor.js
+  By Chris Leung
+
+  Description:
+
+  React component that provides a form and input fields that handle ALL editing
+  for the Readable app. There are four modes of editing:
+  (1) adding new posts (EDITOR_MODE_ADD_POST)
+  (2) adding new comments (EDITOR_MODE_ADD_COMMENT)
+  (3) editing existing posts (EDITOR_MODE_EDIT_POST)
+  (4) editing existing comments (EDITOR_MODE_EDIT_COMMENT)
+
+  Editing mode is setby passing one of the EDITOR_MODE constants above into the
+  editingMode prop. These constants are defined in constants.js
+
+  Props:
+    editingMode: <String Constant> Required. It is used to determine the
+      configuration of the UI along with the behavior of the submit operation.
+    postId: <String> Required when editing a post (editingMode ===
+      EDITOR_MODE_EDIT_POST) or comment (editingMode ===
+      EDITOR_MODE_EDIT_COMMENT). Used to pre-populate fields and also to update
+      the correct post/comment on both the backend server and the Redux Store.
+    commentId: <String> Required when editing a comment (editingMode ===
+      EDITOR_MODE_EDIT_COMMENT.  Used to pre-populate fields and also to update
+      the correct comment on both the backend server and the Redux Store.
+    Redux Store State: Mapped to props
+*/
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
