@@ -4,9 +4,10 @@
 
   Description:
 
-  React component that outputs all comments for a given post. Uses Viewer.js,
-  which entirely handles the display of each comment to the user along with the
-  controls to upvote, downvote, edit and delete the comment.
+  React component that outputs all comments for a given post. Passes the content
+  of each comment to Viewer.js, which entirely handles the display of each
+  comment to the user along with the controls to upvote, downvote, edit and
+  delete the comment.
 
   Props:
     parentId: <String> Required. Contains the id of the parent post whose
