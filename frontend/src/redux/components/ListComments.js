@@ -56,15 +56,15 @@ class ListComments extends Component {
     return (
       <div>
         <h2>Comments ({numComments})</h2>
+        { numComments === 0 && (
+            <div className="StatusMessage">This post has no comments yet</div>
+          )}
         { numComments > 0 && commentsToOutput.map(comment => (
           <Viewer
             content={comment}
             key={comment.id}
             mode={Constants.ACTIONS_MODE_COMMENT}/>
           ))}
-        { numComments === 0 && (
-            <div className="StatusMessage">This post has no comments yet</div>
-          )}
       </div>
     )
   }
