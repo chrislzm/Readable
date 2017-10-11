@@ -1,3 +1,19 @@
+/*
+  Readable: components/ListComments.js
+  By Chris Leung
+
+  Description:
+
+  React component that outputs all comments for a given post. Uses Viewer.js,
+  which entirely handles the display of each comment to the user along with the
+  controls to upvote, downvote, edit and delete the comment.
+
+  Props:
+    parentId: <String> Required. Contains the id of the parent post whose
+      comments we are listing.
+    Redux Store State: Mapped to props
+*/
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as BackendAPI from '../../utils/api'
@@ -18,26 +34,29 @@ class ListComments extends Component {
     })
   }
 
-
   render() {
     const {parentId} = this.props
-    const commentGroup = this.props.comments[parentId]
-    let comments, filteredComments
-    let numComments = 0
-    if(commentGroup) {
-      comments = Object.keys(commentGroup).reduce((accumulator, commentId) => {
-        let comment = commentGroup[commentId]
+
+    let commentsArray, commentsToOutput, numComments = 0
+
+    const allPostComments = this.props.comments[parentId]
+    if(allPostComments) {
+      // If comments exists for this post, convert the comment objects into an
+      // array for ease of output
+      commentsArray = Object.keys(allPostComments).reduce((accumulator, commentId) => {
+        let comment = allPostComments[commentId]
         comment.parentId = parentId
         accumulator.push(comment)
         return accumulator
       },[])
-      filteredComments = comments.filter(comment => !comment.deleted).sort(Helpers.sortByVotesDescending)
-      numComments = filteredComments.length
+      // Filter out deleted comments
+      commentsToOutput = commentsArray.filter(comment => !comment.deleted).sort(Helpers.sortByVotesDescending)
+      numComments = commentsToOutput.length
     }
     return (
       <div>
         <h2>Comments ({numComments})</h2>
-        { numComments > 0 && filteredComments.map(comment => (
+        { numComments > 0 && commentsToOutput.map(comment => (
           <Viewer
             content={comment}
             key={comment.id}
