@@ -1,10 +1,22 @@
+/*
+  Readable: utils/helpers.js
+  By Chris Leung
+
+  Description:
+
+  Contains helper functions used throughout the Readable app.
+
+*/
+
+// Capitalizes the first letter of a string
 export function capitalize (str = '') {
   return typeof str !== 'string'
     ? ''
     : str[0].toUpperCase() + str.slice(1)
 }
 
-// Used in both App.js and Editor.js
+// Converts the categories Redux store into an array of categories. This is used
+// in the mapStateToProps function of both App.js and Editor.js.
 export function convertCategoriesToArray(categories) {
   const categoryArray = Object.keys(categories).map(key => (
     {path:key,name:categories[key]}
@@ -12,7 +24,8 @@ export function convertCategoriesToArray(categories) {
   return categoryArray
 }
 
-// https://stackoverflow.com/a/105074/7602403
+// Generates a pseudo-GUID (global unique identifier) used as a unique id for
+// posts and comments. Source: https://stackoverflow.com/a/105074/7602403
 export function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -23,6 +36,8 @@ export function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+// Sort functions used in ListPosts component that are passed as the
+// compareFunction to Arrays.prototype.sort()
 export function sortByDateDescending(a,b) {
   return sortByDate(a,b,false)
 }
