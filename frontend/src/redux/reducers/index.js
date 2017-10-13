@@ -114,6 +114,21 @@ function comments(state = {}, action) {
   }
 }
 
+function currentCategory(state = {
+  name: Constants.DEFAULT_CATEGORY_NAME,
+  path: Constants.DEFAULT_CATEGORY_PATH
+}, action) {
+
+    const { name, path } = action
+
+    switch(action.type) {
+      case SET_CURRENT_CATEGORY:
+        return { name, path }
+      default:
+        return state
+    }
+}
+
 function posts(state = {}, action) {
   const { id } = action
 
@@ -153,21 +168,6 @@ function posts(state = {}, action) {
     default:
       return state
   }
-}
-
-function currentCategory(state = {
-  name: Constants.DEFAULT_CATEGORY_NAME,
-  path: Constants.DEFAULT_CATEGORY_PATH
-}, action) {
-
-    const { name, path } = action
-
-    switch(action.type) {
-      case SET_CURRENT_CATEGORY:
-        return { name, path }
-      default:
-        return state
-    }
 }
 
 export default combineReducers({
