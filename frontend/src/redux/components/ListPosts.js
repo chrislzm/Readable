@@ -115,14 +115,14 @@ class ListPosts extends Component {
 
     if(categoryName === Constants.DEFAULT_CATEGORY_NAME) {
       // If we are in the default category, then no category has been specified
-      // and we get ALL posts from the backend API server
+      // and we need to get ALL posts from the backend API server
       BackendAPI.getAllPosts().then(posts => {
         for(const post of posts) {
           this.props.dispatch(ReduxStoreActions.addNewPost(post))
         }
       })
     } else {
-      // Category has been specified; get posts only for this category
+      // Category has been specified; retrieve posts only for this category
       BackendAPI.getCategoryPosts(categoryName).then(posts => {
         for(const post of posts) {
           this.props.dispatch(ReduxStoreActions.addNewPost(post))
