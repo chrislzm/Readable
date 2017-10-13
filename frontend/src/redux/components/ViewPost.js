@@ -1,3 +1,19 @@
+/*
+  Readable: components/ViewPost.js
+  By Chris Leung
+
+  Description:
+
+  React component that displays the a post along with a form to add a new
+  comment and all comments for the post. Uses the Viewer component to display
+  the post content, AddComment to display the add comment form and handle adding
+  coments, and ListComments to list all the comments for this post.
+
+  Props:
+    React Router Param Match: Provides the post id (see App.js)
+    Redux Store State: Mapped to props
+*/
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -14,8 +30,8 @@ class ViewPost extends Component {
   componentDidMount() {
     const { postId } = this.props.match.params
     BackendAPI.getPost(postId).then(post => {
-      // Verify this is an existing post--if it is, it will have data
       if(Object.keys(post).length > 0) {
+        // Only add the post if it exists and has data
         this.props.dispatch(ReduxStoreActions.addNewPost(post))
       }
     })
@@ -27,15 +43,18 @@ class ViewPost extends Component {
     const { postId } = this.props.match.params
     let post = this.props.posts[postId]
     if(post) {
+      // If the post exists in the Redux store, store the id into the object we
+      // received (it won't have the id in it, since the store contains an id to
+      // content mapping). We will pass this object to the Viewer component,
+      // which needs the id.
       post.id = postId
-      post.category = Helpers.capitalize(post.category)
     }
     return (
       <div>
         { post && !post.deleted && (
           <div className="VieWPost">
             <div className="SectionTitle">
-              <h2>{post.category}: "{ post.title }"</h2>
+              <h2>{Helpers.capitalize(post.category)}: "{ post.title }"</h2>
               <div className="SectionTitleNav">
                 <button>
                   <Link to={ `/${categoryPath}`}>&lt; Back To {Helpers.capitalize(categoryName)}</Link>
