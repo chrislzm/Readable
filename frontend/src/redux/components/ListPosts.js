@@ -4,8 +4,12 @@
 
   Description:
 
-  React component that lists all posts for a given category. To do this, it
-  filters posts that have been deleted or are not in the current category.
+  React component that lists all posts for a given category and also updates the
+  currentCategory state in the Redux store. Several other components, such as
+  NavigationBar and AddPost, depend on the currentCategory state in order to
+  function correctly. For example, the NavigationBar component highlights the
+  current category, and the AddPost component pre-selects the current category
+  and uses the current category path in a "Back to Category" button link.
 
   Props:
     categoryName: <String> Required. A category name identical to one set in
@@ -111,6 +115,7 @@ class ListPosts extends Component {
   componentDidMount() {
     const { categoryName, categoryPath } = this.props
 
+    // Set currentCategory state
     this.props.dispatch(ReduxStoreActions.setCurrentCategory(categoryName, categoryPath))
 
     if(categoryName === Constants.DEFAULT_CATEGORY_NAME) {
