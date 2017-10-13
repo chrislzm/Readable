@@ -1,14 +1,30 @@
+/*
+  Readable: components/Viewer.js
+  By Chris Leung
+
+  Description:
+
+  React component that renders the content of a post or comment.
+
+  Props:
+    content: <Object> Required. Contains the content of the post or comment. See
+      README.md for a description of fields in the post and comment objects.
+    mode: <String Constant> Required.
+    Redux Store State: Mapped to props
+*/
+
 import React from 'react'
 import * as Constants from '../../utils/constants'
 import Actions from './Actions'
 import Moment from 'moment'
 
 function Viewer (props) {
-  const { title, author, body, timestamp, voteScore} = props.content
-  let { id, parentId } = props.content
-  const { mode } = props
+  const { mode, content } = props
+  const { title, author, body, timestamp, voteScore} = content
+  let { id, parentId } = content
+
   let commentId
-  if(mode === Constants.ACTIONS_MODE_COMMENT) {
+  if(mode === Constants.CONTENT_MODE_COMMENT) {
     commentId = id
     id = parentId
   }

@@ -64,7 +64,7 @@ class ListComments extends Component {
           <Viewer
             content={comment}
             key={comment.id}
-            mode={Constants.ACTIONS_MODE_COMMENT}/>
+            mode={Constants.CONTENT_MODE_COMMENT}/>
           ))}
       </div>
     )

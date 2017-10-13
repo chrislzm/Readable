@@ -35,9 +35,9 @@ export const EDITOR_ERROR_MESSAGE_BLANK_AUTHOR = "Error: Author cannot be blank"
 export const EDITOR_ERROR_MESSAGE_BLANK_TITLE = "Error: Title cannot be blank"
 export const EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP = "Time Stamp must be in a valid date format: MM-DD-YYYY hh:mm:SS.SSS AM/PM"
 
-// Action modes for Action componentDidMount
-export const ACTIONS_MODE_POST = "ACTIONS_MODE_POST"
-export const ACTIONS_MODE_COMMENT = "ACTIONS_MODE_COMMENT"
+// Content view modes used in Viewer.js and Action.js
+export const CONTENT_MODE_POST = "CONTENT_MODE_POST"
+export const CONTENT_MODE_COMMENT = "CONTENT_MODE_COMMENT"
 
 // Sorting for list posts
 export const LIST_POSTS_SORT_FIELD_TIMESTAMP = "LIST_POSTS_SORT_FIELD_TIMESTAMP"

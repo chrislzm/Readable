@@ -13,8 +13,8 @@
   This component is used by ListComments.js, ListPosts.js, and ViewPost.js
 
   Props:
-    mode: <String Constant> Value must be ACTIONS_MODE_COMMENT if being used
-      with a comment, or ACTIONS_MODE_POST if being used with a post.
+    mode: <String Constant> Value must be CONTENT_MODE_COMMENT if being used
+      with a comment, or CONTENT_MODE_POST if being used with a post.
     postId: <String>  Required. Contains the id of the parent post when we are
       in comment mode.
     commentId: <String> Required in comment mode only.
@@ -63,12 +63,12 @@ class Actions extends Component {
     }
 
     switch(mode) {
-      case Constants.ACTIONS_MODE_COMMENT:
+      case Constants.CONTENT_MODE_COMMENT:
         BackendAPI.voteOnComment(commentId,{option:apiVoteOptionValue})
         this.props.dispatch(ReduxStoreActions.voteOnComment(commentId,postId,delta))
         break
       default:
-      case Constants.ACTIONS_MODE_POST:
+      case Constants.CONTENT_MODE_POST:
         BackendAPI.voteOnPost(postId,{option:apiVoteOptionValue})
         this.props.dispatch(ReduxStoreActions.voteOnPost(postId,delta))
     }
@@ -85,11 +85,11 @@ class Actions extends Component {
   */
   edit(postId,mode,commentId) {
     switch(mode) {
-      case Constants.ACTIONS_MODE_COMMENT:
+      case Constants.CONTENT_MODE_COMMENT:
         this.props.history.push(`/${Constants.PATH_EDIT}/${postId}/${commentId}`)
         break
       default:
-      case Constants.ACTIONS_MODE_POST:
+      case Constants.CONTENT_MODE_POST:
         this.props.history.push(`/${Constants.PATH_EDIT}/${postId}`)
     }
   }
@@ -106,12 +106,12 @@ class Actions extends Component {
   */
   delete(postId,mode,commentId) {
     switch(mode) {
-      case Constants.ACTIONS_MODE_COMMENT:
+      case Constants.CONTENT_MODE_COMMENT:
         this.props.dispatch(ReduxStoreActions.deleteComment(commentId,postId))
         BackendAPI.deleteComment(commentId)
         break
       default:
-      case Constants.ACTIONS_MODE_POST:
+      case Constants.CONTENT_MODE_POST:
         this.props.dispatch(ReduxStoreActions.deletePost(postId))
         BackendAPI.deletePost(postId)
     }
@@ -122,11 +122,11 @@ class Actions extends Component {
     const { postId, commentId, title, mode } = this.props
     let modalMessage
     switch(mode) {
-      case Constants.ACTIONS_MODE_COMMENT:
+      case Constants.CONTENT_MODE_COMMENT:
         modalMessage = "Really delete this comment?"
         break
       default:
-      case Constants.ACTIONS_MODE_POST:
+      case Constants.CONTENT_MODE_POST:
         modalMessage = `Really delete "${title}"?`
         break
       }

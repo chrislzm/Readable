@@ -42,7 +42,7 @@ class ViewPost extends Component {
                 </button>
               </div>
             </div>
-            <Viewer content={post} mode={Constants.ACTIONS_MODE_POST}/>
+            <Viewer content={post} mode={Constants.CONTENT_MODE_POST}/>
             <AddComment postId={postId}/>
             <ListComments parentId={postId}/>
           </div>

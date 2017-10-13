@@ -187,7 +187,7 @@ class ListPosts extends Component {
                     <Actions
                       postId={post.id}
                       title={post.title}
-                      mode={Constants.ACTIONS_MODE_POST}
+                      mode={Constants.CONTENT_MODE_POST}
                     />
                   </div>
                 </div>
