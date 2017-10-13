@@ -4,14 +4,15 @@
 
   Description:
 
-  React component that lists all posts for a given category. Passes the content
-  of each comment to Viewer.js, which entirely handles the display of each
-  comment to the user along with the controls to upvote, downvote, edit and
-  delete the comment.
+  React component that lists all posts for a given category. To do this, it
+  filters posts that have been deleted or are not in the current category.
 
   Props:
-    parentId: <String> Required. Contains the id of the parent post whose
-      comments we are listing.
+    categoryName: <String> Required. A category name identical to one set in
+      the API server's api-server/categories.js file.
+    categoryPath: <String> Required. A category path identical to that set in
+      the API server's api-server/categories.js file. Must be from the same
+      tuple that contains the category name.
     Redux Store State: Mapped to props
 */
 
@@ -27,7 +28,7 @@ import Actions from './Actions'
 
 class ListPosts extends Component {
 
-  // Set defaults for sorting along with corresponding UI widget styles
+  // Set sorting defaults along with corresponding UI widget styles
   state = {
     sortMethod: Helpers.sortByVotesDescending,
     sortAscending: false,
@@ -45,6 +46,8 @@ class ListPosts extends Component {
         object
       postCategory: <String> The "category" property of a post object
       currentCategory: <String> The current category being viewed by the user
+    Returns:
+      <Boolean>: true if post should be kept, false if post should filtered out
   */
   postFilter(postDeleted, postCategory, currentCategory) {
     if(postDeleted) return false
@@ -61,6 +64,8 @@ class ListPosts extends Component {
       sortField: <String Constant> Use LIST_POSTS_SORT_FIELD_TIMESTAMP for
         sorting by timestamp, or LIST_POSTS_SORT_FIELD_VOTES for sorting by
         votes. (These string constants are stored in utils/constants.js)
+    Returns:
+      Nothing, but updates the component state via setState.
   */
   toggleSort(sortField) {
     let sortMethod, sortAscending, sortDateArrowStyle, sortVotesArrowStyle
@@ -127,10 +132,11 @@ class ListPosts extends Component {
   }
 
   render() {
-    const { categoryName, posts} = this.props
+    const { categoryName, posts } = this.props
 
     const filteredPosts = posts.filter(post => this.postFilter(post.deleted,post.category,categoryName))
     const sortedPosts = filteredPosts.sort(this.state.sortMethod)
+
     let numPosts = sortedPosts.length
 
     return(
@@ -189,6 +195,7 @@ class ListPosts extends Component {
   }
 }
 
+// Convert the id/post key/values in the store into an array of posts
 const mapStateToProps = (state) => ({
   posts: Object.keys(state.posts).map(id => {
     let post = state.posts[id]
