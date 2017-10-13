@@ -63,6 +63,7 @@ class ListComments extends Component {
         { numComments > 0 && commentsToOutput.map(comment => (
           <Viewer
             content={comment}
+            key={comment.id}
             mode={Constants.CONTENT_MODE_COMMENT}/>
           ))}
       </div>
