@@ -41,45 +41,41 @@ class ViewPost extends Component {
     const categoryName = this.props.currentCategory.name
     const categoryPath = this.props.currentCategory.path
     const { postId } = this.props.match.params
+
+    let sectionTitle
     let post = this.props.posts[postId]
-    if(post) {
+    if(!post) {
+      sectionTitle = "Post not found"
+    } else if(post.deleted) {
+      sectionTitle = "Post Deleted"
+    } else {
       // If the post exists in the Redux store, store the id into the object we
       // received (it won't have the id in it, since the store contains an id to
       // content mapping). We will pass this object to the Viewer component,
       // which needs the id.
       post.id = postId
+      sectionTitle = `${Helpers.capitalize(post.category)}: "${post.title}"`
     }
+
     return (
       <div>
-        { post && !post.deleted && (
           <div className="VieWPost">
             <div className="SectionTitle">
-              <h2>{Helpers.capitalize(post.category)}: "{ post.title }"</h2>
-              <div className="SectionTitleNav">
-                <button>
-                  <Link to={ `/${categoryPath}`}>&lt; Back To {Helpers.capitalize(categoryName)}</Link>
-                </button>
+              <h2>{sectionTitle}</h2>
+            </div>
+            <div className="SectionTitleNav">
+              <button>
+                <Link to={ `/${categoryPath}`}>&lt; Back To {Helpers.capitalize(categoryName)}</Link>
+              </button>
+            </div>
+            { post && !post.deleted && (
+              <div>
+                <Viewer content={post} mode={Constants.CONTENT_MODE_POST}/>
+                <AddComment postId={postId}/>
+                <ListComments parentId={postId}/>
               </div>
-            </div>
-            <Viewer content={post} mode={Constants.CONTENT_MODE_POST}/>
-            <AddComment postId={postId}/>
-            <ListComments parentId={postId}/>
+            )}
           </div>
-        )}
-        { post && post.deleted  && (
-          <div className="VieWPost">
-            <div className="SectionTitle">
-              <h2>Post Deleted</h2>
-            </div>
-          </div>
-        )}
-        { !post && (
-          <div className="VieWPost">
-            <div className="SectionTitle">
-              <h2>Post not found</h2>
-            </div>
-          </div>
-        )}
       </div>
     )
   }
