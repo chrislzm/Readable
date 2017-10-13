@@ -30,7 +30,7 @@ class ViewPost extends Component {
   componentDidMount() {
     const { postId } = this.props.match.params
     BackendAPI.getPost(postId).then(post => {
-      if(Object.keys(post).length > 0) {
+      if(Object.keys(post).length > 0 && !post.error) {
         // Only add the post if it exists and has data
         this.props.dispatch(ReduxStoreActions.addNewPost(post))
       }
