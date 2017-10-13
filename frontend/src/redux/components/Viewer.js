@@ -4,12 +4,14 @@
 
   Description:
 
-  React component that renders the content of a post or comment.
+  React component that renders the content of a post or comment. Uses Actions.js
+  to display a group of action buttons to manipulate the post or comment.
 
   Props:
     content: <Object> Required. Contains the content of the post or comment. See
       README.md for a description of fields in the post and comment objects.
-    mode: <String Constant> Required.
+    mode: <String Constant> Required. Value must be CONTENT_MODE_COMMENT if
+      being used with a comment, or CONTENT_MODE_POST if being used with a post.
     Redux Store State: Mapped to props
 */
 
@@ -20,14 +22,21 @@ import Moment from 'moment'
 
 function Viewer (props) {
   const { mode, content } = props
+
   const { title, author, body, timestamp, voteScore} = content
+
+  // If content is a post, id will contain the post id, and parentId will be
+  // undefined. If content is a comment, id will contain the comment id, and
+  // parentId will contain the parent posts's id.
   let { id, parentId } = content
 
+  // If we are viewing a comment, then we will need to set the comment id here
   let commentId
   if(mode === Constants.CONTENT_MODE_COMMENT) {
     commentId = id
     id = parentId
   }
+
   return (
     <div className="divTable blueTable">
       <div className="divTableBody">
