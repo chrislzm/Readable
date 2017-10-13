@@ -1,3 +1,13 @@
+/*
+  Readable: utils/constants.js
+  By Chris Leung
+
+  Description:
+
+  Contains the string constants used in the Readable app.
+
+*/
+
 export const SITE_TITLE = "My React+Redux Powered Forum"
 
 export const DEFAULT_CATEGORY_PATH = ''
@@ -44,6 +54,6 @@ export const LIST_POSTS_SORT_FIELD_TIMESTAMP = "LIST_POSTS_SORT_FIELD_TIMESTAMP"
 export const LIST_POSTS_SORT_FIELD_VOTES = "LIST_POSTS_SORT_FIELD_VOTES"
 
 // CSS constants for sorting direction arrows
-export const CSS_ARROW_UP = "arrow-up"
-export const CSS_ARROW_DOWN = "arrow-down"
-export const CSS_ARROW_NONE = "arrow-none"
+export const CSS_CLASS_ARROW_UP = "arrow-up"
+export const CSS_CLASS_ARROW_DOWN = "arrow-down"
+export const CSS_CLASS_ARROW_NONE = "arrow-none"

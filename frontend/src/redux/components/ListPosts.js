@@ -37,8 +37,8 @@ class ListPosts extends Component {
     sortMethod: Helpers.sortByVotesDescending,
     sortAscending: false,
     sortField: Constants.LIST_POSTS_SORT_FIELD_VOTES,
-    sortDateArrowStyle: Constants.CSS_ARROW_NONE,
-    sortVotesArrowStyle: Constants.CSS_ARROW_DOWN
+    sortDateArrowStyle: Constants.CSS_CLASS_ARROW_NONE,
+    sortVotesArrowStyle: Constants.CSS_CLASS_ARROW_DOWN
   }
 
   /*
@@ -84,22 +84,22 @@ class ListPosts extends Component {
     // Set sort method and output styles based on the field being sorted
     // If the field is the same as previous,
     if(sortField === Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP) {
-      sortVotesArrowStyle = Constants.CSS_ARROW_NONE
+      sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_NONE
       if(sortAscending) {
         sortMethod = Helpers.sortByDateAscending
-        sortDateArrowStyle = Constants.CSS_ARROW_UP
+        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_UP
       } else {
         sortMethod = Helpers.sortByDateDescending
-        sortDateArrowStyle = Constants.CSS_ARROW_DOWN
+        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
       }
     } else {
-      sortDateArrowStyle = Constants.CSS_ARROW_NONE
+      sortDateArrowStyle = Constants.CSS_CLASS_ARROW_NONE
       if(sortAscending) {
         sortMethod = Helpers.sortByVotesAscending
-        sortVotesArrowStyle = Constants.CSS_ARROW_UP
+        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_UP
       } else {
         sortMethod = Helpers.sortByVotesDescending
-        sortVotesArrowStyle = Constants.CSS_ARROW_DOWN
+        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
       }
     }
 
