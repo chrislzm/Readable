@@ -27,5 +27,5 @@ Information about the API server and how to use it can be found in its [README f
 
 Credits
 -------
-* Backend API Server provided by [Richard Kalehoff](https://github.com/richardkalehoff) of [Udacity](https://udacity.com)
+* API Server provided by [Richard Kalehoff](https://github.com/richardkalehoff) of [Udacity](https://udacity.com)
 * This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app)
