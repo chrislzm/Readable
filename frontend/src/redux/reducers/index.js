@@ -1,3 +1,24 @@
+/*
+  Readable: reducers/index.js
+  By Chris Leung
+
+  Description:
+
+  Contains all Redux Store reducers used in Readable. Important notes:
+
+    1) Function variables used in switch statements behave strangely (e.g.
+    variables declared outside the switch statement are (for some strange
+    reason) sometimes not available inside the switch statement), so below
+    you will often see similar variables declared within switch case statements
+    but with different naming styles as not to conflict with each other. (The
+    compiler will complain if they share the same name). I do this to remove
+    ambiguity that these variables are used elsewhere for other purposes.
+
+    2) Note that the currentCategory default state is set to the
+    DEFAULT_CATEGORY_NAME and DEFAULT_CATEGORY_PATH constants in
+    utils/constants.js
+*/
+
 import { combineReducers } from 'redux'
 import * as Constants from '../../utils/constants'
 
