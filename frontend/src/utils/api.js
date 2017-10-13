@@ -1,3 +1,14 @@
+/*
+  Readable: utils/api.js
+  By Chris Leung
+
+  Description:
+
+  Contains all API server methods used in the Readable app. Please see the
+  README.md file in the api-server directory for descriptions of these methods.
+
+*/
+
 const apiServerURL = "http://localhost:3001"
 
 const headers = {
