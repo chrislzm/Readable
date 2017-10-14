@@ -4,19 +4,10 @@
 
   Description:
 
-  Contains all Redux Store reducers used in Readable. Important notes:
+  Contains all Redux Store reducers used in Readable. Note that the
+  currentCategory default state is set to the DEFAULT_CATEGORY_NAME and
+  DEFAULT_CATEGORY_PATH string constant values in utils/constants.js.
 
-    1) Function variables used in switch statements behave strangely (e.g.
-    variables declared outside the switch statement are (for some strange
-    reason) sometimes not available inside the switch statement), so below
-    you will often see similar variables declared within switch case statements
-    but with different naming styles as not to conflict with each other. (The
-    compiler will complain if they share the same name). I do this to remove
-    ambiguity that these variables are used elsewhere for other purposes.
-
-    2) Note that the currentCategory default state is set to the
-    DEFAULT_CATEGORY_NAME and DEFAULT_CATEGORY_PATH constants in
-    utils/constants.js
 */
 
 import { combineReducers } from 'redux'
@@ -50,10 +41,11 @@ function categories(state = {}, action) {
 }
 
 function comments(state = {}, action) {
-  const { parentId } = action
+  // id is the comment id, parentId is the post id the comment belongs to
+  const { id, parentId } = action
 
   switch(action.type) {
-    case ADD_NEW_COMMENT:
+    case ADD_NEW_COMMENT: {
       const {content} = action
       // Set defaults if they were not defined
       if(!content.voteScore) {
@@ -72,20 +64,21 @@ function comments(state = {}, action) {
           [content.id]:content
         }
       }
-    case DELETE_COMMENT:
-      const cid = action.commentId
+    }
+    case DELETE_COMMENT: {
       return {
         ...state,
         [parentId]: {
           ...state[parentId],
-          [cid]: {
-            ...state[parentId][cid],
+          [id]: {
+            ...state[parentId][id],
             deleted:true
           }
         }
       }
-    case EDIT_COMMENT:
-      const {id, body, timestamp} = action
+    }
+    case EDIT_COMMENT: {
+      const { body, timestamp} = action
       return {
         ...state,
         [parentId]: {
@@ -97,15 +90,16 @@ function comments(state = {}, action) {
           }
         }
       }
+    }
     case VOTE_ON_COMMENT:
-      const { commentId, delta } = action
+      const { delta } = action
       return {
         ...state,
         [parentId]: {
           ...state[parentId],
-          [commentId]: {
-            ...state[parentId][commentId],
-            voteScore:state[parentId][commentId].voteScore+delta
+          [id]: {
+            ...state[parentId][id],
+            voteScore:state[parentId][id].voteScore+delta
           }
         }
       }

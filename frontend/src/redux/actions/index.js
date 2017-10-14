@@ -3,7 +3,7 @@
   By Chris Leung
 
   Description:
-  
+
   Contains all Redux Store actions and action type constants used in Readable.
   Actions and parameters are self-explanatory, with exception of post and
   comment content. For a description of the structure of these two objects,
@@ -54,10 +54,10 @@ export function deletePost(id) {
   }
 }
 
-export function deleteComment(commentId,parentId) {
+export function deleteComment(id,parentId) {
   return {
     type: DELETE_COMMENT,
-    commentId,
+    id,
     parentId
   }
 }
@@ -89,10 +89,10 @@ export function voteOnPost(id,delta) {
   }
 }
 
-export function voteOnComment(commentId,parentId,delta) {
+export function voteOnComment(id,parentId,delta) {
   return {
     type: VOTE_ON_COMMENT,
-    commentId,
+    id,
     parentId,
     delta
   }
