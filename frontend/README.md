@@ -10,6 +10,7 @@ After running "npm start", a web browser will open the address http://localhost:
 ## Features
 
 This application provides all the basic features of an online forum. In addition, the following has been implemented:
+* Auto-Select Category: When adding a new post, the current category you are viewing will be pre-selected as the category for the new post
 * Category Navigation Bar: All available categories are listed in the navigation bar and are clickable. The current category is highlighted in purple.
 * Sort Field and Order: Clicking on the "Date" or "Votes" column header in category view will sort by those fields. To change the sort direction, click the current sort field column. The arrow direction will change to indicate ascending or descending sort order.
 
