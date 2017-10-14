@@ -5,8 +5,7 @@ To install and start the front-end server, run the following commands in this di
 * `npm install`
 * `npm start`
 
-After running "npm start", a web browser will open the address:
-http://localhost:3000/
+After running "npm start", a web browser will open the address http://localhost:3000/ where the application will launch.
 
 ## Features
 
@@ -20,7 +19,7 @@ This application provides all the basic features of an online forum. In addition
 
 Readable stores the categories in the Redux store in the "categories" object, where each property key is a category name, and the value of that key is the URL path to that category.
 
-Please note that the category value of posts should match the category name and NOT the category path. Category name is case insensitive.
+Please note that the category value of posts should match the category name and NOT the category path. Category names are case insensitive, but should preferably be all lowercased.
 
 ### Post Objects
 
