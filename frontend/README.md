@@ -1,4 +1,4 @@
-# Front-End Server
+# Readable Front-End Server
 
 To install and start the front-end server, run the following commands in this directory:
 
