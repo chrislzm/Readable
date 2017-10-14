@@ -1,4 +1,4 @@
-# Front-End Server
+# Readable Front-End Server
 
 To install and start the front-end server, run the following commands in this directory:
 
@@ -16,7 +16,7 @@ This application provides all the basic features of an online forum. In addition
 
 ## Usage Notes
 
-The default sort method for both posts and comments is by number of votes in descending order. This application is anonymous, with no authentication or authorization. Comments and posts accept any username/name for creation and editing.
+The default sort method for both posts and comments is by number of votes in descending order.
 
 ## Developer Reference
 
