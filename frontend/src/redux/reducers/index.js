@@ -45,7 +45,7 @@ function comments(state = {}, action) {
   const { id, parentId } = action
 
   switch(action.type) {
-    case ADD_NEW_COMMENT: {
+    case ADD_NEW_COMMENT:
       const {content} = action
       // Set defaults if they were not defined
       if(!content.voteScore) {
@@ -64,8 +64,7 @@ function comments(state = {}, action) {
           [content.id]:content
         }
       }
-    }
-    case DELETE_COMMENT: {
+    case DELETE_COMMENT:
       return {
         ...state,
         [parentId]: {
@@ -76,8 +75,7 @@ function comments(state = {}, action) {
           }
         }
       }
-    }
-    case EDIT_COMMENT: {
+    case EDIT_COMMENT:
       const { body, timestamp} = action
       return {
         ...state,
@@ -90,7 +88,6 @@ function comments(state = {}, action) {
           }
         }
       }
-    }
     case VOTE_ON_COMMENT:
       const { delta } = action
       return {
