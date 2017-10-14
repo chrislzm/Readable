@@ -14,6 +14,10 @@ This application provides all the basic features of an online forum. In addition
 * Category Navigation Bar: All available categories are listed in the navigation bar and are clickable. The current category is highlighted in purple.
 * Sort Field and Order: Clicking on the "Date" or "Votes" column header in category view will sort by those fields. To change the sort direction, click the current sort field column. The arrow direction will change to indicate ascending or descending sort order.
 
+## Usage Notes
+
+The default sort method for both posts and comments is by number of votes in descending order. This application is anonymous, with no authentication or authorization. Comments and posts accept any username/name for creation and editing.
+
 ## Developer Reference
 
 ### Category Object
