@@ -26,6 +26,8 @@ Readable stores the categories in the Redux store in the "categories" object, wh
 
 Please note that the category value of posts should match the category name and NOT the category path. Category names are case insensitive, but should preferably be all lowercased.
 
+Categories are defined in the API server's [categories.js](../api-server/categories.js) file.
+
 ### Post Objects
 
 Readable posts objects contain the following properties. In the Redux store, the unique id is used as the key, and the value is an object that hold the rest of the attributes below:
