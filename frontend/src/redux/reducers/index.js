@@ -24,7 +24,7 @@ import {
   VOTE_ON_COMMENT,
   VOTE_ON_POST,
   SET_CURRENT_CATEGORY
-} from '../actions'
+} from '../actions/actionTypes'
 
 function categories(state = {}, action) {
   const { name, path } = action
