@@ -16,7 +16,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
 import * as Constants from '../../utils/constants'
-import * as BackendAPI from '../../utils/api'
 import * as Helpers from '../../utils/helpers'
 import * as ReduxCategoryActions from '../actions/categoryActions'
 import AddPost from './AddPost'
@@ -30,12 +29,7 @@ import '../../style/divTable.css'
 class App extends Component {
 
   componentDidMount() {
-    BackendAPI.getCategories().then(categories => {
-      for(const category of categories) {
-        const {name, path} = category
-        this.props.dispatch(ReduxCategoryActions.addNewCategory(name,path))
-      }
-    })
+    this.props.dispatch(ReduxCategoryActions.fetchCategories())
   }
 
   render() {
