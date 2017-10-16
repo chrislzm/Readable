@@ -5,6 +5,17 @@ import {
 
 import * as BackendAPI from '../../utils/api'
 
+/* Thunk Actions */
+
+export const fetchCategories = () => dispatch => (
+  BackendAPI.getCategories().then(categories => {
+    for(const category of categories) {
+      const {name, path} = category
+      dispatch(addNewCategory(name,path))
+    }
+  })
+)
+
 /* Redux Actions */
 
 export function addNewCategory(name, path) {
@@ -22,14 +33,3 @@ export function setCurrentCategory(name, path) {
     path
   }
 }
-
-/* Thunk Actions */
-
-export const fetchCategories = () => dispatch => (
-  BackendAPI.getCategories().then(categories => {
-    for(const category of categories) {
-      const {name, path} = category
-      dispatch(addNewCategory(name,path))
-    }
-  })
-)
