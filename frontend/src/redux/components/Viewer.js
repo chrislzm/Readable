@@ -4,8 +4,8 @@
 
   Description:
 
-  React component that renders the content of a post or comment. Uses Actions.js
-  to display a group of action buttons to manipulate the post or comment.
+  React component that renders the content of a post or comment. Uses
+  Controls.js to display a group of controls to manipulate the post or comment.
 
   Props:
     content: <Object> Required. Contains the content of the post or comment. See
@@ -17,7 +17,7 @@
 
 import React from 'react'
 import * as Constants from '../../utils/constants'
-import Actions from './Actions'
+import Controls from './Controls'
 import Moment from 'moment'
 
 function Viewer (props) {
@@ -57,9 +57,9 @@ function Viewer (props) {
           <div className="divTableCell">{voteScore}</div>
         </div>
         <div className="divTableRow">
-          <div className="divTableLabel">Actions</div>
+          <div className="divTableLabel">Controls</div>
           <div className="divTableCell">
-            <Actions postId={id} commentId={commentId} title={title} mode={mode}/>
+            <Controls postId={id} commentId={commentId} title={title} mode={mode}/>
           </div>
         </div>
       </div>

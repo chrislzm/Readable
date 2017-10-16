@@ -4,8 +4,8 @@
 
   Description:
 
-  React component that displays a group of action buttons for posts or
-  comments. The actions are "Upvote", "Downvote", "Edit", and "Delete".
+  React component that displays a group of control buttons for posts or
+  comments. The controls are "Upvote", "Downvote", "Edit", and "Delete".
 
   Contains one modal window that displays a delete confirmation message and
   two buttons to confirm or cancel the delete operation.
@@ -31,7 +31,7 @@ import * as Constants from '../../utils/constants'
 import * as CommentActions from '../actions/commentActions'
 import * as PostActions from '../actions/postActions'
 
-class Actions extends Component {
+class Controls extends Component {
 
   state = {
     modalOpen: false
@@ -156,4 +156,4 @@ class Actions extends Component {
   }
 }
 
-export default withRouter(connect()(Actions))
+export default withRouter(connect()(Controls))

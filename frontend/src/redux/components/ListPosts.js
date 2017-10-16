@@ -23,6 +23,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import Controls from './Controls'
 import Moment from 'moment'
 import * as BackendAPI from '../../utils/api'
 import * as Constants from '../../utils/constants'
@@ -31,7 +32,6 @@ import * as CategoryActions from '../actions/categoryActions'
 import * as CommentActions from '../actions/commentActions'
 import * as PostActions from '../actions/postActions'
 
-import Actions from './Actions'
 
 class ListPosts extends Component {
 
@@ -196,7 +196,7 @@ class ListPosts extends Component {
                   <div className={this.state.sortVotesArrowStyle}></div>
                 </div>
                 <div className="divTableHead">Comments</div>
-                <div className="divTableHead">Actions</div>
+                <div className="divTableHead">Controls</div>
               </div>
             </div>
             <div className="divTableBody">
@@ -209,7 +209,7 @@ class ListPosts extends Component {
                   <div className="divTableCell">{post.voteScore}</div>
                   <div className="divTableCell">{post.numComments}</div>
                   <div className="divTableCell">
-                    <Actions
+                    <Controls
                       postId={post.id}
                       title={post.title}
                       mode={Constants.CONTENT_MODE_POST}
