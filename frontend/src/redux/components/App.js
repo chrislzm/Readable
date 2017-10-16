@@ -18,7 +18,7 @@ import { Route, withRouter } from 'react-router-dom'
 import * as Constants from '../../utils/constants'
 import * as BackendAPI from '../../utils/api'
 import * as Helpers from '../../utils/helpers'
-import * as ReduxStoreActions from '../actions'
+import * as ReduxCategoryActions from '../actions/categoryActions'
 import AddPost from './AddPost'
 import Edit from './Edit'
 import ListPosts from './ListPosts'
@@ -33,7 +33,7 @@ class App extends Component {
     BackendAPI.getCategories().then(categories => {
       for(const category of categories) {
         const {name, path} = category
-        this.props.dispatch(ReduxStoreActions.addNewCategory(name,path))
+        this.props.dispatch(ReduxCategoryActions.addNewCategory(name,path))
       }
     })
   }

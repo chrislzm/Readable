@@ -35,7 +35,8 @@ import serializeForm from 'form-serialize'
 import * as BackendAPI from '../../utils/api'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
-import * as ReduxStoreActions from '../actions'
+import * as ReduxCommentActions from '../actions/commentActions'
+import * as ReduxPostActions from '../actions/postActions'
 
 class Editor extends Component {
 
@@ -48,7 +49,7 @@ class Editor extends Component {
       BackendAPI.getComment(commentId).then(comment => {
           if(Object.keys(comment).length > 0) {
             const {parentId,...content} = comment
-            this.props.dispatch(ReduxStoreActions.addNewComment(parentId,content))
+            this.props.dispatch(ReduxCommentActions.addNewComment(parentId,content))
           }
       })
     }
@@ -83,7 +84,7 @@ class Editor extends Component {
             body
           }
           BackendAPI.editPost(id,editedPost)
-          this.props.dispatch(ReduxStoreActions.editPost(id,title,body))
+          this.props.dispatch(ReduxPostActions.editPost(id,title,body))
           this.props.handleEdit()
         }
         break
@@ -100,7 +101,7 @@ class Editor extends Component {
             body
           }
           BackendAPI.editComment(id,editedComment)
-          this.props.dispatch(ReduxStoreActions.editComment(id,parentId,body,timestamp))
+          this.props.dispatch(ReduxCommentActions.editComment(id,parentId,body,timestamp))
           this.props.handleEdit()
         }
         break
@@ -117,7 +118,7 @@ class Editor extends Component {
             parentId
           }
           BackendAPI.addNewComment(newComment)
-          this.props.dispatch(ReduxStoreActions.addNewComment(parentId,newComment))
+          this.props.dispatch(ReduxCommentActions.addNewComment(parentId,newComment))
           this.author.value = ''
           this.body.value = ''
           this.props.handleEdit()
@@ -137,7 +138,7 @@ class Editor extends Component {
           post.voteScore = Constants.DEFAULT_VOTES
           post.deleted = Constants.DEFAULT_DELETED_FLAG
           BackendAPI.addNewPost(post)
-          this.props.dispatch(ReduxStoreActions.addNewPost(post))
+          this.props.dispatch(ReduxPostActions.addNewPost(post))
           this.props.handleEdit()
         }
     }

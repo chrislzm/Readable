@@ -20,7 +20,7 @@ import { connect } from 'react-redux'
 import * as BackendAPI from '../../utils/api'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
-import * as ReduxStoreActions from '../actions'
+import * as ReduxCommentActions from '../actions/commentActions'
 import Viewer from './Viewer'
 
 class ListComments extends Component {
@@ -30,7 +30,7 @@ class ListComments extends Component {
     BackendAPI.getAllComments(parentId).then(comments => {
       for(const comment of comments) {
         const {parentId,...content} = comment
-        this.props.dispatch(ReduxStoreActions.addNewComment(parentId,content))
+        this.props.dispatch(ReduxCommentActions.addNewComment(parentId,content))
       }
     })
   }

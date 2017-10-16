@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom'
 import * as BackendAPI from '../../utils/api'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
-import * as ReduxStoreActions from '../actions'
+import * as ReduxPostActions from '../actions/postActions'
 import AddComment from './AddComment'
 import ListComments from './ListComments'
 import Viewer from './Viewer'
@@ -32,7 +32,7 @@ class ViewPost extends Component {
     BackendAPI.getPost(postId).then(post => {
       if(Object.keys(post).length > 0 && !post.error) {
         // Only add the post if it exists, has data and is not in error state
-        this.props.dispatch(ReduxStoreActions.addNewPost(post))
+        this.props.dispatch(ReduxPostActions.addNewPost(post))
       }
     })
   }

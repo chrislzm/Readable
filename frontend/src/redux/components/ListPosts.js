@@ -27,7 +27,10 @@ import Moment from 'moment'
 import * as BackendAPI from '../../utils/api'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
-import * as ReduxStoreActions from '../actions'
+import * as ReduxCategoryActions from '../actions/categoryActions'
+import * as ReduxCommentActions from '../actions/commentActions'
+import * as ReduxPostActions from '../actions/postActions'
+
 import Actions from './Actions'
 
 class ListPosts extends Component {
@@ -116,19 +119,19 @@ class ListPosts extends Component {
     const { categoryName, categoryPath } = this.props
 
     // Set currentCategory state
-    this.props.dispatch(ReduxStoreActions.setCurrentCategory(categoryName, categoryPath))
+    this.props.dispatch(ReduxCategoryActions.setCurrentCategory(categoryName, categoryPath))
 
     if(categoryName === Constants.DEFAULT_CATEGORY_NAME) {
       // If we are in the default category, then no category has been specified
       // and we need to get ALL posts from the backend API server
       BackendAPI.getAllPosts().then(posts => {
         for(const post of posts) {
-          this.props.dispatch(ReduxStoreActions.addNewPost(post))
+          this.props.dispatch(ReduxPostActions.addNewPost(post))
           // TODO: Refactor this into actions and remove code duplication
           BackendAPI.getAllComments(post.id).then(comments => {
             for(const comment of comments) {
               const {parentId,...content} = comment
-              this.props.dispatch(ReduxStoreActions.addNewComment(parentId,content))
+              this.props.dispatch(ReduxCommentActions.addNewComment(parentId,content))
             }
           })
         }
@@ -137,12 +140,12 @@ class ListPosts extends Component {
       // Category has been specified; retrieve posts only for this category
       BackendAPI.getCategoryPosts(categoryName).then(posts => {
         for(const post of posts) {
-          this.props.dispatch(ReduxStoreActions.addNewPost(post))
+          this.props.dispatch(ReduxPostActions.addNewPost(post))
           // TODO: Refactor this into actions and remove code duplication
           BackendAPI.getAllComments(post.id).then(comments => {
             for(const comment of comments) {
               const {parentId,...content} = comment
-              this.props.dispatch(ReduxStoreActions.addNewComment(parentId,content))
+              this.props.dispatch(ReduxCommentActions.addNewComment(parentId,content))
             }
           })
         }
