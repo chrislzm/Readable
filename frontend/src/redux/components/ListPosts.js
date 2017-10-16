@@ -124,6 +124,13 @@ class ListPosts extends Component {
       BackendAPI.getAllPosts().then(posts => {
         for(const post of posts) {
           this.props.dispatch(ReduxStoreActions.addNewPost(post))
+          // TODO: Refactor this into actions and remove code duplication
+          BackendAPI.getAllComments(post.id).then(comments => {
+            for(const comment of comments) {
+              const {parentId,...content} = comment
+              this.props.dispatch(ReduxStoreActions.addNewComment(parentId,content))
+            }
+          })
         }
       })
     } else {
@@ -131,18 +138,31 @@ class ListPosts extends Component {
       BackendAPI.getCategoryPosts(categoryName).then(posts => {
         for(const post of posts) {
           this.props.dispatch(ReduxStoreActions.addNewPost(post))
+          // TODO: Refactor this into actions and remove code duplication
+          BackendAPI.getAllComments(post.id).then(comments => {
+            for(const comment of comments) {
+              const {parentId,...content} = comment
+              this.props.dispatch(ReduxStoreActions.addNewComment(parentId,content))
+            }
+          })
         }
       })
     }
   }
 
   render() {
-    const { categoryName, posts } = this.props
+    const { categoryName, posts, numCommentsForPost } = this.props
 
     const filteredPosts = posts.filter(post => this.postFilter(post.deleted,post.category,categoryName))
     const sortedPosts = filteredPosts.sort(this.state.sortMethod)
+    const numPosts = sortedPosts.length
 
-    let numPosts = sortedPosts.length
+    // Add property to each post that contains its number of comments
+    for(let i = 0; i < numPosts; i++) {
+      const numComments = numCommentsForPost[sortedPosts[i].id]
+      // If there are no comments, set to 0
+      sortedPosts[i].numComments = numComments ? numComments : 0
+    }
 
     return(
       <div className="ListPosts">
@@ -172,6 +192,7 @@ class ListPosts extends Component {
                   <div className="sortableColumnLabel">Votes</div>
                   <div className={this.state.sortVotesArrowStyle}></div>
                 </div>
+                <div className="divTableHead">Comments</div>
                 <div className="divTableHead">Actions</div>
               </div>
             </div>
@@ -183,6 +204,7 @@ class ListPosts extends Component {
                   <div className="divTableCell">{post.author}</div>
                   <div className="divTableCell">{Moment(post.timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</div>
                   <div className="divTableCell">{post.voteScore}</div>
+                  <div className="divTableCell">{post.numComments}</div>
                   <div className="divTableCell">
                     <Actions
                       postId={post.id}
@@ -200,13 +222,22 @@ class ListPosts extends Component {
   }
 }
 
-// Convert the id/post key/values in the store into an array of posts
+
 const mapStateToProps = (state) => ({
+  // Create array of posts
   posts: Object.keys(state.posts).map(id => {
     let post = state.posts[id]
     post.id = id
     return post
-  })
+  }),
+  // Create post-id to number-of-comments map
+  numCommentsForPost: (() =>{
+    let numComments = {}
+    for(const id of Object.keys(state.comments)) {
+      numComments[id] = Object.keys(state.comments[id]).length
+    }
+    return numComments
+  })()
 })
 
 export default connect(mapStateToProps)(ListPosts);
