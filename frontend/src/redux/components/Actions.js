@@ -28,8 +28,8 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as BackendAPI from '../../utils/api'
 import * as Constants from '../../utils/constants'
-import * as ReduxCommentActions from '../actions/commentActions'
-import * as ReduxPostActions from '../actions/postActions'
+import * as CommentActions from '../actions/commentActions'
+import * as PostActions from '../actions/postActions'
 
 class Actions extends Component {
 
@@ -66,12 +66,12 @@ class Actions extends Component {
     switch(mode) {
       case Constants.CONTENT_MODE_COMMENT:
         BackendAPI.voteOnComment(commentId,{option:apiVoteOptionValue})
-        this.props.dispatch(ReduxCommentActions.voteOnComment(commentId,postId,delta))
+        this.props.dispatch(CommentActions.voteOnComment(commentId,postId,delta))
         break
       default:
       case Constants.CONTENT_MODE_POST:
         BackendAPI.voteOnPost(postId,{option:apiVoteOptionValue})
-        this.props.dispatch(ReduxPostActions.voteOnPost(postId,delta))
+        this.props.dispatch(PostActions.voteOnPost(postId,delta))
     }
   }
 
@@ -108,12 +108,12 @@ class Actions extends Component {
   delete(postId,mode,commentId) {
     switch(mode) {
       case Constants.CONTENT_MODE_COMMENT:
-        this.props.dispatch(ReduxCommentActions.deleteComment(commentId,postId))
+        this.props.dispatch(CommentActions.deleteComment(commentId,postId))
         BackendAPI.deleteComment(commentId)
         break
       default:
       case Constants.CONTENT_MODE_POST:
-        this.props.dispatch(ReduxPostActions.deletePost(postId))
+        this.props.dispatch(PostActions.deletePost(postId))
         BackendAPI.deletePost(postId)
     }
   }

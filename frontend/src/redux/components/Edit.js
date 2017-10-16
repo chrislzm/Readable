@@ -29,7 +29,7 @@ import { Link, withRouter } from 'react-router-dom'
 import * as BackendAPI from '../../utils/api'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
-import * as ReduxPostActions from '../actions/postActions'
+import * as PostActions from '../actions/postActions'
 import Editor from './Editor'
 
 class Edit extends Component {
@@ -51,7 +51,7 @@ class Edit extends Component {
     BackendAPI.getPost(postId).then(post => {
       // Verify this is an existing post--if it is, it will have data
       if(Object.keys(post).length > 0) {
-        this.props.dispatch(ReduxPostActions.addNewPost(post))
+        this.props.dispatch(PostActions.addNewPost(post))
       }
     })
   }

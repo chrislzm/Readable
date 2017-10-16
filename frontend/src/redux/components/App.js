@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
-import * as ReduxCategoryActions from '../actions/categoryActions'
+import * as CategoryActions from '../actions/categoryActions'
 import AddPost from './AddPost'
 import Edit from './Edit'
 import ListPosts from './ListPosts'
@@ -29,7 +29,7 @@ import '../../style/divTable.css'
 class App extends Component {
 
   componentDidMount() {
-    this.props.dispatch(ReduxCategoryActions.fetchCategories())
+    this.props.dispatch(CategoryActions.fetchCategories())
   }
 
   render() {
