@@ -58,7 +58,7 @@ class Controls extends Component {
     let apiVoteOptionValue
 
     if(delta === 1) {
-        apiVoteOptionValue = "upVote"
+      apiVoteOptionValue = "upVote"
     } else { // delta === -1
       apiVoteOptionValue = "downVote"
     }
@@ -69,8 +69,7 @@ class Controls extends Component {
         break
       default:
       case Constants.CONTENT_MODE_POST:
-        BackendAPI.voteOnPost(postId,{option:apiVoteOptionValue})
-        this.props.dispatch(PostActions.voteOnPost(postId,delta))
+        this.props.dispatch(PostActions.submitVoteForPost(postId,delta,apiVoteOptionValue))
     }
   }
 
