@@ -113,11 +113,11 @@ export const getPost = (id) => (
   .then(res => res.json())
 )
 
-export const voteOnPost = (id,body) => {
+export const voteOnPost = (id,body) => (
   fetch(`${apiServerURL}/posts/${id}`, {
     method: 'POST',
     headers,
     body:JSON.stringify(body)
    })
   .then(res => res.json())
-}
+)
