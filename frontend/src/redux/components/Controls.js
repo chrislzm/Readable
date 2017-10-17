@@ -65,8 +65,7 @@ class Controls extends Component {
 
     switch(mode) {
       case Constants.CONTENT_MODE_COMMENT:
-        BackendAPI.voteOnComment(commentId,{option:apiVoteOptionValue})
-        this.props.dispatch(CommentActions.voteOnComment(commentId,postId,delta))
+        this.props.dispatch(CommentActions.submitVoteForComment(commentId,postId,delta,apiVoteOptionValue))
         break
       default:
       case Constants.CONTENT_MODE_POST:

@@ -5,6 +5,16 @@ import {
   VOTE_ON_COMMENT,
 } from './actionTypes'
 
+import * as BackendAPI from '../../utils/api'
+
+/* Thunk Actions */
+
+export const submitVoteForComment = (commentId,postId,delta,apiVoteOptionValue) => dispatch => (
+  BackendAPI.voteOnComment(commentId,{option:apiVoteOptionValue}).then(() => dispatch(voteOnComment(commentId,postId,delta)))
+)
+
+/* Redux Actions */
+
 export function addNewComment(parentId, content) {
   return {
     type: ADD_NEW_COMMENT,
