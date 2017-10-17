@@ -29,12 +29,7 @@ class ViewPost extends Component {
 
   componentDidMount() {
     const { postId } = this.props.match.params
-    PostAPI.getPost(postId).then(post => {
-      if(Object.keys(post).length > 0 && !post.error) {
-        // Only add the post if it exists, has data and is not in error state
-        this.props.dispatch(PostActions.addNewPost(post))
-      }
-    })
+    this.props.dispatch(PostActions.fetchPost(postId))
   }
 
   render() {
