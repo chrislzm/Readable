@@ -67,14 +67,14 @@ export const getComment = (commentId) => (
   .then(res => res.json())
 )
 
-export const voteOnComment = (id,body) => {
+export const voteOnComment = (id,body) => (
   fetch(`${apiServerURL}/comments/${id}`, {
     method: 'POST',
     headers,
     body:JSON.stringify(body)
    })
   .then(res => res.json())
-}
+)
 
 /* Post Methods */
 
