@@ -50,7 +50,7 @@ export const fetchCategoryPostsAndComments = (categoryName) => dispatch => (
 export const fetchPost = (postId) => dispatch => (
   PostAPI.getPost(postId).then(post => {
     // Verify this is an existing post--if it is, it will have data
-    if(Object.keys(post).length > 0) {
+    if(Object.keys(post).length > 0 && !post.error) {
       dispatch(addNewPost(post))
     }
   })
