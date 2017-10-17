@@ -15,31 +15,31 @@ import {
   SERVER_URL
 } from './apiConstants'
 
-export const addNewPost = (body) => {
+export const addNewPost = (body) => (
   fetch(`${SERVER_URL}/posts`, {
     method: 'POST',
     headers: HEADERS,
     body:JSON.stringify(body)
    })
   .then(res => res.json())
-}
+)
 
-export const deletePost = (id) => {
+export const deletePost = (id) => (
   fetch(`${SERVER_URL}/posts/${id}`, {
     method: 'DELETE',
     headers: HEADERS
    })
   .then(res => res.json())
-}
+)
 
-export const editPost = (id,body) => {
+export const editPost = (id,body) => (
   fetch(`${SERVER_URL}/posts/${id}`, {
     method: 'PUT',
     headers: HEADERS,
     body:JSON.stringify(body)
    })
   .then(res => res.json())
-}
+)
 
 export const getAllPosts = () => (
   fetch(`${SERVER_URL}/posts`, { headers: HEADERS })

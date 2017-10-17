@@ -14,31 +14,31 @@ import {
   SERVER_URL
 } from './apiConstants'
 
-export const addNewComment = (body) => {
+export const addNewComment = (body) => (
   fetch(`${SERVER_URL}/comments`, {
     method: 'POST',
     headers: HEADERS,
     body:JSON.stringify(body)
    })
   .then(res => res.json())
-}
+)
 
-export const deleteComment = (id) => {
+export const deleteComment = (id) => (
   fetch(`${SERVER_URL}/comments/${id}`, {
     method: 'DELETE',
     headers: HEADERS
    })
   .then(res => res.json())
-}
+)
 
-export const editComment = (id,body) => {
+export const editComment = (id,body) => (
   fetch(`${SERVER_URL}/comments/${id}`, {
     method: 'PUT',
     headers: HEADERS,
     body:JSON.stringify(body)
    })
   .then(res => res.json())
-}
+)
 
 export const getAllComments = (postId) => (
   fetch(`${SERVER_URL}/posts/${postId}/comments`, { headers: HEADERS })
