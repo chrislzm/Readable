@@ -36,8 +36,17 @@ export const fetchAllPostsAndComments = () => dispatch => (
       dispatch(CommentActions.fetchAllComments(post.id))
     }
   })
-
 )
+
+export const fetchCategoryPostsAndComments = (categoryName) => dispatch => (
+  PostAPI.getCategoryPosts(categoryName).then(posts => {
+    for(const post of posts) {
+      dispatch(addNewPost(post))
+      dispatch(CommentActions.fetchAllComments(post.id))
+    }
+  })
+)
+
 export const fetchPost = (postId) => dispatch => (
   PostAPI.getPost(postId).then(post => {
     // Verify this is an existing post--if it is, it will have data

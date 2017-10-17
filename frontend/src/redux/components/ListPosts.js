@@ -25,12 +25,9 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Controls from './Controls'
 import Moment from 'moment'
-import * as CommentAPI from '../../api/commentApi'
-import * as PostAPI from '../../api/postApi'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as CategoryActions from '../actions/categoryActions'
-import * as CommentActions from '../actions/commentActions'
 import * as PostActions from '../actions/postActions'
 
 
@@ -128,18 +125,7 @@ class ListPosts extends Component {
       this.props.dispatch(PostActions.fetchAllPostsAndComments())
     } else {
       // Category has been specified; retrieve posts only for this category
-      PostAPI.getCategoryPosts(categoryName).then(posts => {
-        for(const post of posts) {
-          this.props.dispatch(PostActions.addNewPost(post))
-          // TODO: Refactor this into actions and remove code duplication
-          CommentAPI.getAllComments(post.id).then(comments => {
-            for(const comment of comments) {
-              const {parentId,...content} = comment
-              this.props.dispatch(CommentActions.addNewComment(parentId,content))
-            }
-          })
-        }
-      })
+      this.props.dispatch(PostActions.fetchCategoryPostsAndComments(categoryName))
     }
   }
 
