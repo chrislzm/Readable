@@ -23,9 +23,18 @@ import * as PostAPI from '../../api/postApi'
 
 /* Thunk Actions */
 
-export const removePost = (postId) => dispatch => {
+export const fetchPost = (postId) => dispatch => (
+  PostAPI.getPost(postId).then(post => {
+    // Verify this is an existing post--if it is, it will have data
+    if(Object.keys(post).length > 0) {
+      dispatch(addNewPost(post))
+    }
+  })
+)
+
+export const removePost = (postId) => dispatch => (
   PostAPI.deletePost(postId).then(() => dispatch(deletePost(postId)))
-}
+)
 
 export const submitVoteForPost = (id,delta) => dispatch => {
   const apiVoteOptionValue = Helpers.convertVoteDeltaToApiOption(delta)

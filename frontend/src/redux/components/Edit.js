@@ -26,7 +26,6 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import * as PostAPI from '../../api/postApi'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as PostActions from '../actions/postActions'
@@ -48,12 +47,7 @@ class Edit extends Component {
 
   componentDidMount() {
     const { postId } = this.props.match.params
-    PostAPI.getPost(postId).then(post => {
-      // Verify this is an existing post--if it is, it will have data
-      if(Object.keys(post).length > 0) {
-        this.props.dispatch(PostActions.addNewPost(post))
-      }
-    })
+    this.props.dispatch(PostActions.fetchPost(postId))
   }
 
   render() {
