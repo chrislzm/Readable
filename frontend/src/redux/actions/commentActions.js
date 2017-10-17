@@ -6,12 +6,12 @@ import {
 } from './actionTypes'
 
 import * as CommentAPI from '../../api/commentApi'
-import { convertVoteDeltaToApiOption } from '../../utils/helpers'
+import * as Helpers from '../../utils/helpers'
 
 /* Thunk Actions */
 
 export const submitVoteForComment = (commentId,postId,delta) => dispatch => {
-  const apiVoteOptionValue = convertVoteDeltaToApiOption(delta)
+  const apiVoteOptionValue = Helpers.convertVoteDeltaToApiOption(delta)
   CommentAPI.voteOnComment(commentId,{option:apiVoteOptionValue}).then(() => dispatch(voteOnComment(commentId,postId,delta)))
 }
 
