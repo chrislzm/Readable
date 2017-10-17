@@ -46,13 +46,8 @@ class Editor extends Component {
   componentDidMount() {
     const { editingMode} = this.props
     if(editingMode === Constants.EDITOR_MODE_EDIT_COMMENT) {
-      const { commentId } = this.props
-      CommentAPI.getComment(commentId).then(comment => {
-          if(Object.keys(comment).length > 0) {
-            const {parentId,...content} = comment
-            this.props.dispatch(CommentActions.addNewComment(parentId,content))
-          }
-      })
+      const { commentId, dispatch } = this.props
+      dispatch(CommentActions.fetchComment(commentId))
     }
   }
 
