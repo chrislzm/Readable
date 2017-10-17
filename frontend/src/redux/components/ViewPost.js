@@ -17,7 +17,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as PostAPI from '../../api/postApi'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as PostActions from '../actions/postActions'
