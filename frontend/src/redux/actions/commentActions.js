@@ -23,6 +23,15 @@ export const removeComment = (commentId,postId) => dispatch => (
   CommentAPI.deleteComment(commentId).then(() => dispatch(deleteComment(commentId,postId)))
 )
 
+export const saveEditedComment = (id,parentId,body,newTimeStamp) => dispatch => {
+  const timestamp = newTimeStamp.format("x")
+  const editedComment = {
+    timestamp,
+    body
+  }
+  CommentAPI.editComment(id,editedComment).then(() => dispatch(editComment(id,parentId,body,timestamp)))
+}
+
 export const submitVoteForComment = (commentId,postId,delta) => dispatch => {
   const apiVoteOptionValue = Helpers.convertVoteDeltaToApiOption(delta)
   CommentAPI.voteOnComment(commentId,{option:apiVoteOptionValue}).then(() => dispatch(voteOnComment(commentId,postId,delta)))

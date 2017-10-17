@@ -75,12 +75,7 @@ class Editor extends Component {
         if(!title) {
           alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else {
-          const editedPost = {
-            title,
-            body
-          }
-          PostAPI.editPost(id,editedPost)
-          this.props.dispatch(PostActions.editPost(id,title,body))
+          this.props.dispatch(PostActions.saveEditedPost(id,title,body))
           this.props.handleEdit()
         }
         break
@@ -91,13 +86,7 @@ class Editor extends Component {
         if(!newTimeStamp.isValid()) {
           alert(Constants.EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP)
         } else {
-          const timestamp = newTimeStamp.format("x")
-          const editedComment = {
-            timestamp,
-            body
-          }
-          CommentAPI.editComment(id,editedComment)
-          this.props.dispatch(CommentActions.editComment(id,parentId,body,timestamp))
+          this.props.dispatch(CommentActions.saveEditedComment(id,parentId,body,newTimeStamp))
           this.props.handleEdit()
         }
         break

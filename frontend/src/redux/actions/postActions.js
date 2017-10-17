@@ -36,6 +36,14 @@ export const removePost = (postId) => dispatch => (
   PostAPI.deletePost(postId).then(() => dispatch(deletePost(postId)))
 )
 
+export const saveEditedPost = (id,title,body) => dispatch => {
+  const editedPost = {
+    title,
+    body
+  }
+  PostAPI.editPost(id,editedPost).then(() => dispatch(editPost(id,title,body)))
+}
+
 export const submitVoteForPost = (id,delta) => dispatch => {
   const apiVoteOptionValue = Helpers.convertVoteDeltaToApiOption(delta)
   PostAPI.voteOnPost(id,{option:apiVoteOptionValue}).then(() => dispatch(voteOnPost(id,delta)))
