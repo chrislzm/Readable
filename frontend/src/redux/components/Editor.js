@@ -104,6 +104,7 @@ class Editor extends Component {
           }
           CommentAPI.addNewComment(newComment)
           this.props.dispatch(CommentActions.addNewComment(parentId,newComment))
+          // Clear form values so that user can easily enter new comment
           this.author.value = ''
           this.body.value = ''
           this.props.handleEdit()
