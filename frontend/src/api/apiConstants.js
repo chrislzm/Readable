@@ -12,4 +12,7 @@ export const HEADERS = {
   'Authorization': 'whatever-you-want'
 }
 
-export const SERVER_URL = "http://localhost:3001"
+export const SERVER_URL = 'http://localhost:3001'
+
+export const OPTION_UP_VOTE = 'upVote'
+export const OPTION_DOWN_VOTE = 'downVote'
