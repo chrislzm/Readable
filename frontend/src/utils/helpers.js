@@ -8,6 +8,8 @@
 
 */
 
+import { OPTION_UP_VOTE, OPTION_DOWN_VOTE } from '../api/apiConstants'
+
 // Capitalizes the first letter of a string
 export function capitalize (str = '') {
   return typeof str !== 'string'
@@ -22,6 +24,16 @@ export function convertCategoriesToArray(categories) {
     {path:key,name:categories[key]}
   ))
   return categoryArray
+}
+
+// Converts our Readable vote delta values (1 or -1 signifying upvote or
+// downvote) to a valid API vote option
+export function convertVoteDeltaToApiOption(delta) {
+  if(delta === 1) {
+    return OPTION_UP_VOTE
+  } else { // delta === -1
+    return OPTION_DOWN_VOTE
+  }
 }
 
 // Generates a pseudo-GUID (global unique identifier) used as a unique id for
