@@ -32,6 +32,17 @@ export const saveEditedComment = (id,parentId,body,newTimeStamp) => dispatch => 
   CommentAPI.editComment(id,editedComment).then(() => dispatch(editComment(id,parentId,body,timestamp)))
 }
 
+export const submitNewComment = (body, author, parentId) => dispatch => {
+  const newComment = {
+    id: Helpers.guid(),
+    timestamp: Date.now(),
+    body,
+    author,
+    parentId
+  }
+  CommentAPI.addNewComment(newComment).then(() => dispatch(addNewComment(parentId,newComment)))
+}
+
 export const submitVoteForComment = (commentId,postId,delta) => dispatch => {
   const apiVoteOptionValue = Helpers.convertVoteDeltaToApiOption(delta)
   CommentAPI.voteOnComment(commentId,{option:apiVoteOptionValue}).then(() => dispatch(voteOnComment(commentId,postId,delta)))

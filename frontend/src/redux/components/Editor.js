@@ -95,15 +95,7 @@ class Editor extends Component {
         if (!author) {
           alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
-          const newComment = {
-            id: Helpers.guid(),
-            timestamp: Date.now(),
-            body,
-            author,
-            parentId
-          }
-          CommentAPI.addNewComment(newComment)
-          this.props.dispatch(CommentActions.addNewComment(parentId,newComment))
+          this.props.dispatch(CommentActions.submitNewComment(body,author,parentId))
           // Clear form values so that user can easily enter new comment
           this.author.value = ''
           this.body.value = ''
