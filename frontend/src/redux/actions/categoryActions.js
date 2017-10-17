@@ -3,12 +3,12 @@ import {
   SET_CURRENT_CATEGORY
 } from './actionTypes'
 
-import * as BackendAPI from '../../utils/api'
+import * as CategoryAPI from '../../api/categoryApi'
 
 /* Thunk Actions */
 
 export const fetchCategories = () => dispatch => (
-  BackendAPI.getCategories().then(categories => {
+  CategoryAPI.getCategories().then(categories => {
     for(const category of categories) {
       const {name, path} = category
       dispatch(addNewCategory(name,path))

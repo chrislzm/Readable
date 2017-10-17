@@ -5,12 +5,12 @@ import {
   VOTE_ON_COMMENT,
 } from './actionTypes'
 
-import * as BackendAPI from '../../utils/api'
+import * as CommentAPI from '../../api/commentApi'
 
 /* Thunk Actions */
 
 export const submitVoteForComment = (commentId,postId,delta,apiVoteOptionValue) => dispatch => (
-  BackendAPI.voteOnComment(commentId,{option:apiVoteOptionValue}).then(() => dispatch(voteOnComment(commentId,postId,delta)))
+  CommentAPI.voteOnComment(commentId,{option:apiVoteOptionValue}).then(() => dispatch(voteOnComment(commentId,postId,delta)))
 )
 
 /* Redux Actions */

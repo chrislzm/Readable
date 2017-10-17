@@ -18,12 +18,12 @@ import {
   VOTE_ON_POST,
 } from './actionTypes'
 
-import * as BackendAPI from '../../utils/api'
+import * as PostApi from '../../api/postApi'
 
 /* Thunk Actions */
 
 export const submitVoteForPost = (id,delta,apiVoteOptionValue) => dispatch => (
-  BackendAPI.voteOnPost(id,{option:apiVoteOptionValue}).then(() => dispatch(voteOnPost(id,delta)))
+  PostApi.voteOnPost(id,{option:apiVoteOptionValue}).then(() => dispatch(voteOnPost(id,delta)))
 )
 
 /* Redux Actions */

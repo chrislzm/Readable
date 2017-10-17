@@ -26,7 +26,8 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import * as BackendAPI from '../../utils/api'
+import * as CommentAPI from '../../api/commentApi'
+import * as PostAPI from '../../api/postApi'
 import * as Constants from '../../utils/constants'
 import * as CommentActions from '../actions/commentActions'
 import * as PostActions from '../actions/postActions'
@@ -107,12 +108,12 @@ class Controls extends Component {
     switch(mode) {
       case Constants.CONTENT_MODE_COMMENT:
         this.props.dispatch(CommentActions.deleteComment(commentId,postId))
-        BackendAPI.deleteComment(commentId)
+        CommentAPI.deleteComment(commentId)
         break
       default:
       case Constants.CONTENT_MODE_POST:
         this.props.dispatch(PostActions.deletePost(postId))
-        BackendAPI.deletePost(postId)
+        PostAPI.deletePost(postId)
     }
   }
 

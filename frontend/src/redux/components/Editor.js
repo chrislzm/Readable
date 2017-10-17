@@ -32,7 +32,8 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Moment from 'moment'
 import serializeForm from 'form-serialize'
-import * as BackendAPI from '../../utils/api'
+import * as CommentAPI from '../../api/commentApi'
+import * as PostAPI from '../../api/postApi'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as CommentActions from '../actions/commentActions'
@@ -46,7 +47,7 @@ class Editor extends Component {
     const { editingMode} = this.props
     if(editingMode === Constants.EDITOR_MODE_EDIT_COMMENT) {
       const { commentId } = this.props
-      BackendAPI.getComment(commentId).then(comment => {
+      CommentAPI.getComment(commentId).then(comment => {
           if(Object.keys(comment).length > 0) {
             const {parentId,...content} = comment
             this.props.dispatch(CommentActions.addNewComment(parentId,content))
@@ -83,7 +84,7 @@ class Editor extends Component {
             title,
             body
           }
-          BackendAPI.editPost(id,editedPost)
+          PostAPI.editPost(id,editedPost)
           this.props.dispatch(PostActions.editPost(id,title,body))
           this.props.handleEdit()
         }
@@ -100,7 +101,7 @@ class Editor extends Component {
             timestamp,
             body
           }
-          BackendAPI.editComment(id,editedComment)
+          CommentAPI.editComment(id,editedComment)
           this.props.dispatch(CommentActions.editComment(id,parentId,body,timestamp))
           this.props.handleEdit()
         }
@@ -117,7 +118,7 @@ class Editor extends Component {
             author,
             parentId
           }
-          BackendAPI.addNewComment(newComment)
+          CommentAPI.addNewComment(newComment)
           this.props.dispatch(CommentActions.addNewComment(parentId,newComment))
           this.author.value = ''
           this.body.value = ''
@@ -137,7 +138,7 @@ class Editor extends Component {
           post.timestamp = Date.now()
           post.voteScore = Constants.DEFAULT_VOTES
           post.deleted = Constants.DEFAULT_DELETED_FLAG
-          BackendAPI.addNewPost(post)
+          PostAPI.addNewPost(post)
           this.props.dispatch(PostActions.addNewPost(post))
           this.props.handleEdit()
         }

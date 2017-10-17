@@ -17,7 +17,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as BackendAPI from '../../utils/api'
+import * as PostAPI from '../../api/postApi'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as PostActions from '../actions/postActions'
@@ -29,7 +29,7 @@ class ViewPost extends Component {
 
   componentDidMount() {
     const { postId } = this.props.match.params
-    BackendAPI.getPost(postId).then(post => {
+    PostAPI.getPost(postId).then(post => {
       if(Object.keys(post).length > 0 && !post.error) {
         // Only add the post if it exists, has data and is not in error state
         this.props.dispatch(PostActions.addNewPost(post))

@@ -25,7 +25,8 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Controls from './Controls'
 import Moment from 'moment'
-import * as BackendAPI from '../../utils/api'
+import * as CommentAPI from '../../api/commentApi'
+import * as PostAPI from '../../api/postApi'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as CategoryActions from '../actions/categoryActions'
@@ -124,11 +125,11 @@ class ListPosts extends Component {
     if(categoryName === Constants.DEFAULT_CATEGORY_NAME) {
       // If we are in the default category, then no category has been specified
       // and we need to get ALL posts from the backend API server
-      BackendAPI.getAllPosts().then(posts => {
+      PostAPI.getAllPosts().then(posts => {
         for(const post of posts) {
           this.props.dispatch(PostActions.addNewPost(post))
           // TODO: Refactor this into actions and remove code duplication
-          BackendAPI.getAllComments(post.id).then(comments => {
+          CommentAPI.getAllComments(post.id).then(comments => {
             for(const comment of comments) {
               const {parentId,...content} = comment
               this.props.dispatch(CommentActions.addNewComment(parentId,content))
@@ -138,11 +139,11 @@ class ListPosts extends Component {
       })
     } else {
       // Category has been specified; retrieve posts only for this category
-      BackendAPI.getCategoryPosts(categoryName).then(posts => {
+      PostAPI.getCategoryPosts(categoryName).then(posts => {
         for(const post of posts) {
           this.props.dispatch(PostActions.addNewPost(post))
           // TODO: Refactor this into actions and remove code duplication
-          BackendAPI.getAllComments(post.id).then(comments => {
+          CommentAPI.getAllComments(post.id).then(comments => {
             for(const comment of comments) {
               const {parentId,...content} = comment
               this.props.dispatch(CommentActions.addNewComment(parentId,content))

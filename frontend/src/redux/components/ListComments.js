@@ -17,7 +17,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as BackendAPI from '../../utils/api'
+import * as CommentAPI from '../../api/commentApi'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as CommentActions from '../actions/commentActions'
@@ -27,7 +27,7 @@ class ListComments extends Component {
 
   componentDidMount() {
     const {parentId} = this.props
-    BackendAPI.getAllComments(parentId).then(comments => {
+    CommentAPI.getAllComments(parentId).then(comments => {
       for(const comment of comments) {
         const {parentId,...content} = comment
         this.props.dispatch(CommentActions.addNewComment(parentId,content))
