@@ -18,13 +18,15 @@ import {
   VOTE_ON_POST,
 } from './actionTypes'
 
+import * as Helpers from '../../utils/helpers'
 import * as PostApi from '../../api/postApi'
 
 /* Thunk Actions */
 
-export const submitVoteForPost = (id,delta,apiVoteOptionValue) => dispatch => (
+export const submitVoteForPost = (id,delta) => dispatch => {
+  const apiVoteOptionValue = Helpers.convertVoteDeltaToApiOption(delta)
   PostApi.voteOnPost(id,{option:apiVoteOptionValue}).then(() => dispatch(voteOnPost(id,delta)))
-)
+}
 
 /* Redux Actions */
 

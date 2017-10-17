@@ -56,21 +56,13 @@ class Controls extends Component {
       commentId: Same as prop (see above)
   */
   vote(delta,mode,postId,commentId) {
-    let apiVoteOptionValue
-
-    if(delta === 1) {
-      apiVoteOptionValue = "upVote"
-    } else { // delta === -1
-      apiVoteOptionValue = "downVote"
-    }
-
     switch(mode) {
       case Constants.CONTENT_MODE_COMMENT:
-        this.props.dispatch(CommentActions.submitVoteForComment(commentId,postId,delta,apiVoteOptionValue))
+        this.props.dispatch(CommentActions.submitVoteForComment(commentId,postId,delta))
         break
       default:
       case Constants.CONTENT_MODE_POST:
-        this.props.dispatch(PostActions.submitVoteForPost(postId,delta,apiVoteOptionValue))
+        this.props.dispatch(PostActions.submitVoteForPost(postId,delta))
     }
   }
 
