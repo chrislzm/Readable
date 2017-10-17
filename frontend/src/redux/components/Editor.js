@@ -111,12 +111,7 @@ class Editor extends Component {
         } else if (!author) {
           alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
-          post.id = Helpers.guid()
-          post.timestamp = Date.now()
-          post.voteScore = Constants.DEFAULT_VOTES
-          post.deleted = Constants.DEFAULT_DELETED_FLAG
-          PostAPI.addNewPost(post)
-          this.props.dispatch(PostActions.addNewPost(post))
+          this.props.dispatch(PostActions.submitNewPost(post))
           this.props.handleEdit()
         }
     }

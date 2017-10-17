@@ -18,6 +18,11 @@ import {
   VOTE_ON_POST,
 } from './actionTypes'
 
+import {
+  DEFAULT_VOTES,
+  DEFAULT_DELETED_FLAG
+} from '../../utils/constants'
+
 import * as Helpers from '../../utils/helpers'
 import * as PostAPI from '../../api/postApi'
 
@@ -42,6 +47,14 @@ export const saveEditedPost = (id,title,body) => dispatch => {
     body
   }
   PostAPI.editPost(id,editedPost).then(() => dispatch(editPost(id,title,body)))
+}
+
+export const submitNewPost = (post) => dispatch => {
+  post.id = Helpers.guid()
+  post.timestamp = Date.now()
+  post.voteScore = DEFAULT_VOTES
+  post.deleted = DEFAULT_DELETED_FLAG
+  PostAPI.addNewPost(post).then(() => dispatch(addNewPost(post)))
 }
 
 export const submitVoteForPost = (id,delta) => dispatch => {
