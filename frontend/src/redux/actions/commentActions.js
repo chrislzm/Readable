@@ -10,6 +10,10 @@ import * as Helpers from '../../utils/helpers'
 
 /* Thunk Actions */
 
+export const removeComment = (commentId,postId) => dispatch => {
+  CommentAPI.deleteComment(commentId).then(() => dispatch(deleteComment(commentId,postId)))
+}
+
 export const submitVoteForComment = (commentId,postId,delta) => dispatch => {
   const apiVoteOptionValue = Helpers.convertVoteDeltaToApiOption(delta)
   CommentAPI.voteOnComment(commentId,{option:apiVoteOptionValue}).then(() => dispatch(voteOnComment(commentId,postId,delta)))

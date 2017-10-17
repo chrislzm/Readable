@@ -99,8 +99,7 @@ class Controls extends Component {
   delete(postId,mode,commentId) {
     switch(mode) {
       case Constants.CONTENT_MODE_COMMENT:
-        this.props.dispatch(CommentActions.deleteComment(commentId,postId))
-        CommentAPI.deleteComment(commentId)
+        this.props.dispatch(CommentActions.removeComment(commentId,postId))
         break
       default:
       case Constants.CONTENT_MODE_POST:
