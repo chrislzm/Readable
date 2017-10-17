@@ -125,18 +125,7 @@ class ListPosts extends Component {
     if(categoryName === Constants.DEFAULT_CATEGORY_NAME) {
       // If we are in the default category, then no category has been specified
       // and we need to get ALL posts from the backend API server
-      PostAPI.getAllPosts().then(posts => {
-        for(const post of posts) {
-          this.props.dispatch(PostActions.addNewPost(post))
-          // TODO: Refactor this into actions and remove code duplication
-          CommentAPI.getAllComments(post.id).then(comments => {
-            for(const comment of comments) {
-              const {parentId,...content} = comment
-              this.props.dispatch(CommentActions.addNewComment(parentId,content))
-            }
-          })
-        }
-      })
+      this.props.dispatch(PostActions.fetchAllPostsAndComments())
     } else {
       // Category has been specified; retrieve posts only for this category
       PostAPI.getCategoryPosts(categoryName).then(posts => {

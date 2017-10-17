@@ -23,11 +23,21 @@ import {
   DEFAULT_DELETED_FLAG
 } from '../../utils/constants'
 
+import * as CommentActions from './commentActions'
 import * as Helpers from '../../utils/helpers'
 import * as PostAPI from '../../api/postApi'
 
 /* Thunk Actions */
 
+export const fetchAllPostsAndComments = () => dispatch => (
+  PostAPI.getAllPosts().then(posts => {
+    for(const post of posts) {
+      dispatch(addNewPost(post))
+      dispatch(CommentActions.fetchAllComments(post.id))
+    }
+  })
+
+)
 export const fetchPost = (postId) => dispatch => (
   PostAPI.getPost(postId).then(post => {
     // Verify this is an existing post--if it is, it will have data
