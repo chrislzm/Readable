@@ -19,13 +19,17 @@ import {
 } from './actionTypes'
 
 import * as Helpers from '../../utils/helpers'
-import * as PostApi from '../../api/postApi'
+import * as PostAPI from '../../api/postApi'
 
 /* Thunk Actions */
 
+export const removePost = (postId) => dispatch => {
+  PostAPI.deletePost(postId).then(() => dispatch(deletePost(postId)))
+}
+
 export const submitVoteForPost = (id,delta) => dispatch => {
   const apiVoteOptionValue = Helpers.convertVoteDeltaToApiOption(delta)
-  PostApi.voteOnPost(id,{option:apiVoteOptionValue}).then(() => dispatch(voteOnPost(id,delta)))
+  PostAPI.voteOnPost(id,{option:apiVoteOptionValue}).then(() => dispatch(voteOnPost(id,delta)))
 }
 
 /* Redux Actions */
