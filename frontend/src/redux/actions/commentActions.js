@@ -10,6 +10,15 @@ import * as Helpers from '../../utils/helpers'
 
 /* Thunk Actions */
 
+export const fetchAllComments = (parentId) => dispatch => (
+  CommentAPI.getAllComments(parentId).then(comments => {
+    for(const comment of comments) {
+      const {parentId,...content} = comment
+      dispatch(addNewComment(parentId,content))
+    }
+  })
+)
+
 export const fetchComment = (commentId) => dispatch => (
   CommentAPI.getComment(commentId).then(comment => {
       if(Object.keys(comment).length > 0) {
