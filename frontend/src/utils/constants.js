@@ -61,3 +61,7 @@ export const LIST_POSTS_SORT_FIELD_VOTES = "LIST_POSTS_SORT_FIELD_VOTES"
 export const CSS_CLASS_ARROW_UP = "arrow-up"
 export const CSS_CLASS_ARROW_DOWN = "arrow-down"
 export const CSS_CLASS_ARROW_NONE = "arrow-none"
+
+// CSS classes for showing/hiding inputs
+export const CSS_CLASS_HIDE = "hidden"
+export const CSS_CLASS_SHOW = "visible"
