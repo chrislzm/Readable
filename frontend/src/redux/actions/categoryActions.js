@@ -8,12 +8,12 @@ import * as CategoryAPI from '../../api/categoryApi'
 /* Thunk Actions */
 
 export const fetchCategories = () => dispatch => (
-  CategoryAPI.getCategories().then(categories => {
-    for(const category of categories) {
+  CategoryAPI.getCategories().then(categories => (
+    categories.forEach(category => {
       const {name, path} = category
       dispatch(addNewCategory(name,path))
-    }
-  })
+    })
+  ))
 )
 
 /* Redux Actions */
