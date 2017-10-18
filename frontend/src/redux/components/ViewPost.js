@@ -10,13 +10,15 @@
   coments, and ListComments to list all the comments for this post.
 
   Props:
-    React Router Param Match: Provides the post id (see App.js)
-    Redux Store State: Mapped to props
+  React Router Param Match: Provides the post id (required). See Route statement
+    in App.js for matched URL parameters.
+  Redux Store State: Mapped to props
 */
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as PostActions from '../actions/postActions'
@@ -25,6 +27,11 @@ import ListComments from './ListComments'
 import Viewer from './Viewer'
 
 class ViewPost extends Component {
+
+  static propTypes = {
+    posts: PropTypes.object.isRequired,
+    currentCategory: PropTypes.object.isRequired
+  }
 
   componentDidMount() {
     const { postId } = this.props.match.params

@@ -12,15 +12,16 @@
       README.md for a description of fields in the post and comment objects.
     mode: <String Constant> Required. Value must be CONTENT_MODE_COMMENT if
       being used with a comment, or CONTENT_MODE_POST if being used with a post.
-    Redux Store State: Mapped to props
 */
 
 import React from 'react'
 import * as Constants from '../../utils/constants'
 import Controls from './Controls'
 import Moment from 'moment'
+import PropTypes from 'prop-types'
 
 function Viewer (props) {
+
   const { mode, content } = props
 
   const { title, author, body, timestamp, voteScore} = content
@@ -70,6 +71,11 @@ function Viewer (props) {
       </div>
     </div>
   )
+}
+
+Viewer.propTypes = {
+  content: PropTypes.object.isRequired,
+  mode: PropTypes.string.isRequired
 }
 
 export default Viewer;

@@ -15,10 +15,9 @@
   The URL path to this component is set in constants.js "PATH_EDIT".
 
   Props:
-    postId: <String> Required. Contains the id of the parent post when we are
-      editing a comment.
-    commentId: <String> If an argument is provided, then will be editing the
-      comment in the commentId provided where its parentId === postId.
+    React Router Param Match: Provides the post id (required). Also provides
+      comment id, which is required when editing a comment. See Route statement
+      in App.js for matched URL parameters.
     Redux Store State: Mapped to props
 */
 
@@ -26,12 +25,19 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as PostActions from '../actions/postActions'
 import Editor from './Editor'
 
 class Edit extends Component {
+
+  static propTypes = {
+    categories: PropTypes.object.isRequired,
+    currentCategory: PropTypes.object.isRequired,
+    posts: PropTypes.object.isRequired
+  }
 
   state = {
     modalOpen: false
