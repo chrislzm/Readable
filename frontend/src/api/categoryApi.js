@@ -14,8 +14,6 @@ import {
   SERVER_URL
 } from './apiConstants'
 
-/* Category Methods */
-
 export const getCategories = () => (
   fetch(`${SERVER_URL}/categories`, { headers: HEADERS })
   .then(res => res.json())
