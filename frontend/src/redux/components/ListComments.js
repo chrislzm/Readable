@@ -17,6 +17,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as CommentActions from '../actions/commentActions'
@@ -24,6 +25,11 @@ import Viewer from './Viewer'
 
 class ListComments extends Component {
 
+  static propTypes = {
+    parentId: PropTypes.string.isRequired,
+    comments: PropTypes.object.isRequired
+  }
+  
   componentDidMount() {
     const {parentId} = this.props
     this.props.dispatch(CommentActions.fetchAllComments(parentId))

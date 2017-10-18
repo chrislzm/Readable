@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import Editor from './Editor'
@@ -26,6 +27,11 @@ import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 
 class AddPost extends Component {
+
+  static propTypes = {
+    categories: PropTypes.object.isRequired,
+    currentCategory: PropTypes.object.isRequired
+  }
 
   state = {
     modalOpen: false,

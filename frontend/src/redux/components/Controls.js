@@ -26,11 +26,19 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as Constants from '../../utils/constants'
 import * as CommentActions from '../actions/commentActions'
 import * as PostActions from '../actions/postActions'
 
 class Controls extends Component {
+
+  static propTypes = {
+    mode: PropTypes.string.isRequired,
+    postId: PropTypes.string.isRequired,
+    commentId: PropTypes.string,
+    title: PropTypes.string
+  }
 
   state = {
     modalOpen: false

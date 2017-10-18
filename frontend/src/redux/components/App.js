@@ -15,6 +15,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as CategoryActions from '../actions/categoryActions'
@@ -27,6 +28,10 @@ import '../../style/App.css'
 import '../../style/divTable.css'
 
 class App extends Component {
+
+  static propTypes = {
+    categories: PropTypes.array.isRequired
+  }
 
   componentDidMount() {
     this.props.dispatch(CategoryActions.fetchCategories())

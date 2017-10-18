@@ -20,11 +20,16 @@
 
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import PropTypes from 'prop-types'
 import * as Constants from '../../utils/constants'
 import Editor from './Editor'
 
 class AddComment extends Component {
 
+  static propTypes = {
+    postId: PropTypes.string.isRequired
+  }
+  
   state = {
     modalOpen: false
   }

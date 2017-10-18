@@ -19,6 +19,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 function NavigationBar(props) {
   const { categories, currentCategory } = props
@@ -31,7 +32,12 @@ function NavigationBar(props) {
       )}) }
     </ul>
   )
-};
+}
+
+NavigationBar.propTypes = {
+  categories: PropTypes.array.isRequired,
+  currentCategory: PropTypes.object.isRequired
+}
 
 const mapStateToProps = (store) => ({
   currentCategory:store.currentCategory

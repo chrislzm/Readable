@@ -32,6 +32,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Modal from 'react-modal'
 import Moment from 'moment'
+import PropTypes from 'prop-types'
 import serializeForm from 'form-serialize'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
@@ -39,6 +40,16 @@ import * as CommentActions from '../actions/commentActions'
 import * as PostActions from '../actions/postActions'
 
 class Editor extends Component {
+
+  static propTypes = {
+    editingMode: PropTypes.string.isRequired,
+    postId: PropTypes.string,
+    commentId: PropTypes.string,
+    categories: PropTypes.array.isRequired,
+    posts: PropTypes.object.isRequired,
+    currentCategory: PropTypes.object.isRequired,
+    comments: PropTypes.object.isRequired
+  }
 
   state = {
     modalOpen: false,

@@ -25,13 +25,20 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Controls from './Controls'
 import Moment from 'moment'
+import PropTypes from 'prop-types'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as CategoryActions from '../actions/categoryActions'
 import * as PostActions from '../actions/postActions'
 
-
 class ListPosts extends Component {
+
+  static propTypes = {
+    categoryName: PropTypes.string.isRequired,
+    categoryPath: PropTypes.string.isRequired,
+    posts: PropTypes.array.isRequired,
+    numCommentsForPost: PropTypes.object.isRequired
+  }
 
   // Set sorting defaults along with corresponding UI widget styles
   state = {
