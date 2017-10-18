@@ -149,7 +149,10 @@ class ListPosts extends Component {
           <h2>{Helpers.capitalize(categoryName)} ({numPosts})</h2>
           <div className="SectionTitleNav">
             <button>
-              <Link to={`/${Constants.PATH_ADD_POST}`}>+ Add New Post</Link>
+              <Link
+                to={`/${Constants.PATH_ADD_POST}`}>
+                + Add New Post
+              </Link>
             </button>
           </div>
         </div>

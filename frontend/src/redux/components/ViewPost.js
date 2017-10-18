@@ -59,12 +59,18 @@ class ViewPost extends Component {
             </div>
             <div className="SectionTitleNav">
               <button>
-                <Link to={ `/${categoryPath}`}>&lt; Back To {Helpers.capitalize(categoryName)}</Link>
+                <Link
+                  to={ `/${categoryPath}`}>
+                  &lt; Back To {Helpers.capitalize(categoryName)}
+                </Link>
               </button>
             </div>
             { post && !post.deleted && (
               <div>
-                <Viewer content={post} mode={Constants.CONTENT_MODE_POST}/>
+                <Viewer
+                  content={post}
+                  mode={Constants.CONTENT_MODE_POST}
+                />
                 <AddComment postId={postId}/>
                 <ListComments parentId={postId}/>
               </div>

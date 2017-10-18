@@ -45,10 +45,13 @@ class App extends Component {
         <div className="App-header">
           <h2>{Constants.SITE_TITLE}</h2>
         </div>
-        <NavigationBar categories={categories}/>
+        <NavigationBar
+          categories={categories}
+        />
         { categories.map(category => (
           <Route
-            exact path={`/${category.path}`}
+            exact
+            path={`/${category.path}`}
             key={category.path}
             render={() =>(
               <ListPosts
@@ -60,17 +63,20 @@ class App extends Component {
         ))}
         { categories.map(category => (
           <Route
-            exact path={`/${category.path}/:postId`}
+            exact
+            path={`/${category.path}/:postId`}
             key={category.path}
             component={ViewPost}
           />
         ))}
         <Route
-          exact path={`/${Constants.PATH_ADD_POST}`}
+          exact
+          path={`/${Constants.PATH_ADD_POST}`}
           component={AddPost}
         />
         <Route
-          exact path={`/${Constants.PATH_EDIT}/:postId/:commentId?`}
+          exact
+          path={`/${Constants.PATH_EDIT}/:postId/:commentId?`}
           component={Edit}
         />
       </div>

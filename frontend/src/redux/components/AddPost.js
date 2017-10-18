@@ -51,7 +51,10 @@ class AddPost extends Component {
           </h2>
           <div className="SectionTitleNav">
             <button>
-              <Link to={ `/${categoryPath}`}>&lt; Back To {Helpers.capitalize(categoryName)}</Link>
+              <Link
+                to={ `/${categoryPath}`}>
+                &lt; Back To {Helpers.capitalize(categoryName)}
+              </Link>
             </button>
           </div>
         </div>

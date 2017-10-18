@@ -59,7 +59,12 @@ function Viewer (props) {
         <div className="divTableRow">
           <div className="divTableLabel">Controls</div>
           <div className="divTableCell">
-            <Controls postId={id} commentId={commentId} title={title} mode={mode}/>
+            <Controls
+              postId={id}
+              commentId={commentId}
+              title={title}
+              mode={mode}
+            />
           </div>
         </div>
       </div>
