@@ -30,6 +30,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { Table } from 'semantic-ui-react'
 import Modal from 'react-modal'
 import Moment from 'moment'
 import PropTypes from 'prop-types'
@@ -178,8 +179,8 @@ class Editor extends Component {
           author = postToEdit.author
           category = postToEdit.category
           timestamp = postToEdit.timestamp
-          showAuthor = showCategory = showTimestamp = false
-          showTitle = true
+          showAuthor = showCategory = showTimestamp = Constants.CSS_CLASS_HIDE
+          showTitle = Constants.CSS_CLASS_SHOW
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
         }
         break
@@ -195,29 +196,29 @@ class Editor extends Component {
           parentId = postId
           body = commentToEdit.body
           timestamp = commentToEdit.timestamp
-          showTimestamp = true
-          showCategory = showTitle = showAuthor = false
+          showTimestamp = Constants.CSS_CLASS_SHOW
+          showCategory = showTitle = showAuthor = Constants.CSS_CLASS_HIDE
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
         }
         break
       // Mode: Add a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
         parentId = postId
-        showAuthor = true
-        showCategory = showTitle = showTimestamp = false
+        showAuthor = Constants.CSS_CLASS_SHOW
+        showCategory = showTitle = showTimestamp = Constants.CSS_CLASS_HIDE
         submitButtonText = Constants.SUBMIT_BUTTON_TEXT_NEW_COMMENT
         break
       // Mode: Add a new post
       case Constants.EDITOR_MODE_ADD_POST:
       default:
         category = this.props.currentCategory.name
-        showAuthor = showCategory = showTitle = true
-        showTimestamp = false
+        showAuthor = showCategory = showTitle = Constants.CSS_CLASS_SHOW
+        showTimestamp = Constants.CSS_CLASS_HIDE
         submitButtonText = Constants.SUBMIT_BUTTON_TEXT_NEW_POST
     }
 
     return (
-      <div className="PostEditor">
+      <div className="Editor">
         <Modal
           className='modal'
           overlayClassName='overlay'
@@ -235,13 +236,11 @@ class Editor extends Component {
         { editDataFound && (
         <form onSubmit={this.handleSubmit} className="edit-post-form">
           <div className="edit-post-details">
-            <div className="divTable blueTable">
-              <div className="divTableBody">
-                <div
-                  className="divTableRow"
-                  style={{display: showCategory ? 'table-row':'none'}}>
-                  <div className="divTableLabel">Category</div>
-                  <div className="divTableCell">
+            <Table definition>
+              <Table.Body>
+                <Table.Row className={showCategory}>
+                  <Table.Cell>Category</Table.Cell>
+                  <Table.Cell>
                     <select
                       name="category"
                       onSubmit={this.handleSubmit}
@@ -254,55 +253,60 @@ class Editor extends Component {
                         </option>
                       ))}
                     </select>
-                  </div></div>
-                  <div
-                    className="divTableRow"
-                    style={{display: showTitle ? 'table-row':'none'}}>
-                    <div className="divTableLabel">Title</div>
-                    <div className="divTableCell" key={title}>
-                      <input type="text" name="title" defaultValue={title}/>
-                    </div>
-                  </div>
-                  <div className="divTableRow">
-                    <div className="divTableLabel">Body</div>
-                    <div className="divTableCell" key={body}>
-                      <textarea name="body" defaultValue={body} ref={(input) => { this.body = input }}/>
-                    </div>
-                  </div>
-                  <div
-                    className="divTableRow"
-                    style={{display: showAuthor ? 'table-row':'none'}}>
-                    <div className="divTableLabel">Author</div>
-                    <div className="divTableCell">
-                      <input
-                        type="text"
-                        name="author"
-                        defaultValue={author}
-                        ref={(input) => { this.author = input }}/>
-                    </div>
-                  </div>
-                  <div
-                    className="divTableRow"
-                    style={{display: showTimestamp ? 'table-row':'none'}}>
-                    <div className="divTableLabel">Time Stamp</div>
-                    <div className="divTableCell" key={timestamp}>
-                      <input
-                        type="text"
-                        name="timestamp"
-                        defaultValue={Moment(timestamp, "x").format(Constants.DATE_FORMAT_EDITOR)}/>
-                    </div>
-                  </div>
-                <input type="hidden" name="id" value={id}/>
-                <input type="hidden" name="parentId" value={parentId}/>
-                <input type="hidden" name="editingMode" value={editingMode}/>
-                <div className="divTableRow">
-                  <div className="divTableLabel"></div>
-                  <div className="divTableCell">
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row className={showTitle}>
+                  <Table.Cell>Title</Table.Cell>
+                  <Table.Cell key={title}>
+                    <input
+                      type="text"
+                      name="title"
+                      defaultValue={title}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>Body</Table.Cell>
+                  <Table.Cell key={body}>
+                    <textarea
+                      name="body"
+                      defaultValue={body}
+                      ref={(input) => { this.body = input }}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row className={showAuthor}>
+                  <Table.Cell>Author</Table.Cell>
+                  <Table.Cell>
+                    <input
+                      type="text"
+                      name="author"
+                      defaultValue={author}
+                      ref={(input) => { this.author = input }}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row className={showTimestamp}>
+                  <Table.Cell>Time Stamp</Table.Cell>
+                  <Table.Cell key={timestamp}>
+                    <input
+                      type="text"
+                      name="timestamp"
+                      defaultValue={Moment(timestamp, "x").format(Constants.DATE_FORMAT_EDITOR)}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell/>
+                  <Table.Cell>
                     <button>{submitButtonText}</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+            <input type="hidden" name="id" value={id}/>
+            <input type="hidden" name="parentId" value={parentId}/>
+            <input type="hidden" name="editingMode" value={editingMode}/>
           </div>
         </form>
       )}
