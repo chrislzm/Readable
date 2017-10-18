@@ -1,14 +1,17 @@
 /*
-  Readable: actions/index.js
+  Readable: actions/postActions.js
   By Chris Leung
 
   Description:
 
-  Contains all Redux Store actions and action type constants used in Readable.
-  Actions and parameters are self-explanatory, with exception of post and
-  comment content. For a description of the structure of these two objects,
-  please see README.md
+  Contains all Redux category-related actions used in Readable.
 
+  Thunk actions are used to execute API calls and then dispatch other actions
+  only after the fetch requests have completed. Only Thunk actions interact
+  with the API server in the Readable app.
+
+  For a description of the structure of post objects, please refer to the
+  [frontend README file](../../../../README.md).
 */
 
 import {
@@ -49,7 +52,7 @@ export const fetchCategoryPostsAndComments = (categoryName) => dispatch => (
 
 export const fetchPost = (postId) => dispatch => (
   PostAPI.getPost(postId).then(post => {
-    // Verify this is an existing post--if it is, it will have data
+    // Verify this is a valid post
     if(Object.keys(post).length > 0 && !post.error) {
       dispatch(addNewPost(post))
     }
