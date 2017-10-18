@@ -8,6 +8,11 @@
   color: white;
 }
 
+.Content {
+  padding-top:20px;
+  width:90%;
+  margin:auto;
+}
 .CategoryBar {
   width:100%;
   margin:auto;
@@ -36,9 +41,80 @@
   font-weight: bold;
 }
 
-.SectionTitle {
-  margin:auto;
-  width:90%;
+.Editor, .Viewer {
+  padding-bottom:30px;
+}
+
+.Editor .hidden {
+  display:none;
+}
+
+.Editor .visible {}
+
+.Editor input, .Editor select, .Editor textarea {
+  width:100%;
+  vertical-align: top;
+}
+
+.ListPosts .arrow-up, .ListPosts .arrow-down, .ListPosts .arrow-none {
+	width: 0;
+	height: 0;
+	border: 7px solid transparent;
+  float:left;
+  margin-left:10px;
+	position: relative;
+	top: -5px;
+  cursor: pointer; cursor: hand;
+}
+
+.ListPosts .arrow-up:after, .ListPosts .arrow-down:after, .ListPosts .arrow-none:after {
+	content: '';
+	position: absolute;
+	left: -7px;
+	top: 9px;
+	width: 0;
+	height: 0;
+	border: 7px solid transparent;
+  cursor: pointer; cursor: hand;
+}
+
+.ListPosts .arrow-up {
+  border-bottom-color: red;
+}
+
+.ListPosts .arrow-down:after {
+  border-top-color: red;
+}
+
+.ListPosts .arrow-down, .arrow-none {
+  border-bottom-color: grey;
+}
+
+.ListPosts .arrow-up:after, .arrow-none:after {
+  border-top-color: grey;
+}
+
+.ListPosts .sortableHeader {
+  float:left;
+  cursor: pointer; cursor: hand;
+}
+
+.modal {
+  position: absolute;
+  line-height: 2.5em;
+  text-align: center;
+  top: 50%;
+  left: 20%;
+  right: 20%;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);
+  min-width: 500px;
 }
 
 .SectionTitle h2 {
@@ -65,22 +141,4 @@
 .StatusMessage {
   margin:40px;
   font-style:italic;
-}
-
-.modal {
-  position: absolute;
-  line-height: 2.5em;
-  text-align: center;
-  top: 50%;
-  left: 20%;
-  right: 20%;
-  border: 1px solid rgb(204, 204, 204);
-  background: rgb(255, 255, 255);
-  overflow: auto;
-  border-radius: 4px;
-  outline: none;
-  padding: 20px;
-  border-radius: 3px;
-  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);
-  min-width: 500px;
 }
