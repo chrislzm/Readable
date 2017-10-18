@@ -30,6 +30,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import Modal from 'react-modal'
 import Moment from 'moment'
 import serializeForm from 'form-serialize'
 import * as Constants from '../../utils/constants'
@@ -38,6 +39,22 @@ import * as CommentActions from '../actions/commentActions'
 import * as PostActions from '../actions/postActions'
 
 class Editor extends Component {
+
+  state = {
+    modalOpen: false,
+    modalMessage: ''
+  }
+
+  openModal(modalMessage) {
+    this.setState({
+      modalOpen: true,
+      modalMessage
+    })
+  }
+
+  closeModal = () => {
+    this.setState({modalOpen: false})
+  }
 
   // If we are in comment editing mode then load the comment from the API server
   // and save it to the Redux Store
@@ -63,7 +80,7 @@ class Editor extends Component {
 
     // Every editing mode requires a body
     if (!body) {
-      alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_BODY)
+      this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_BODY)
       return
     }
 
@@ -71,7 +88,7 @@ class Editor extends Component {
       // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST:
         if(!title) {
-          alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
+          this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else {
           this.props.dispatch(PostActions.saveEditedPost(id,title,body))
           this.props.handleEdit()
@@ -82,7 +99,7 @@ class Editor extends Component {
         // Verify whether the user's timestamp is in a valid format
         const newTimeStamp = Moment(timestamp,Constants.DATE_FORMAT_EDITOR)
         if(!newTimeStamp.isValid()) {
-          alert(Constants.EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP)
+          this.openModal(Constants.EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP)
         } else {
           this.props.dispatch(CommentActions.saveEditedComment(id,parentId,body,newTimeStamp))
           this.props.handleEdit()
@@ -91,7 +108,7 @@ class Editor extends Component {
       // Mode: Adding a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
         if (!author) {
-          alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
+          this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
           this.props.dispatch(CommentActions.submitNewComment(body,author,parentId))
           // Clear form values so that user can easily enter new comment
@@ -105,9 +122,9 @@ class Editor extends Component {
       // fall through
       default:
         if(!title) {
-          alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
+          this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else if (!author) {
-          alert(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
+          this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
           this.props.dispatch(PostActions.submitNewPost(post))
           this.props.handleEdit()
@@ -189,6 +206,17 @@ class Editor extends Component {
 
     return (
       <div className="PostEditor">
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          isOpen={this.state.modalOpen}
+          onRequestClose={this.closeModal}
+          contentLabel='Modal'>
+          <div>{this.state.modalMessage}</div>
+          <div>
+            <button onClick={this.closeModal}>OK</button>
+          </div>
+        </Modal>
         { !editDataFound && (
             <div className="StatusMessage">{Constants.ERROR_MESSAGE_CONTENT_NOT_FOUND}</div>
           )}
