@@ -54,37 +54,39 @@ class App extends Component {
         <NavigationBar
           categories={categories}
         />
-        { categories.map(category => (
+        <div className="Content">
+          { categories.map(category => (
+            <Route
+              exact
+              path={`/${category.path}`}
+              key={category.path}
+              render={() =>(
+                <ListPosts
+                  categoryName={category.name}
+                  categoryPath={category.path}
+                />
+              )}
+            />
+          ))}
+          { categories.map(category => (
+            <Route
+              exact
+              path={`/${category.path}/:postId`}
+              key={category.path}
+              component={ViewPost}
+            />
+          ))}
           <Route
             exact
-            path={`/${category.path}`}
-            key={category.path}
-            render={() =>(
-              <ListPosts
-                categoryName={category.name}
-                categoryPath={category.path}
-              />
-            )}
+            path={`/${Constants.PATH_ADD_POST}`}
+            component={AddPost}
           />
-        ))}
-        { categories.map(category => (
           <Route
             exact
-            path={`/${category.path}/:postId`}
-            key={category.path}
-            component={ViewPost}
+            path={`/${Constants.PATH_EDIT}/:postId/:commentId?`}
+            component={Edit}
           />
-        ))}
-        <Route
-          exact
-          path={`/${Constants.PATH_ADD_POST}`}
-          component={AddPost}
-        />
-        <Route
-          exact
-          path={`/${Constants.PATH_EDIT}/:postId/:commentId?`}
-          component={Edit}
-        />
+        </div>
       </div>
     );
   }
