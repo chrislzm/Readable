@@ -29,7 +29,8 @@ function Viewer (props) {
   // If content is a post, id will contain the post id, and parentId will be
   // undefined. If content is a comment, id will contain the comment id, and
   // parentId will contain the parent posts's id.
-  let { id, parentId } = content
+  let { id } = content
+  const { parentId } = content
 
   // If we are viewing a comment, then we will need to set the comment id here
   let commentId
