@@ -19,6 +19,7 @@ import * as Constants from '../../utils/constants'
 import Controls from './Controls'
 import Moment from 'moment'
 import PropTypes from 'prop-types'
+import { Table } from 'semantic-ui-react'
 
 function Viewer (props) {
 
@@ -40,37 +41,37 @@ function Viewer (props) {
   }
 
   return (
-    <div className="divTable blueTable">
-      <div className="divTableBody">
-        <div className="divTableRow">
-          <div className="divTableLabel">Author</div>
-          <div className="divTableCell">{author}</div>
-        </div>
-        <div className="divTableRow">
-          <div className="divTableLabel">Body</div>
-          <div className="divTableCell">{body}</div>
-        </div>
-        <div className="divTableRow">
-          <div className="divTableLabel">Date</div>
-          <div className="divTableCell">{Moment(timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</div>
-        </div>
-        <div className="divTableRow">
-          <div className="divTableLabel">Votes</div>
-          <div className="divTableCell">{voteScore}</div>
-        </div>
-        <div className="divTableRow">
-          <div className="divTableLabel">Controls</div>
-          <div className="divTableCell">
+    <Table definition>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell>Author</Table.Cell>
+          <Table.Cell>{author}</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Body</Table.Cell>
+          <Table.Cell>{body}</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Date</Table.Cell>
+          <Table.Cell>{Moment(timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Votes</Table.Cell>
+          <Table.Cell>{voteScore}</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Controls</Table.Cell>
+          <Table.Cell>
             <Controls
               postId={id}
               commentId={commentId}
               title={title}
               mode={mode}
             />
-          </div>
-        </div>
-      </div>
-    </div>
+          </Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>
   )
 }
 
