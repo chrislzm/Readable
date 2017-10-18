@@ -45,7 +45,7 @@ class Editor extends Component {
     modalMessage: ''
   }
 
-  openModal(modalMessage) {
+  openModal = (modalMessage) => {
     this.setState({
       modalOpen: true,
       modalMessage
@@ -76,7 +76,7 @@ class Editor extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const post = serializeForm(e.target, { hash: true })
-    let {id, parentId, title, body, author, timestamp } = post
+    const {id, parentId, title, body, author, timestamp } = post
 
     // Every editing mode requires a body
     if (!body) {
@@ -155,7 +155,7 @@ class Editor extends Component {
 
     switch(editingMode) {
       // Mode: Editing an existing post
-      case Constants.EDITOR_MODE_EDIT_POST:
+      case Constants.EDITOR_MODE_EDIT_POST: {
         const postToEdit = this.props.posts[postId]
         if(!postToEdit) {
           // Display "Content not found" message if the post doesn't exist
@@ -172,6 +172,7 @@ class Editor extends Component {
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
         }
         break
+      }
       // Mode: Editing an existing comment
       case Constants.EDITOR_MODE_EDIT_COMMENT:
         if(!this.props.comments[postId] || !this.props.comments[postId][commentId]) {
