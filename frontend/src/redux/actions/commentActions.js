@@ -11,12 +11,12 @@ import * as Helpers from '../../utils/helpers'
 /* Thunk Actions */
 
 export const fetchAllComments = (parentId) => dispatch => (
-  CommentAPI.getAllComments(parentId).then(comments => {
-    for(const comment of comments) {
+  CommentAPI.getAllComments(parentId).then(comments => (
+    comments.forEach(comment => {
       const {parentId,...content} = comment
       dispatch(addNewComment(parentId,content))
-    }
-  })
+    })
+  ))
 )
 
 export const fetchComment = (commentId) => dispatch => (

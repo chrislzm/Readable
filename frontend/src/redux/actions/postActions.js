@@ -30,21 +30,21 @@ import * as PostAPI from '../../api/postApi'
 /* Thunk Actions */
 
 export const fetchAllPostsAndComments = () => dispatch => (
-  PostAPI.getAllPosts().then(posts => {
-    for(const post of posts) {
+  PostAPI.getAllPosts().then(posts => (
+    posts.forEach(post => {
       dispatch(addNewPost(post))
       dispatch(CommentActions.fetchAllComments(post.id))
-    }
-  })
+    })
+  ))
 )
 
 export const fetchCategoryPostsAndComments = (categoryName) => dispatch => (
-  PostAPI.getCategoryPosts(categoryName).then(posts => {
-    for(const post of posts) {
+  PostAPI.getCategoryPosts(categoryName).then(posts => (
+    posts.forEach(post => {
       dispatch(addNewPost(post))
       dispatch(CommentActions.fetchAllComments(post.id))
-    }
-  })
+    })
+  ))
 )
 
 export const fetchPost = (postId) => dispatch => (
