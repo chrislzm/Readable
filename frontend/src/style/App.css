@@ -64,7 +64,6 @@
   margin-left:10px;
 	position: relative;
 	top: -5px;
-  cursor: pointer; cursor: hand;
 }
 
 .ListPosts .arrow-up:after, .ListPosts .arrow-down:after, .ListPosts .arrow-none:after {
@@ -75,28 +74,30 @@
 	width: 0;
 	height: 0;
 	border: 7px solid transparent;
-  cursor: pointer; cursor: hand;
 }
 
 .ListPosts .arrow-up {
-  border-bottom-color: red;
+  border-bottom-color: red !important;
 }
 
 .ListPosts .arrow-down:after {
-  border-top-color: red;
+  border-top-color: red !important;
 }
 
 .ListPosts .arrow-down, .arrow-none {
-  border-bottom-color: grey;
+  border-bottom-color: grey !important;
 }
 
 .ListPosts .arrow-up:after, .arrow-none:after {
-  border-top-color: grey;
+  border-top-color: grey !important;
 }
 
 .ListPosts .sortableHeader {
+  cursor: pointer !important; cursor: hand !important;
+}
+
+.ListPosts .sortableHeaderLabel {
   float:left;
-  cursor: pointer; cursor: hand;
 }
 
 .modal {

@@ -174,17 +174,17 @@ class ListPosts extends Component {
                 <Table.HeaderCell>Category</Table.HeaderCell>
                 <Table.HeaderCell>Post Title</Table.HeaderCell>
                 <Table.HeaderCell>Author</Table.HeaderCell>
-                <Table.HeaderCell>
-                  <div onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP)}>
-                    <div className="sortableHeader">Date</div>
-                    <div className={this.state.sortDateArrowStyle}></div>
-                  </div>
+                <Table.HeaderCell
+                  className="sortableHeader"
+                  onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP)}>
+                  <div className="sortableHeaderLabel">Date</div>
+                  <div className={this.state.sortDateArrowStyle}></div>
                 </Table.HeaderCell>
-                <Table.HeaderCell>
-                  <div onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_VOTES)}>
-                    <div className="sortableHeader">Votes</div>
-                    <div className={this.state.sortVotesArrowStyle}></div>
-                  </div>
+                <Table.HeaderCell
+                  className="sortableHeader"
+                  onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_VOTES)}>
+                  <div className="sortableHeaderLabel">Votes</div>
+                  <div className={this.state.sortVotesArrowStyle}></div>
                 </Table.HeaderCell>
                 <Table.HeaderCell>Comments</Table.HeaderCell>
                 <Table.HeaderCell>Controls</Table.HeaderCell>
