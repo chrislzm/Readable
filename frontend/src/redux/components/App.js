@@ -25,7 +25,6 @@ import ListPosts from './ListPosts'
 import NavigationBar from './NavigationBar'
 import ViewPost from './ViewPost'
 import '../../style/App.css'
-import '../../style/divTable.css'
 import 'semantic-ui-css/semantic.min.css'
 
 class App extends Component {
