@@ -41,37 +41,39 @@ function Viewer (props) {
   }
 
   return (
-    <Table definition>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell>Author</Table.Cell>
-          <Table.Cell>{author}</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Body</Table.Cell>
-          <Table.Cell>{body}</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Date</Table.Cell>
-          <Table.Cell>{Moment(timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Votes</Table.Cell>
-          <Table.Cell>{voteScore}</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Controls</Table.Cell>
-          <Table.Cell>
-            <Controls
-              postId={id}
-              commentId={commentId}
-              title={title}
-              mode={mode}
-            />
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table>
+    <div className="Viewer">
+      <Table definition>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell>Author</Table.Cell>
+            <Table.Cell>{author}</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Body</Table.Cell>
+            <Table.Cell>{body}</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Date</Table.Cell>
+            <Table.Cell>{Moment(timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Votes</Table.Cell>
+            <Table.Cell>{voteScore}</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Controls</Table.Cell>
+            <Table.Cell>
+              <Controls
+                postId={id}
+                commentId={commentId}
+                title={title}
+                mode={mode}
+              />
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    </div>
   )
 }
 
