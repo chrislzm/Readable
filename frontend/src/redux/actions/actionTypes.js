@@ -1,3 +1,12 @@
+/*
+  Readable: actions/actionTypes.js
+  By Chris Leung
+
+  Description:
+
+  Contains all Redux action type constants used in Readable.
+*/
+
 export const ADD_NEW_POST = 'ADD_NEW_POST'
 export const ADD_NEW_COMMENT = 'ADD_NEW_COMMENT'
 export const ADD_NEW_CATEGORY = 'ADD_NEW_CATEGORY'

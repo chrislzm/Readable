@@ -1,3 +1,19 @@
+/*
+  Readable: actions/categoryActions.js
+  By Chris Leung
+
+  Description:
+
+  Contains all Redux category-related actions used in Readable.
+
+  Thunk actions are used to execute API calls and then dispatch other actions
+  only after the fetch requests have completed. Only Thunk actions interact
+  with the API server in the Readable app.
+
+  For a description of the structure of category objects, please refer to the
+  [frontend README file](../../../../README.md).
+*/
+
 import {
   ADD_NEW_CATEGORY,
   SET_CURRENT_CATEGORY
