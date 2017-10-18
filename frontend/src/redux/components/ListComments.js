@@ -29,7 +29,7 @@ class ListComments extends Component {
     parentId: PropTypes.string.isRequired,
     comments: PropTypes.object.isRequired
   }
-  
+
   componentDidMount() {
     const {parentId} = this.props
     this.props.dispatch(CommentActions.fetchAllComments(parentId))
@@ -38,13 +38,13 @@ class ListComments extends Component {
   render() {
     const {parentId} = this.props
 
-    let commentsArray, commentsToOutput, numComments = 0
+    let commentsToOutput, numComments = 0
 
     const allPostComments = this.props.comments[parentId]
     if(allPostComments) {
       // If comments exists for this post, convert the comment objects into an
       // array for ease of output
-      commentsArray = Object.keys(allPostComments).reduce((accumulator, commentId) => {
+      const commentsArray = Object.keys(allPostComments).reduce((accumulator, commentId) => {
         let comment = allPostComments[commentId]
         comment.parentId = parentId
         accumulator.push(comment)
