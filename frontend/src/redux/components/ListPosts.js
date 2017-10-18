@@ -26,6 +26,8 @@ import { connect } from 'react-redux'
 import Controls from './Controls'
 import Moment from 'moment'
 import PropTypes from 'prop-types'
+import { Table } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css'
 import * as Constants from '../../utils/constants'
 import * as Helpers from '../../utils/helpers'
 import * as CategoryActions from '../actions/categoryActions'
@@ -167,44 +169,53 @@ class ListPosts extends Component {
           <div className="StatusMessage">Nothing here yet. Be the first—<Link to={`/${Constants.PATH_ADD_POST}`}>Add a new post!</Link></div>
         )}
         { numPosts > 0 && (
-          <div className="divTable blueTable">
-            <div className="divTableHeading">
-              <div className="divTableRow">
-                <div className="divTableHead">Category</div>
-                <div className="divTableHead">Post Title</div>
-                <div className="divTableHead">Author</div>
-                <div className="divTableHead" onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP)}>
-                  <div className="sortableColumnLabel">Date</div>
-                  <div className={this.state.sortDateArrowStyle}></div>
-                </div>
-                <div className="divTableHead" onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_VOTES)}>
-                  <div className="sortableColumnLabel">Votes</div>
-                  <div className={this.state.sortVotesArrowStyle}></div>
-                </div>
-                <div className="divTableHead">Comments</div>
-                <div className="divTableHead">Controls</div>
-              </div>
-            </div>
-            <div className="divTableBody">
+          <Table celled striped>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Category</Table.HeaderCell>
+                <Table.HeaderCell>Post Title</Table.HeaderCell>
+                <Table.HeaderCell>Author</Table.HeaderCell>
+                <Table.HeaderCell>
+                  <div onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP)}>
+                    <div className="sortableColumnLabel">Date</div>
+                    <div className={this.state.sortDateArrowStyle}></div>
+                  </div>
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                  <div onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_VOTES)}>
+                    <div className="sortableColumnLabel">Votes</div>
+                    <div className={this.state.sortVotesArrowStyle}></div>
+                  </div>
+                </Table.HeaderCell>
+                <Table.HeaderCell>Comments</Table.HeaderCell>
+                <Table.HeaderCell>Controls</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
               { sortedPosts.map(post => (
-                <div className="divTableRow" key={post.id}>
-                  <div className="divTableCell">{Helpers.capitalize(post.category)}</div>
-                  <div className="divTableCell"><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></div>
-                  <div className="divTableCell">{post.author}</div>
-                  <div className="divTableCell">{Moment(post.timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</div>
-                  <div className="divTableCell">{post.voteScore}</div>
-                  <div className="divTableCell">{post.numComments}</div>
-                  <div className="divTableCell">
+                <Table.Row key={post.id}>
+                  <Table.Cell>{Helpers.capitalize(post.category)}</Table.Cell>
+                  <Table.Cell>
+                    <Link
+                      to={`/${post.category}/${post.id}`}>
+                      {post.title}
+                    </Link>
+                  </Table.Cell>
+                  <Table.Cell>{post.author}</Table.Cell>
+                  <Table.Cell>{Moment(post.timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</Table.Cell>
+                  <Table.Cell>{post.voteScore}</Table.Cell>
+                  <Table.Cell>{post.numComments}</Table.Cell>
+                  <Table.Cell>
                     <Controls
                       postId={post.id}
                       title={post.title}
                       mode={Constants.CONTENT_MODE_POST}
                     />
-                  </div>
-                </div>
+                  </Table.Cell>
+                </Table.Row>
               ))}
-            </div>
-          </div>
+            </Table.Body>
+          </Table>
         )}
       </div>
     )
