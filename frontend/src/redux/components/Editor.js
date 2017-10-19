@@ -110,8 +110,8 @@ class Editor extends Component {
       return
     }
 
-    // Validate form based on editing mode then either display an error or save
-    // it and execute the callback handler
+    // Validate form based on editing mode, then either display an error or save
+    // the form data and execute the callback handler
     switch(post.editingMode) {
       // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST:
@@ -166,11 +166,12 @@ class Editor extends Component {
   render() {
     const { editingMode, postId, commentId, posts, comments, categories, currentCategory } = this.props
 
-    // editDataFound <boolean>: When false, we are editing but the post/comment
-    // was not found in the Redux store. When true, the data was found, or we
-    // are editing a new post/comment.
+    // When false, we are editing but the post/comment was not found in the
+    // Redux store. When true, the data was found or we are editing new content
     let editDataFound = true
 
+    // Submit button will be different when editing (e.g. Save Changes) vs
+    // adding a new post (e.g. "Add Post")
     let submitButtonText
 
     // Stores values used to pre-populate input fields
@@ -180,6 +181,7 @@ class Editor extends Component {
     let inputFieldVisiblity = {}
 
     // Configure the UI: Pre-populate and show/hide fields based on editingMode
+    // and whether content exists in the Redux store
     switch(editingMode) {
       // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST: {
