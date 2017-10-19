@@ -12,7 +12,7 @@
   Props:
     parentId: <String> Required. Contains the id of the parent post whose
       comments we are listing.
-    Redux Store State: Mapped to props
+    comments: <Redux State> Required.
 */
 
 import React, { Component } from 'react'
@@ -31,19 +31,19 @@ class ListComments extends Component {
   }
 
   componentDidMount() {
-    const {parentId} = this.props
-    this.props.dispatch(CommentActions.fetchAllComments(parentId))
+    const { dispatch, parentId } = this.props
+    dispatch(CommentActions.fetchAllComments(parentId))
   }
 
   render() {
     const {parentId} = this.props
 
-    let commentsToOutput, numComments = 0
+    let numComments = 0, commentsToOutput
 
+    // Attempt to retrieve comments for the given parentId
     const allPostComments = this.props.comments[parentId]
     if(allPostComments) {
-      // If comments exists for this post, convert the comment objects into an
-      // array for ease of output
+      // If comments exist, convert comment object into array for convenience
       const commentsArray = Object.keys(allPostComments).reduce((accumulator, commentId) => {
         let comment = allPostComments[commentId]
         comment.parentId = parentId
@@ -74,6 +74,5 @@ class ListComments extends Component {
 const mapStateToProps = (state) => ({
   comments: state.comments
 })
-
 
 export default connect(mapStateToProps)(ListComments);
