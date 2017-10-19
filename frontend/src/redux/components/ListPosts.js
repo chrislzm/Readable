@@ -160,8 +160,7 @@ class ListPosts extends Component {
       <div className="ListPosts">
         <div className="SectionTitle">
           <h2>
-            {Helpers.capitalize(categoryName)}
-            ({numPosts})
+            {Helpers.capitalize(categoryName)} ({numPosts})
           </h2>
           <div className="SectionTitleNav">
             <button>
