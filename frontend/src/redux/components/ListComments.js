@@ -44,12 +44,8 @@ class ListComments extends Component {
     const allPostComments = this.props.comments[parentId]
     if(allPostComments) {
       // If comments exist, convert comment object into array for convenience
-      const commentsArray = Object.keys(allPostComments).reduce((accumulator, commentId) => {
-        let comment = allPostComments[commentId]
-        comment.parentId = parentId
-        accumulator.push(comment)
-        return accumulator
-      },[])
+      const commentsArray = Helpers.convertCommentsToArray(allPostComments,parentId)
+
       // Filter out deleted comments
       commentsToOutput = commentsArray.filter(comment => !comment.deleted).sort(Helpers.sortByVotesDescending)
       numComments = commentsToOutput.length
