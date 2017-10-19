@@ -48,8 +48,7 @@ class AddPost extends Component {
 
   render() {
     const { modalOpen } = this.state
-    const categoryName = this.props.currentCategory.name
-    const categoryPath = this.props.currentCategory.path
+    const { currentCategory } = this.props
     return(
       <div>
         <div className="SectionTitle">
@@ -59,8 +58,8 @@ class AddPost extends Component {
           <div className="SectionTitleNav">
             <button>
               <Link
-                to={ `/${categoryPath}`}>
-                &lt; Back To {Helpers.capitalize(categoryName)}
+                to={ `/${currentCategory.path}`}>
+                &lt; Back To {Helpers.capitalize(currentCategory.name)}
               </Link>
             </button>
           </div>
@@ -79,7 +78,7 @@ class AddPost extends Component {
           </div>
           <div>
             <button
-              onClick={() => this.closeModal(categoryPath)}>
+              onClick={() => this.closeModal(currentCategory.path)}>
               OK
             </button>
           </div>
