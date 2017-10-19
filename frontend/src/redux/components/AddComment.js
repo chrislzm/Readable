@@ -29,7 +29,7 @@ class AddComment extends Component {
   static propTypes = {
     postId: PropTypes.string.isRequired
   }
-  
+
   state = {
     modalOpen: false
   }
@@ -47,7 +47,9 @@ class AddComment extends Component {
     const { postId } = this.props
     return (
       <div>
-        <h2>Leave a New Comment</h2>
+        <h2>
+          Leave a New Comment
+        </h2>
         <Editor
           editingMode={Constants.EDITOR_MODE_ADD_COMMENT}
           handleEdit={this.openModal}
@@ -58,9 +60,14 @@ class AddComment extends Component {
           isOpen={modalOpen}
           onRequestClose={this.closeModal}
           contentLabel='Modal'>
-          <div>Comment has been added!</div>
           <div>
-            <button onClick={this.closeModal}>OK</button>
+            Comment has been added!
+          </div>
+          <div>
+            <button
+              onClick={this.closeModal}>
+              OK
+            </button>
           </div>
         </Modal>
       </div>
