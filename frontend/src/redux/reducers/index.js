@@ -4,10 +4,7 @@
 
   Description:
 
-  Contains all Redux Store reducers used in Readable. Note that the
-  currentCategory default state is set to the DEFAULT_CATEGORY_NAME and
-  DEFAULT_CATEGORY_PATH string constant values in utils/constants.js.
-
+  Root reducer for the Readable app's Redux store.
 */
 
 import { combineReducers } from 'redux'

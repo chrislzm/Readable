@@ -1,3 +1,12 @@
+/*
+  Readable: reducers/postReducers.js
+  By Chris Leung
+
+  Description:
+
+  Posts state reducer for the Readable app's Redux store.
+*/
+
 import {
   ADD_NEW_POST,
   DELETE_POST,

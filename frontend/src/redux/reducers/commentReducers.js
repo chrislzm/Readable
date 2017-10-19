@@ -1,9 +1,19 @@
+/*
+  Readable: reducers/commentReducers.js
+  By Chris Leung
+
+  Description:
+
+  Comments state reducer for the Readable app's Redux store.
+*/
+
 import {
   ADD_NEW_COMMENT,
   DELETE_COMMENT,
   EDIT_COMMENT,
   VOTE_ON_COMMENT,
 } from '../actions/actionTypes'
+
 import * as Constants from '../../utils/constants'
 
 export default function comments(state = {}, action) {
