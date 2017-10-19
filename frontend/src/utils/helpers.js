@@ -17,8 +17,9 @@ export function capitalize (str = '') {
     : str[0].toUpperCase() + str.slice(1)
 }
 
-// Converts the categories Redux store into an array of categories. This is used
-// in the mapStateToProps function of both App.js and Editor.js.
+// Converts the categories Redux store into an array of category objects (rather
+// than a single object with multiple category properties). This is used in the
+// mapStateToProps function of both App.js and Editor.js.
 export function convertCategoriesToArray(categories) {
   const categoryArray = Object.keys(categories).map(key => (
     {path:key,name:categories[key]}
