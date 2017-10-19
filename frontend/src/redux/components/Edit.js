@@ -47,7 +47,7 @@ class Edit extends Component {
   // Set default mode to post editor
   state = {
     editorMode: Constants.EDITOR_MODE_EDIT_POST,
-    editorHeader: Constants.EDIT_SECTION_TITLE_POST,
+    editorHeader: Constants.EDITOR_HEADER_EDITING_POST,
     modalOpen: false
   }
 
@@ -68,7 +68,7 @@ class Edit extends Component {
     if(commentId) {
       this.setState({
         editorMode: Constants.EDITOR_MODE_EDIT_COMMENT,
-        editorHeader: Constants.EDIT_SECTION_TITLE_COMMENT
+        editorHeader: Constants.EDITOR_HEADER_EDITING_POST
       })
     }
   }

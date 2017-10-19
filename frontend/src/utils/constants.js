@@ -34,8 +34,8 @@ export const SUBMIT_BUTTON_TEXT_EDIT = "Save Changes"
 export const SUBMIT_BUTTON_TEXT_NEW_COMMENT = "Add Comment"
 
 // Edit component section titles
-export const EDIT_SECTION_TITLE_POST = "Editing Post"
-export const EDIT_SECTION_TITLE_COMMENT = "Editing Comment"
+export const EDITOR_HEADER_EDITING_POST = "Editing Post"
+export const EDITOR_HEADER_EDITING_COMMENT = "Editing Comment"
 
 // Edit modes for Editor component
 export const EDITOR_MODE_ADD_POST = "EDITOR_MODE_ADD_POST"
