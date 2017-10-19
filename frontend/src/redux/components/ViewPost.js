@@ -42,12 +42,11 @@ class ViewPost extends Component {
   }
 
   render() {
-    const categoryName = this.props.currentCategory.name
-    const categoryPath = this.props.currentCategory.path
+    const { posts, currentCategory } = this.props
     const { postId } = this.props.match.params
 
     let sectionTitle
-    let post = this.props.posts[postId]
+    let post = posts[postId]
     if(!post) {
       sectionTitle = "Post not found"
     } else if(post.deleted) {
@@ -72,8 +71,8 @@ class ViewPost extends Component {
             <div className="SectionTitleNav">
               <button>
                 <Link
-                  to={ `/${categoryPath}`}>
-                  &lt; Back To {Helpers.capitalize(categoryName)}
+                  to={ `/${currentCategory.path}`}>
+                  &lt; Back To {Helpers.capitalize(currentCategory.name)}
                 </Link>
               </button>
             </div>
