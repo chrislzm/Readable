@@ -110,9 +110,12 @@ class Editor extends Component {
       return
     }
 
+    // Validate form based on editing mode then either display an error or save
+    // it and execute the callback handler
     switch(post.editingMode) {
       // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST:
+        // Requires a title
         if(!title) {
           displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else {
@@ -133,6 +136,7 @@ class Editor extends Component {
         break
       // Mode: Adding a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
+        // Requires an author
         if (!author) {
           displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
@@ -147,6 +151,7 @@ class Editor extends Component {
       case Constants.EDITOR_MODE_ADD_POST:
       // fall through
       default:
+        // Requires a title and author
         if(!title) {
           displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else if (!author) {
