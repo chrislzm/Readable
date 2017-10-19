@@ -18,7 +18,7 @@
     handleEdit: <Function> Required. Called immediately after this component
       successfully saves the input form. Recommend displaying a modal with a
       save confirm message, and/or redirect to another component.
-    editingMode: <String Constant> Required. Used to determine the UI
+    editingMode: <String> Required. Used to determine the UI
       configuration along the handling of the form submit.
     postId: <String> Required when editing a post (EDITOR_MODE_EDIT_POST) or
       comment (EDITOR_MODE_EDIT_COMMENT). Used to pre-populate fields and to
@@ -60,19 +60,19 @@ class Editor extends Component {
   }
 
   state = {
-    modalOpen: false,
-    modalMessage: ''
+    errorModalOpen: false,
+    errorModalMessage: ''
   }
 
-  openModal = (modalMessage) => {
+  displayErrorModal = (errorModalMessage) => {
     this.setState({
-      modalOpen: true,
-      modalMessage
+      errorModalOpen: true,
+      errorModalMessage
     })
   }
 
-  closeModal = () => {
-    this.setState({modalOpen: false})
+  closeErrorModal = () => {
+    this.setState({errorModalOpen: false})
   }
 
   componentDidMount() {
@@ -105,7 +105,7 @@ class Editor extends Component {
 
     // Every editing mode requires a body
     if (!body) {
-      this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_BODY)
+      this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_BODY)
       return
     }
 
@@ -113,7 +113,7 @@ class Editor extends Component {
       // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST:
         if(!title) {
-          this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
+          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else {
           dispatch(PostActions.saveEditedPost(id,title,body))
           handleEdit()
@@ -124,7 +124,7 @@ class Editor extends Component {
         // Verify whether the user's timestamp is in a valid format
         const newTimeStamp = Moment(timestamp,Constants.DATE_FORMAT_EDITOR)
         if(!newTimeStamp.isValid()) {
-          this.openModal(Constants.EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP)
+          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP)
         } else {
           dispatch(CommentActions.saveEditedComment(id,parentId,body,newTimeStamp))
           handleEdit()
@@ -133,7 +133,7 @@ class Editor extends Component {
       // Mode: Adding a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
         if (!author) {
-          this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
+          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
           dispatch(CommentActions.submitNewComment(body,author,parentId))
           // Clear form values so that user can easily enter new comment
@@ -147,9 +147,9 @@ class Editor extends Component {
       // fall through
       default:
         if(!title) {
-          this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
+          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else if (!author) {
-          this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
+          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
           dispatch(PostActions.submitNewPost(post))
           handleEdit()
@@ -290,14 +290,14 @@ class Editor extends Component {
           className='modal'
           overlayClassName='overlay'
           isOpen={this.state.modalOpen}
-          onRequestClose={this.closeModal}
+          onRequestClose={this.closeErrorModal}
           contentLabel='Modal'>
           <div>
             {this.state.modalMessage}
           </div>
           <div>
             <button
-              onClick={this.closeModal}>
+              onClick={this.closeErrorModal}>
               OK
             </button>
           </div>
