@@ -4,7 +4,7 @@
 
   Description:
 
-  React stateless functional component that displays the navigation bar for the
+  Stateless functional React component that displays the navigation bar for the
   Readable app. Lists category names that hyperlink to each category. Gets the
   current category from the Redux store and highlights it using CSS classes.
 
