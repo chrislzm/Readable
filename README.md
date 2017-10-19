@@ -6,7 +6,7 @@ Overview
 --------
 Readable is a content and comment web app that allows users to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users can also edit and delete posts and comments.
 
-This application is powered by React, Redux, and an API server and client library provided by Udacity, which persists information as one interacts with the application.
+This application is mainly powered by React, Redux, and an API server and client library provided by Udacity, which persists information as one interacts with the application.
 
 Installation
 ------------
