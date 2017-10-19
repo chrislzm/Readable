@@ -44,7 +44,10 @@ class Edit extends Component {
     posts: PropTypes.object.isRequired
   }
 
+  // Set default mode to post editor
   state = {
+    editorMode: Constants.EDITOR_MODE_EDIT_POST,
+    editorHeader: Constants.EDIT_SECTION_TITLE_POST,
     modalOpen: false
   }
 
@@ -57,25 +60,23 @@ class Edit extends Component {
   }
 
   componentDidMount() {
-    const { postId } = this.props.match.params
+    const { postId, commentId } = this.props.match.params
+
     this.props.dispatch(PostActions.fetchPost(postId))
+
+    // If we have a commentId, then we are editing a comment
+    if(commentId) {
+      this.setState({
+        editorMode: Constants.EDITOR_MODE_EDIT_COMMENT,
+        editorHeader: Constants.EDIT_SECTION_TITLE_COMMENT
+      })
+    }
   }
 
   render() {
-    const { modalOpen } = this.state
+    const { modalOpen, editorMode, editorHeader } = this.state
     const { postId, commentId } = this.props.match.params
     const { currentCategory } = this.props
-
-    let editingMode, sectionTitle
-
-    // If a commentId was passed in, then we are editing a comment. Set mode.
-    if(commentId) {
-      editingMode = Constants.EDITOR_MODE_EDIT_COMMENT
-      sectionTitle = Constants.EDIT_SECTION_TITLE_COMMENT
-    } else {
-      editingMode = Constants.EDITOR_MODE_EDIT_POST
-      sectionTitle = Constants.EDIT_SECTION_TITLE_POST
-    }
 
     // When true, displays editor. When false, displays "Not found" message
     let postExists = false
@@ -93,7 +94,7 @@ class Edit extends Component {
       <div className="EditPost">
         <div className="SectionTitle">
           <h2>
-            {sectionTitle}
+            {editorHeader}
           </h2>
           <div className="SectionTitleNav">
             { postExists && (
@@ -123,7 +124,7 @@ class Edit extends Component {
                 postId={postId}
                 commentId={commentId}
                 handleEdit={this.openModal}
-                editingMode={editingMode}/>
+                editingMode={editorMode}/>
               <Modal
                 className='modal'
                 overlayClassName='overlay'
