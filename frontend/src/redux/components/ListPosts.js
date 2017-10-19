@@ -56,89 +56,34 @@ class ListPosts extends Component {
     sortNumCommentsArrowStyle: Constants.CSS_CLASS_ARROW_NONE
   }
 
-  /*
-    Method: toggleSort
-    Description: Toggles sort fields for the ListPosts component. Handles
-      everything needed to change the sort field/sort direction, including
-      changing the UI styles for the sort arrows.
-    Parameters:
-      sortField: <String Constant> Use LIST_POSTS_SORT_FIELD_TIMESTAMP for
-        sorting by timestamp, or LIST_POSTS_SORT_FIELD_VOTES for sorting by
-        votes. (These string constants are stored in utils/constants.js)
-    Returns:
-      Nothing, but updates the component state via setState.
-  */
-  toggleSort(sortField) {
-    let sortMethod, sortAscending, sortDateArrowStyle, sortVotesArrowStyle, sortNumCommentsArrowStyle
+  toggleSort(newSortField) {
+    const { sortField, sortAscending } = this.state
 
-    // If the sort field hasn't changed, then we are changing sort direction
-    if(this.state.sortField === sortField) {
-      sortAscending = !this.state.sortAscending
-    } else {
-      sortAscending = this.state.sortAscending
-    }
-
-    // Set sort method and output styles based on the field being sorted
-    // If the field is the same as previous,
-    switch(sortField) {
-      case Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP:
-        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_NONE
-        sortNumCommentsArrowStyle = Constants.CSS_CLASS_ARROW_NONE
-        if(sortAscending) {
-          sortMethod = Helpers.sortByDateAscending
-          sortDateArrowStyle = Constants.CSS_CLASS_ARROW_UP
-        } else {
-          sortMethod = Helpers.sortByDateDescending
-          sortDateArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
-        }
-        break
-      case Constants.LIST_POSTS_SORT_FIELD_NUMCOMMENTS:
-        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_NONE
-        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_NONE
-        if(sortAscending) {
-          sortMethod = Helpers.sortByNumCommentsAscending
-          sortNumCommentsArrowStyle = Constants.CSS_CLASS_ARROW_UP
-        } else {
-          sortMethod = Helpers.sortByNumCommentsDescending
-          sortNumCommentsArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
-        }
-        break
-      default:
-      case Constants.LIST_POSTS_SORT_FIELD_VOTES:
-        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_NONE
-        sortNumCommentsArrowStyle = Constants.CSS_CLASS_ARROW_NONE
-        if(sortAscending) {
-          sortMethod = Helpers.sortByVotesAscending
-          sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_UP
-        } else {
-          sortMethod = Helpers.sortByVotesDescending
-          sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
-        }
-    }
+    let newSortProperties = Helpers.generateNewSortProperties(sortField,sortAscending,newSortField)
 
     this.setState({
-      sortMethod,
-      sortAscending,
-      sortField,
-      sortVotesArrowStyle,
-      sortDateArrowStyle,
-      sortNumCommentsArrowStyle
+      sortMethod: newSortProperties.method,
+      sortAscending: newSortProperties.ascending,
+      sortField: newSortField,
+      sortVotesArrowStyle: newSortProperties.votesArrowStyle,
+      sortDateArrowStyle: newSortProperties.dateArrowStyle,
+      sortNumCommentsArrowStyle: newSortProperties.numCommentsArrowStyle
     })
   }
 
   componentDidMount() {
-    const { categoryName, categoryPath } = this.props
+    const { categoryName, categoryPath, dispatch } = this.props
 
     // Set currentCategory state
-    this.props.dispatch(CategoryActions.setCurrentCategory(categoryName, categoryPath))
+    dispatch(CategoryActions.setCurrentCategory(categoryName, categoryPath))
 
     if(categoryName === Constants.DEFAULT_CATEGORY_NAME) {
       // If we are in the default category, then no category has been specified
       // and we need to get ALL posts from the backend API server
-      this.props.dispatch(PostActions.fetchAllPostsAndComments())
+      dispatch(PostActions.fetchAllPostsAndComments())
     } else {
       // Category has been specified; retrieve posts only for this category
-      this.props.dispatch(PostActions.fetchCategoryPostsAndComments(categoryName))
+      dispatch(PostActions.fetchCategoryPostsAndComments(categoryName))
     }
   }
 
