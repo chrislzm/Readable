@@ -9,7 +9,8 @@
   display the correct page (component) to the user based on the current URL.
 
   Props:
-    Redux Store State: Mapped to props
+    categories: <Redux State> Required. Use convertCategoriesToArray in
+      helpers.js to convert state object to an array for convenience.
 */
 
 import React, { Component } from 'react'
@@ -48,7 +49,9 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>{Constants.SITE_TITLE}</h2>
+          <h2>
+            {Constants.SITE_TITLE}
+          </h2>
         </div>
         <NavigationBar
           categories={categories}

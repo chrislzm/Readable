@@ -11,10 +11,11 @@
   Contains one modal window that displays a confirmation message after the post
   has been successfully added.
 
-  The URL path to this component is set in constants.js "PATH_ADD_POST".
+  The URL path to this component is set in [constants.js](../../utils/constants.js) "PATH_ADD_POST".
 
   Props:
-    Redux Store State: Mapped to props
+    categories: <Redux State> Required.
+    currentCategory: <Redux State> Required.
 */
 
 import React, { Component } from 'react'
@@ -73,9 +74,14 @@ class AddPost extends Component {
           isOpen={modalOpen}
           onRequestClose={this.closeModal}
           contentLabel='Modal'>
-          <div>Post has been added!</div>
           <div>
-            <button onClick={() => this.closeModal(categoryPath)}>OK</button>
+            Post has been added!
+          </div>
+          <div>
+            <button
+              onClick={() => this.closeModal(categoryPath)}>
+              OK
+            </button>
           </div>
         </Modal>
       </div>

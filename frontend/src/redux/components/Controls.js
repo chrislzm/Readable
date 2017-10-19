@@ -1,16 +1,17 @@
 /*
-  Readable: components/Actions.js
+  Readable: components/Controls.js
   By Chris Leung
 
   Description:
 
-  React component that displays a group of control buttons for posts or
-  comments. The controls are "Upvote", "Downvote", "Edit", and "Delete".
+  React component that displays a group of controls for posts or comments. The
+  controls are "Upvote", "Downvote", "Edit", and "Delete".
 
-  Contains one modal window that displays a delete confirmation message and
+  Also contains one modal window that displays a delete confirmation message and
   two buttons to confirm or cancel the delete operation.
 
-  This component is used by ListComments.js, ListPosts.js, and ViewPost.js
+  This component is used by the ListComments, ListPosts, and ViewPost
+  components.
 
   Props:
     mode: <String Constant> Value must be CONTENT_MODE_COMMENT if being used
@@ -19,7 +20,6 @@
       in comment mode.
     commentId: <String> Required in comment mode only.
     title: <String> Required in post mode only. Contains the post title.
-
 */
 
 import React, { Component } from 'react'
@@ -57,9 +57,9 @@ class Controls extends Component {
     Description: Handles a click on the "Upvote" or "Downvote" buttons.
     Parameters:
       delta: <Integer> Either 1 or -1, representing upvote and downvote
-      mode: Same as prop (see above)
-      postId: Same as prop (see above)
-      commentId: Same as prop (see above)
+      mode: Same as mode prop (see above)
+      postId: Same as postId prop (see above)
+      commentId: Same as commentId prop (see above)
   */
   vote(delta,mode,postId,commentId) {
     switch(mode) {
@@ -77,9 +77,9 @@ class Controls extends Component {
     Description: Handles a click on the "Edit"" button by routing the user's
       browser to the edit page for that comment/post.
     Parameters:
-      postId: Same as prop (see above)
-      mode: Same as prop (see above)
-      commentId: Same as prop (see above)
+      postId: Same as postId prop (see above)
+      mode: Same as mode prop (see above)
+      commentId: Same as commentId prop (see above)
   */
   edit(postId,mode,commentId) {
     switch(mode) {
@@ -98,9 +98,9 @@ class Controls extends Component {
       post or comment. Note that this component's modal is displayed prior to
       this that first allows the user to confirm or cancel the delete.
     Parameters:
-      postId: Same as prop (see above)
-      mode: Same as prop (see above)
-      commentId: Same as prop (see above)
+      postId: Same as postId prop (see above)
+      mode: Same as mode prop (see above)
+      commentId: Same commentId as prop (see above)
   */
   delete(postId,mode,commentId) {
     switch(mode) {
@@ -129,10 +129,22 @@ class Controls extends Component {
     return (
       <div>
         <div>
-          <button onClick={() => this.vote(1,mode, postId,commentId)}>Upvote</button>
-          <button onClick={() => this.vote(-1,mode, postId,commentId)}>Downvote</button>
-          <button onClick={() => this.edit(postId,mode,commentId)}>Edit</button>
-          <button onClick={this.openModal}>Delete</button>
+          <button
+            onClick={() => this.vote(1,mode, postId,commentId)}>
+            Upvote
+          </button>
+          <button
+            onClick={() => this.vote(-1,mode, postId,commentId)}>
+            Downvote
+          </button>
+          <button
+            onClick={() => this.edit(postId,mode,commentId)}>
+            Edit
+          </button>
+          <button
+            onClick={this.openModal}>
+            Delete
+          </button>
         </div>
         <Modal
           className='modal'
@@ -142,8 +154,14 @@ class Controls extends Component {
           contentLabel='Modal'>
           <div>{modalMessage}</div>
           <div>
-            <button onClick={() => this.delete(postId,mode,commentId)}>Delete</button>
-            <button onClick={this.closeModal}>Cancel</button>
+            <button
+              onClick={() => this.delete(postId,mode,commentId)}>
+              Delete
+            </button>
+            <button
+              onClick={this.closeModal}>
+              Cancel
+            </button>
           </div>
         </Modal>
       </div>
