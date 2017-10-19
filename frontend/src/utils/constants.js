@@ -56,6 +56,7 @@ export const CONTENT_MODE_COMMENT = "CONTENT_MODE_COMMENT"
 // Sorting options for ListPosts component
 export const LIST_POSTS_SORT_FIELD_TIMESTAMP = "LIST_POSTS_SORT_FIELD_TIMESTAMP"
 export const LIST_POSTS_SORT_FIELD_VOTES = "LIST_POSTS_SORT_FIELD_VOTES"
+export const LIST_POSTS_SORT_FIELD_NUMCOMMENTS = "LIST_POSTS_SORT_FIELD_NUMCOMMENTS"
 
 // CSS classes for sorting direction arrow styles
 export const CSS_CLASS_ARROW_UP = "arrow-up"

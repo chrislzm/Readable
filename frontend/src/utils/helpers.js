@@ -125,6 +125,20 @@ function sortByVotes(a,b,ascending) {
   if((a.voteScore > b.voteScore) ^ ascending) return -1
 }
 
+export function sortByNumCommentsDescending(a,b) {
+  return sortByNumComments(a,b,false)
+}
+
+export function sortByNumCommentsAscending(a,b) {
+  return sortByNumComments(a,b,true)
+}
+
+function sortByNumComments(a,b,ascending) {
+  if((a.numComments < b.numComments) ^ ascending) return 1
+  if(a.numComments === b.numComments) return 0
+  if((a.numComments > b.numComments) ^ ascending) return -1
+}
+
 /* (3) Editor Component Helper Methods */
 
 export function populateFieldsForEditPost(postId,postContent) {

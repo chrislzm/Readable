@@ -52,7 +52,8 @@ class ListPosts extends Component {
     sortAscending: false,
     sortField: Constants.LIST_POSTS_SORT_FIELD_VOTES,
     sortDateArrowStyle: Constants.CSS_CLASS_ARROW_NONE,
-    sortVotesArrowStyle: Constants.CSS_CLASS_ARROW_DOWN
+    sortVotesArrowStyle: Constants.CSS_CLASS_ARROW_DOWN,
+    sortNumCommentsArrowStyle: Constants.CSS_CLASS_ARROW_NONE
   }
 
   /*
@@ -68,7 +69,7 @@ class ListPosts extends Component {
       Nothing, but updates the component state via setState.
   */
   toggleSort(sortField) {
-    let sortMethod, sortAscending, sortDateArrowStyle, sortVotesArrowStyle
+    let sortMethod, sortAscending, sortDateArrowStyle, sortVotesArrowStyle, sortNumCommentsArrowStyle
 
     // If the sort field hasn't changed, then we are changing sort direction
     if(this.state.sortField === sortField) {
@@ -79,24 +80,40 @@ class ListPosts extends Component {
 
     // Set sort method and output styles based on the field being sorted
     // If the field is the same as previous,
-    if(sortField === Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP) {
-      sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_NONE
-      if(sortAscending) {
-        sortMethod = Helpers.sortByDateAscending
-        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_UP
-      } else {
-        sortMethod = Helpers.sortByDateDescending
-        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
-      }
-    } else {
-      sortDateArrowStyle = Constants.CSS_CLASS_ARROW_NONE
-      if(sortAscending) {
-        sortMethod = Helpers.sortByVotesAscending
-        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_UP
-      } else {
-        sortMethod = Helpers.sortByVotesDescending
-        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
-      }
+    switch(sortField) {
+      case Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP:
+        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+        sortNumCommentsArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+        if(sortAscending) {
+          sortMethod = Helpers.sortByDateAscending
+          sortDateArrowStyle = Constants.CSS_CLASS_ARROW_UP
+        } else {
+          sortMethod = Helpers.sortByDateDescending
+          sortDateArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
+        }
+        break
+      case Constants.LIST_POSTS_SORT_FIELD_NUMCOMMENTS:
+        sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+        if(sortAscending) {
+          sortMethod = Helpers.sortByNumCommentsAscending
+          sortNumCommentsArrowStyle = Constants.CSS_CLASS_ARROW_UP
+        } else {
+          sortMethod = Helpers.sortByNumCommentsDescending
+          sortNumCommentsArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
+        }
+        break
+      default:
+      case Constants.LIST_POSTS_SORT_FIELD_VOTES:
+        sortDateArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+        sortNumCommentsArrowStyle = Constants.CSS_CLASS_ARROW_NONE
+        if(sortAscending) {
+          sortMethod = Helpers.sortByVotesAscending
+          sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_UP
+        } else {
+          sortMethod = Helpers.sortByVotesDescending
+          sortVotesArrowStyle = Constants.CSS_CLASS_ARROW_DOWN
+        }
     }
 
     this.setState({
@@ -104,7 +121,8 @@ class ListPosts extends Component {
       sortAscending,
       sortField,
       sortVotesArrowStyle,
-      sortDateArrowStyle
+      sortDateArrowStyle,
+      sortNumCommentsArrowStyle
     })
   }
 
@@ -125,18 +143,17 @@ class ListPosts extends Component {
   }
 
   render() {
-    const { categoryName, posts, numCommentsForPost } = this.props
-
-    const postsToDisplay = Helpers.filterAndSortPosts(posts,categoryName,this.state.sortMethod)
-    
-    const numPosts = postsToDisplay.length
+    const { categoryName, numCommentsForPost } = this.props
+    let { posts } = this.props
 
     // Add property to each post that contains its number of comments
-    for(let i = 0; i < numPosts; i++) {
-      const numComments = numCommentsForPost[postsToDisplay[i].id]
-      // If there are no comments, set to 0
-      postsToDisplay[i].numComments = numComments ? numComments : 0
-    }
+    posts.forEach(post => {
+      const numComments = numCommentsForPost[post.id]
+      post.numComments = numComments ? numComments : 0
+    })
+
+    const postsToDisplay = Helpers.filterAndSortPosts(posts,categoryName,this.state.sortMethod)
+    const numPosts = postsToDisplay.length
 
     return(
       <div className="ListPosts">
@@ -190,8 +207,13 @@ class ListPosts extends Component {
                   </div>
                   <div className={this.state.sortVotesArrowStyle}/>
                 </Table.HeaderCell>
-                <Table.HeaderCell>
-                  Comments
+                <Table.HeaderCell
+                  className="sortableHeader"
+                  onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_NUMCOMMENTS)}>
+                  <div className="sortableHeaderLabel">
+                    Comments
+                  </div>
+                  <div className={this.state.sortNumCommentsArrowStyle}/>
                 </Table.HeaderCell>
                 <Table.HeaderCell>
                   Controls
