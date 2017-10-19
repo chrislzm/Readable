@@ -27,15 +27,14 @@ function Viewer (props) {
 
   const { mode, content } = props
 
-  const { title, author, body, timestamp, voteScore} = content
+  const { title, author, body, timestamp, voteScore, parentId } = content
 
-  // If content is a post, id will contain the post id, and parentId will be
-  // undefined. If content is a comment, id will contain the comment id, and
-  // parentId will contain the parent posts's id.
+  // If content contains a post, id will contain the post id, and parentId will
+  // be undefined. However if content contains a comment, id will contain the
+  // comment id, and parentId will contain the parent posts's id. We need to
+  // update our local variables here so that id = post id (or parent id), and
+  // commentId = comment id.
   let { id } = content
-  const { parentId } = content
-
-  // If we are viewing a comment, then we will need to set the comment id here
   let commentId
   if(mode === Constants.CONTENT_MODE_COMMENT) {
     commentId = id
