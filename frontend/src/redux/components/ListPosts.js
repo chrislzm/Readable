@@ -56,24 +56,6 @@ class ListPosts extends Component {
   }
 
   /*
-    Method: postFilter
-    Description: Arrays.prototype.filter() callback method that filters out
-      deleted posts and posts that are not in the current category
-    Parameters:
-      postDeleted: <Boolean> The "deleted" flag property value of a post
-        object
-      postCategory: <String> The "category" property of a post object
-      currentCategory: <String> The current category being viewed by the user
-    Returns:
-      <Boolean>: true if post should be kept, false if post should filtered out
-  */
-  postFilter(postDeleted, postCategory, currentCategory) {
-    if(postDeleted) return false
-    if(currentCategory === Constants.DEFAULT_CATEGORY_NAME) return true
-    return postCategory.toLowerCase() === currentCategory.toLowerCase()
-  }
-
-  /*
     Method: toggleSort
     Description: Toggles sort fields for the ListPosts component. Handles
       everything needed to change the sort field/sort direction, including
@@ -145,15 +127,14 @@ class ListPosts extends Component {
   render() {
     const { categoryName, posts, numCommentsForPost } = this.props
 
-    const filteredPosts = posts.filter(post => this.postFilter(post.deleted,post.category,categoryName))
-    const sortedPosts = filteredPosts.sort(this.state.sortMethod)
-    const numPosts = sortedPosts.length
+    const postsToDisplay = Helpers.filterAndSortPosts(posts,categoryName,this.state.sortMethod)
+    const numPosts = postsToDisplay.length
 
     // Add property to each post that contains its number of comments
     for(let i = 0; i < numPosts; i++) {
-      const numComments = numCommentsForPost[sortedPosts[i].id]
+      const numComments = numCommentsForPost[postsToDisplay[i].id]
       // If there are no comments, set to 0
-      sortedPosts[i].numComments = numComments ? numComments : 0
+      postsToDisplay[i].numComments = numComments ? numComments : 0
     }
 
     return(
@@ -173,7 +154,7 @@ class ListPosts extends Component {
         </div>
         { numPosts === 0 && (
           <div className="StatusMessage">
-            Nothing here yet. Be the first —
+            Nothing here yet. Be the first—
             <Link to={`/${Constants.PATH_ADD_POST}`}>
               Add a new post!
             </Link>
@@ -217,7 +198,7 @@ class ListPosts extends Component {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              { sortedPosts.map(post => (
+              { postsToDisplay.map(post => (
                 <Table.Row key={post.id}>
                   <Table.Cell>
                     {Helpers.capitalize(post.category)}
@@ -256,7 +237,6 @@ class ListPosts extends Component {
     )
   }
 }
-
 
 const mapStateToProps = (state) => ({
   // Create array of posts for output convenience
