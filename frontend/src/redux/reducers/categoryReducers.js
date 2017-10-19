@@ -1,8 +1,18 @@
+/*
+  Readable: reducers/categoryReducers.js
+  By Chris Leung
+
+  Description:
+
+  Category-related reducers for the Readable app's Redux store.
+*/
+
 import {
   ADD_NEW_CATEGORY,
   SET_CURRENT_CATEGORY
 } from '../actions/actionTypes'
-import * as Constants from '../../utils/constants'
+
+import { DEFAULT_CATEGORY_NAME, DEFAULT_CATEGORY_PATH } from '../../utils/constants'
 
 export function categories(state = {}, action) {
   const { name, path } = action
@@ -19,8 +29,8 @@ export function categories(state = {}, action) {
 }
 
 export function currentCategory(state = {
-  name: Constants.DEFAULT_CATEGORY_NAME,
-  path: Constants.DEFAULT_CATEGORY_PATH
+  name: DEFAULT_CATEGORY_NAME,
+  path: DEFAULT_CATEGORY_PATH
 }, action) {
 
     const { name, path } = action
