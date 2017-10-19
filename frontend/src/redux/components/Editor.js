@@ -71,7 +71,6 @@ class Editor extends Component {
     this.setState({modalOpen: false})
   }
 
-  // If we are editing, fetch the content to edit
   componentDidMount() {
     const { editingMode, postId, commentId, dispatch } = this.props
 
