@@ -15,6 +15,9 @@
   the editingMode prop. These constants are defined in [constants.js](../../utils/constants.js)
 
   Props:
+    handleEdit: <Function> Required. Called immediately after this component
+      successfully saves the input form. Recommend displaying a modal with a
+      save confirm message, and/or redirect to another component.
     editingMode: <String Constant> Required. Used to determine the UI
       configuration along the handling of the form submit.
     postId: <String> Required when editing a post (EDITOR_MODE_EDIT_POST) or
@@ -46,6 +49,7 @@ import * as PostActions from '../actions/postActions'
 class Editor extends Component {
 
   static propTypes = {
+    handleEdit: PropTypes.func.isRequired,
     editingMode: PropTypes.string.isRequired,
     postId: PropTypes.string,
     commentId: PropTypes.string,
@@ -97,6 +101,7 @@ class Editor extends Component {
     e.preventDefault()
     const post = serializeForm(e.target, { hash: true })
     const {id, parentId, title, body, author, timestamp } = post
+    const { dispatch, handleEdit } = this.props
 
     // Every editing mode requires a body
     if (!body) {
@@ -110,8 +115,8 @@ class Editor extends Component {
         if(!title) {
           this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else {
-          this.props.dispatch(PostActions.saveEditedPost(id,title,body))
-          this.props.handleEdit()
+          dispatch(PostActions.saveEditedPost(id,title,body))
+          handleEdit()
         }
         break
       // Mode: Editing an existing comment
@@ -121,8 +126,8 @@ class Editor extends Component {
         if(!newTimeStamp.isValid()) {
           this.openModal(Constants.EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP)
         } else {
-          this.props.dispatch(CommentActions.saveEditedComment(id,parentId,body,newTimeStamp))
-          this.props.handleEdit()
+          dispatch(CommentActions.saveEditedComment(id,parentId,body,newTimeStamp))
+          handleEdit()
         }
         break
       // Mode: Adding a new comment
@@ -130,11 +135,11 @@ class Editor extends Component {
         if (!author) {
           this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
-          this.props.dispatch(CommentActions.submitNewComment(body,author,parentId))
+          dispatch(CommentActions.submitNewComment(body,author,parentId))
           // Clear form values so that user can easily enter new comment
           this.author.value = ''
           this.body.value = ''
-          this.props.handleEdit()
+          handleEdit()
         }
         break
       // Mode: Adding a new post
@@ -146,8 +151,8 @@ class Editor extends Component {
         } else if (!author) {
           this.openModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
-          this.props.dispatch(PostActions.submitNewPost(post))
-          this.props.handleEdit()
+          dispatch(PostActions.submitNewPost(post))
+          handleEdit()
         }
     }
   }
@@ -223,7 +228,7 @@ class Editor extends Component {
   }
 
   render() {
-    const { editingMode, postId, commentId, currentCategory } = this.props
+    const { editingMode, postId, commentId, posts, comments, categories, currentCategory } = this.props
 
     // editDataFound <boolean>: When false, we are editing but the post/comment
     // was not found in the Redux store. When true, the data was found, or we
@@ -242,7 +247,8 @@ class Editor extends Component {
     switch(editingMode) {
       // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST: {
-        const postToEdit = this.props.posts[postId]
+        const postToEdit = posts[postId]
+        // If post doesn't exist in Redux store
         if(!postToEdit) {
           editDataFound = false
         } else {
@@ -255,10 +261,10 @@ class Editor extends Component {
       // Mode: Editing an existing comment
       case Constants.EDITOR_MODE_EDIT_COMMENT:
         // If post or comment doesn't exist in Redux store
-        if(!this.props.comments[postId] || !this.props.comments[postId][commentId]) {
+        if(!comments[postId] || !comments[postId][commentId]) {
           editDataFound = false
         } else {
-          const commentToEdit = this.props.comments[postId][commentId]
+          const commentToEdit = comments[postId][commentId]
           prePopulatedFields = this.populateFieldsForEditComment(postId,commentId,commentToEdit)
           inputFieldVisiblity = this.setVisibleFieldsForEditComment()
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
@@ -316,7 +322,7 @@ class Editor extends Component {
                       name="category"
                       onSubmit={this.handleSubmit}
                       defaultValue={prePopulatedFields.category}>
-                      {this.props.categories.map(category => (
+                      {categories.map(category => (
                         <option
                           value={category.name}
                           key={category.path}>
