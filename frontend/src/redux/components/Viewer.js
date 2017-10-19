@@ -4,14 +4,16 @@
 
   Description:
 
-  React component that renders the content of a post or comment. Uses
-  Controls.js to display a group of controls to manipulate the post or comment.
+  Stateless functional React component that renders the content of a post or
+  comment. Uses the Controls component to display a group of controls that can
+  manipulate the post or comment.
 
   Props:
     content: <Object> Required. Contains the content of the post or comment. See
       README.md for a description of fields in the post and comment objects.
     mode: <String Constant> Required. Value must be CONTENT_MODE_COMMENT if
-      being used with a comment, or CONTENT_MODE_POST if being used with a post.
+      being to render a comment, or CONTENT_MODE_POST if being used to render a
+      post.
 */
 
 import React from 'react'
@@ -45,23 +47,41 @@ function Viewer (props) {
       <Table definition>
         <Table.Body>
           <Table.Row>
-            <Table.Cell>Author</Table.Cell>
-            <Table.Cell>{author}</Table.Cell>
+            <Table.Cell>
+              Author
+            </Table.Cell>
+            <Table.Cell>
+              {author}
+            </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>Body</Table.Cell>
-            <Table.Cell>{body}</Table.Cell>
+            <Table.Cell>
+              Body
+            </Table.Cell>
+            <Table.Cell>
+              {body}
+            </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>Date</Table.Cell>
-            <Table.Cell>{Moment(timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</Table.Cell>
+            <Table.Cell>
+              Date
+            </Table.Cell>
+            <Table.Cell>
+              {Moment(timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}
+            </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>Votes</Table.Cell>
-            <Table.Cell>{voteScore}</Table.Cell>
+            <Table.Cell>
+              Votes
+            </Table.Cell>
+            <Table.Cell>
+              {voteScore}
+            </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>Controls</Table.Cell>
+            <Table.Cell>
+              Controls
+            </Table.Cell>
             <Table.Cell>
               <Controls
                 postId={id}
