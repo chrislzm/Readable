@@ -190,8 +190,19 @@ export function generateNewSortProperties(oldSortField,oldSortAscending,newSortF
 
 /* (3) Editor Component Helper Methods */
 
-export function populateFieldsForEditPost(postId,postContent) {
+function initializePrePopulatedFields() {
   let prePopulatedFields = {}
+  prePopulatedFields.id = ''
+  prePopulatedFields.parentId = ''
+  prePopulatedFields.title = ''
+  prePopulatedFields.body = ''
+  prePopulatedFields.author = ''
+  prePopulatedFields.category = ''
+  prePopulatedFields.timestamp = ''
+  return prePopulatedFields
+}
+export function populateFieldsForEditPost(postId,postContent) {
+  let prePopulatedFields = initializePrePopulatedFields()
   prePopulatedFields.id = postId
   prePopulatedFields.title = postContent.title
   prePopulatedFields.body = postContent.body
@@ -202,7 +213,7 @@ export function populateFieldsForEditPost(postId,postContent) {
 }
 
 export function populateFieldsForEditComment(parentId,commentId,commentContent) {
-  let prePopulatedFields = {}
+  let prePopulatedFields = initializePrePopulatedFields()
   prePopulatedFields.id = commentId
   prePopulatedFields.parentId = parentId
   prePopulatedFields.body = commentContent.body
@@ -211,13 +222,13 @@ export function populateFieldsForEditComment(parentId,commentId,commentContent) 
 }
 
 export function populateFieldsForAddComment(parentId) {
-  let prePopulatedFields = {}
+  let prePopulatedFields = initializePrePopulatedFields()
   prePopulatedFields.parentId = parentId
   return prePopulatedFields
 }
 
 export function populateFieldsForAddPost(currentCategory) {
-  let prePopulatedFields = {}
+  let prePopulatedFields = initializePrePopulatedFields()
   prePopulatedFields.category = currentCategory.name
   return prePopulatedFields
 }
