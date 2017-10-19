@@ -5,14 +5,17 @@
   Description:
 
   React component that displays the a post along with a form to add a new
-  comment and all comments for the post. Uses the Viewer component to display
-  the post content, AddComment to display the add comment form and handle adding
-  coments, and ListComments to list all the comments for this post.
+  comment and all comments for the post. Uses React Router to match URL
+  parameter for the postId (required) -- refer to Route statement in App.js.
+
+  Uses the Viewer component to display the post content, AddComment to display
+  the add comment form and handle adding coments, and ListComments to list all
+  the comments for this post.
 
   Props:
-  React Router Param Match: Provides the post id (required). See Route statement
-    in App.js for matched URL parameters.
-  Redux Store State: Mapped to props
+    postId: <React Router Param Match> Required.
+    currentCategory: <Redux State> Required.
+    posts: <Redux State> Required.
 */
 
 import React, { Component } from 'react'
@@ -62,7 +65,9 @@ class ViewPost extends Component {
       <div>
           <div className="VieWPost">
             <div className="SectionTitle">
-              <h2>{sectionTitle}</h2>
+              <h2>
+                {sectionTitle}
+              </h2>
             </div>
             <div className="SectionTitleNav">
               <button>
