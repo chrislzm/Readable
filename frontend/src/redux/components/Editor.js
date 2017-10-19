@@ -89,14 +89,9 @@ class Editor extends Component {
     }
   }
 
-  /*
-    Method: handleSubmit
-    Description: Handles edit form submission. Decides what action to take based
-      on the current editing mode, validates form data and either displays a
-      modal error message or saves (dispatches) the changes.
-    Parameters:
-      e: <Event> The form submission event.
-  */
+  // Handles edit form submission. Decides what action to take based on the
+  // current editing mode, validates form data and either displays a modal error
+  // message or saves (dispatches) the changes.
   handleSubmit = (e) => {
     e.preventDefault()
     const post = serializeForm(e.target, { hash: true })
