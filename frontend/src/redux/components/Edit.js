@@ -4,21 +4,26 @@
 
   Description:
 
-  React component that allows the user to edit a post or comment. It utilizes
-  the Editor.js component, which entirely handles the form display, input,
-  validation, and submission of form data to the local Redux store and backend
-  API server.
+  React component that allows the user to edit a post or comment. Uses React
+  Router to match URL parameters for the postId (required) and commentId
+  (required when editing a comment) -- see Route statement in App.js for
+  matched URL parameters.
+
+  This component also utilizes the Editor.js component, which entirely handles
+  the edit form display, input, validation, and submission of form data to the
+  local Redux store and backend API server.
 
   Contains one modal window that displays a confirmation message after the post
   or comment has been successfully edited (and changes have been saved).
 
-  The URL path to this component is set in constants.js "PATH_EDIT".
+  The URL path to this component is set in [constants.js](../../utils/constants.js) "PATH_EDIT".
 
   Props:
-    React Router Param Match: Provides the post id (required). Also provides
-      comment id, which is required when editing a comment. See Route statement
-      in App.js for matched URL parameters.
-    Redux Store State: Mapped to props
+    postId: <React Router Param Match> Required.
+    commentId: <React Router Param Match> Required when editing a comment.
+    categories: <Redux State> Required.
+    currentCategory: <Redux State> Required.
+    posts: <Redux State> Required.
 */
 
 import React, { Component } from 'react'
@@ -96,39 +101,53 @@ class Edit extends Component {
           </h2>
           <div className="SectionTitleNav">
             { postExists && (
+              <button>
+                <Link
+                  to={pathToViewPost}>
+                  &lt; View Post
+                </Link>
+              </button>
+            )}
             <button>
-              <Link to={pathToViewPost}>&lt; View Post</Link>
-            </button>
-          )}
-            <button>
-              <Link to={`/${categoryPath}`}>&lt; Back To {Helpers.capitalize(categoryName)}</Link>
+              <Link
+                to={`/${categoryPath}`}>
+                &lt; Back To {Helpers.capitalize(categoryName)}
+              </Link>
             </button>
           </div>
         </div>
         { !postExists && (
-          <div className="StatusMessage">Not found</div>
+          <div className="StatusMessage">
+            Not found
+          </div>
         )}
         { postExists && (
-          <div>
-        <Editor
-          categoryPath={categoryPath}
-          postId={postId}
-          commentId={commentId}
-          handleEdit={this.openModal}
-          editingMode={editingMode}/>
-        <Modal
-          className='modal'
-          overlayClassName='overlay'
-          isOpen={modalOpen}
-          onRequestClose={this.closeModal}
-          contentLabel='Modal'>
-          <div>Changes have been saved!</div>
-          <div>
-            <button onClick={this.closeModal}>OK</button>
-          </div>
-        </Modal>
-      </div>
-       )}
+            <div>
+              <Editor
+                categoryPath={categoryPath}
+                postId={postId}
+                commentId={commentId}
+                handleEdit={this.openModal}
+                editingMode={editingMode}/>
+              <Modal
+                className='modal'
+                overlayClassName='overlay'
+                isOpen={modalOpen}
+                onRequestClose={this.closeModal}
+                contentLabel='Modal'>
+                <div>
+                  Changes have been saved!
+                </div>
+                <div>
+                  <button
+                    onClick={this.closeModal}>
+                    OK
+                  </button>
+                </div>
+              </Modal>
+            </div>
+          )
+        }
       </div>
     )
   }
