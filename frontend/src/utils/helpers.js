@@ -98,45 +98,39 @@ export function postFilter(post, currentCategory) {
 }
 
 export function sortByDateDescending(a,b) {
-  return sortByDate(a,b,false)
+  return sortByDate(a,b,-1)
 }
 
 export function sortByDateAscending(a,b) {
-  return sortByDate(a,b,true)
+  return sortByDate(a,b,1)
 }
 
 function sortByDate(a,b,ascending) {
-  if((a.timestamp < b.timestamp) ^ ascending) return 1
-  if(a.timestamp === b.timestamp) return 0
-  if((a.timestamp > b.timestamp) ^ ascending) return -1
+  return (a.timestamp - b.timestamp) * ascending
 }
 
 export function sortByVotesDescending(a,b) {
-  return sortByVotes(a,b,false)
+  return sortByVotes(a,b,-1)
 }
 
 export function sortByVotesAscending(a,b) {
-  return sortByVotes(a,b,true)
+  return sortByVotes(a,b,1)
 }
 
 function sortByVotes(a,b,ascending) {
-  if((a.voteScore < b.voteScore) ^ ascending) return 1
-  if(a.voteScore === b.voteScore) return 0
-  if((a.voteScore > b.voteScore) ^ ascending) return -1
+  return (a.voteScore - b.voteScore) * ascending
 }
 
 export function sortByNumCommentsDescending(a,b) {
-  return sortByNumComments(a,b,false)
+  return sortByNumComments(a,b,-1)
 }
 
 export function sortByNumCommentsAscending(a,b) {
-  return sortByNumComments(a,b,true)
+  return sortByNumComments(a,b,1)
 }
 
 function sortByNumComments(a,b,ascending) {
-  if((a.numComments < b.numComments) ^ ascending) return 1
-  if(a.numComments === b.numComments) return 0
-  if((a.numComments > b.numComments) ^ ascending) return -1
+  return (a.numComments - b.numComments) * ascending
 }
 
 /* (3) Editor Component Helper Methods */
