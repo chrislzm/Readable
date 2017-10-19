@@ -102,10 +102,11 @@ class Editor extends Component {
     const post = serializeForm(e.target, { hash: true })
     const {id, parentId, title, body, author, timestamp } = post
     const { dispatch, handleEdit } = this.props
+    const { displayErrorModal } = this
 
     // Every editing mode requires a body
     if (!body) {
-      this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_BODY)
+      displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_BODY)
       return
     }
 
@@ -113,7 +114,7 @@ class Editor extends Component {
       // Mode: Editing an existing post
       case Constants.EDITOR_MODE_EDIT_POST:
         if(!title) {
-          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
+          displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else {
           dispatch(PostActions.saveEditedPost(id,title,body))
           handleEdit()
@@ -124,7 +125,7 @@ class Editor extends Component {
         // Verify whether the user's timestamp is in a valid format
         const newTimeStamp = Moment(timestamp,Constants.DATE_FORMAT_EDITOR)
         if(!newTimeStamp.isValid()) {
-          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP)
+          displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_INVALID_TIMESTAMP)
         } else {
           dispatch(CommentActions.saveEditedComment(id,parentId,body,newTimeStamp))
           handleEdit()
@@ -133,7 +134,7 @@ class Editor extends Component {
       // Mode: Adding a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
         if (!author) {
-          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
+          displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
           dispatch(CommentActions.submitNewComment(body,author,parentId))
           // Clear form values so that user can easily enter new comment
@@ -147,9 +148,9 @@ class Editor extends Component {
       // fall through
       default:
         if(!title) {
-          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
+          displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_TITLE)
         } else if (!author) {
-          this.displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
+          displayErrorModal(Constants.EDITOR_ERROR_MESSAGE_BLANK_AUTHOR)
         } else {
           dispatch(PostActions.submitNewPost(post))
           handleEdit()
