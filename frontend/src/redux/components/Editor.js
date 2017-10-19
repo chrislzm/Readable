@@ -160,6 +160,7 @@ class Editor extends Component {
 
   render() {
     const { editingMode, postId, commentId, posts, comments, categories, currentCategory } = this.props
+    const { errorModalOpen, errorModalMessage } = this.state
 
     // When false, we are editing but the post/comment was not found in the
     // Redux store. When true, the data was found or we are editing new content
@@ -222,11 +223,11 @@ class Editor extends Component {
         <Modal
           className='modal'
           overlayClassName='overlay'
-          isOpen={this.state.modalOpen}
+          isOpen={errorModalOpen}
           onRequestClose={this.closeErrorModal}
           contentLabel='Modal'>
           <div>
-            {this.state.modalMessage}
+            {errorModalMessage}
           </div>
           <div>
             <button
