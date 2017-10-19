@@ -56,9 +56,13 @@ class ListComments extends Component {
     }
     return (
       <div>
-        <h2>Comments ({numComments})</h2>
+        <h2>
+          Comments ({numComments})
+        </h2>
         { numComments === 0 && (
-            <div className="StatusMessage">This post has no comments yet</div>
+            <div className="StatusMessage">
+              This post has no comments yet
+            </div>
           )}
         { numComments > 0 && commentsToOutput.map(comment => (
           <Viewer
