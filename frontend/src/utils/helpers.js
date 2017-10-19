@@ -23,7 +23,13 @@ import {
   DEFAULT_CATEGORY_NAME,
   DATE_FORMAT_EDITOR,
   CSS_CLASS_SHOW,
-  CSS_CLASS_HIDE
+  CSS_CLASS_HIDE,
+  CSS_CLASS_ARROW_NONE,
+  CSS_CLASS_ARROW_DOWN,
+  CSS_CLASS_ARROW_UP,
+  LIST_POSTS_SORT_FIELD_VOTES,
+  LIST_POSTS_SORT_FIELD_TIMESTAMP,
+  LIST_POSTS_SORT_FIELD_NUMCOMMENTS
 } from './constants'
 
 import Moment from 'moment'
@@ -131,6 +137,55 @@ export function sortByNumCommentsAscending(a,b) {
 
 function sortByNumComments(a,b,ascending) {
   return (a.numComments - b.numComments) * ascending
+}
+
+export function generateNewSortProperties(sortField,sortAscending,newSortField) {
+  let sortProperties = {}
+
+  // If the sort field hasn't changed, then we are changing sort direction
+  if(newSortField === sortField) {
+    sortProperties.ascending = !sortAscending
+  } else {
+    sortProperties.ascending = sortAscending
+  }
+
+  // Set sort method and output styles based on the field being sorted
+  switch(newSortField) {
+    case LIST_POSTS_SORT_FIELD_TIMESTAMP:
+    sortProperties.votesArrowStyle = CSS_CLASS_ARROW_NONE
+    sortProperties.numCommentsArrowStyle = CSS_CLASS_ARROW_NONE
+    if(sortProperties.ascending) {
+      sortProperties.method = sortByDateAscending
+      sortProperties.dateArrowStyle = CSS_CLASS_ARROW_UP
+    } else {
+      sortProperties.method = sortByDateDescending
+      sortProperties.dateArrowStyle = CSS_CLASS_ARROW_DOWN
+    }
+    break
+    case LIST_POSTS_SORT_FIELD_NUMCOMMENTS:
+    sortProperties.votesArrowStyle = CSS_CLASS_ARROW_NONE
+    sortProperties.dateArrowStyle = CSS_CLASS_ARROW_NONE
+    if(sortProperties.ascending) {
+      sortProperties.method = sortByNumCommentsAscending
+      sortProperties.numCommentsArrowStyle = CSS_CLASS_ARROW_UP
+    } else {
+      sortProperties.method = sortByNumCommentsDescending
+      sortProperties.numCommentsArrowStyle = CSS_CLASS_ARROW_DOWN
+    }
+    break
+    default:
+    case LIST_POSTS_SORT_FIELD_VOTES:
+    sortProperties.dateArrowStyle = CSS_CLASS_ARROW_NONE
+    sortProperties.numCommentsArrowStyle = CSS_CLASS_ARROW_NONE
+    if(sortProperties.ascending) {
+      sortProperties.method = sortByVotesAscending
+      sortProperties.votesArrowStyle = CSS_CLASS_ARROW_UP
+    } else {
+      sortProperties.method = sortByVotesDescending
+      sortProperties.votesArrowStyle = CSS_CLASS_ARROW_DOWN
+    }
+  }
+  return sortProperties
 }
 
 /* (3) Editor Component Helper Methods */
