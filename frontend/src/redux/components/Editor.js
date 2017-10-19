@@ -162,76 +162,6 @@ class Editor extends Component {
         }
     }
   }
-  populateFieldsForEditPost(postId,postToEdit) {
-    let prePopulatedFields = {}
-    prePopulatedFields.id = postId
-    prePopulatedFields.title = postToEdit.title
-    prePopulatedFields.body = postToEdit.body
-    prePopulatedFields.author = postToEdit.author
-    prePopulatedFields.category = postToEdit.category
-    prePopulatedFields.timestamp = postToEdit.timestamp
-    return prePopulatedFields
-  }
-
-  setVisibleFieldsForEditPost() {
-    let inputFieldVisibility = {}
-    inputFieldVisibility.author = Constants.CSS_CLASS_HIDE
-    inputFieldVisibility.category = Constants.CSS_CLASS_HIDE
-    inputFieldVisibility.timestamp = Constants.CSS_CLASS_HIDE
-    inputFieldVisibility.title = Constants.CSS_CLASS_SHOW
-    return inputFieldVisibility
-  }
-
-  populateFieldsForEditComment(postId,commentId,commentToEdit) {
-    let prePopulatedFields = {}
-    prePopulatedFields.id = commentId
-    prePopulatedFields.parentId = postId
-    prePopulatedFields.body = commentToEdit.body
-    prePopulatedFields.timestamp = Moment(commentToEdit.timestamp, "x").format(Constants.DATE_FORMAT_EDITOR)
-    return prePopulatedFields
-  }
-
-  setVisibleFieldsForEditComment() {
-    // Only show timestamp and body when editing a comment
-    let inputFieldVisibility = {}
-    inputFieldVisibility.timestamp = Constants.CSS_CLASS_SHOW
-    inputFieldVisibility.category = Constants.CSS_CLASS_HIDE
-    inputFieldVisibility.title = Constants.CSS_CLASS_HIDE
-    inputFieldVisibility.author = Constants.CSS_CLASS_HIDE
-    return inputFieldVisibility
-  }
-
-  populateFieldsForAddComment(postId) {
-    let prePopulatedFields = {}
-    prePopulatedFields.parentId = postId
-    return prePopulatedFields
-  }
-
-  setVisibleFieldsForAddComment() {
-    // Only show author and body when adding a comment
-    let inputFieldVisibility = {}
-    inputFieldVisibility.author = Constants.CSS_CLASS_SHOW
-    inputFieldVisibility.category = Constants.CSS_CLASS_HIDE
-    inputFieldVisibility.title = Constants.CSS_CLASS_HIDE
-    inputFieldVisibility.timestamp = Constants.CSS_CLASS_HIDE
-    return inputFieldVisibility
-  }
-
-  populateFieldsForAddPost(currentCategory) {
-    let prePopulatedFields = {}
-    prePopulatedFields.category = currentCategory.name
-    return prePopulatedFields
-  }
-
-  setVisibleFieldsForAddPost() {
-    // Hide timestamp field
-    let inputFieldVisibility = {}
-    inputFieldVisibility.author = Constants.CSS_CLASS_SHOW
-    inputFieldVisibility.category = Constants.CSS_CLASS_SHOW
-    inputFieldVisibility.title = Constants.CSS_CLASS_SHOW
-    inputFieldVisibility.timestamp = Constants.CSS_CLASS_HIDE
-    return inputFieldVisibility
-  }
 
   render() {
     const { editingMode, postId, commentId, posts, comments, categories, currentCategory } = this.props
@@ -258,8 +188,8 @@ class Editor extends Component {
         if(!postToEdit) {
           editDataFound = false
         } else {
-          prePopulatedFields = this.populateFieldsForEditPost(postId,postToEdit)
-          inputFieldVisiblity = this.setVisibleFieldsForEditPost()
+          prePopulatedFields = Helpers.populateFieldsForEditPost(postId,postToEdit)
+          inputFieldVisiblity = Helpers.setFieldVisibilityForEditPost()
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
         }
         break
@@ -271,22 +201,22 @@ class Editor extends Component {
           editDataFound = false
         } else {
           const commentToEdit = comments[postId][commentId]
-          prePopulatedFields = this.populateFieldsForEditComment(postId,commentId,commentToEdit)
-          inputFieldVisiblity = this.setVisibleFieldsForEditComment()
+          prePopulatedFields = Helpers.populateFieldsForEditComment(postId,commentId,commentToEdit)
+          inputFieldVisiblity = Helpers.setFieldVisibilityForEditComment()
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
         }
         break
       // Mode: Add a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
-        prePopulatedFields = this.populateFieldsForAddComment(postId)
-        inputFieldVisiblity = this.setVisibleFieldsForAddComment()
+        prePopulatedFields = Helpers.populateFieldsForAddComment(postId)
+        inputFieldVisiblity = Helpers.setFieldVisibilityForAddComment()
         submitButtonText = Constants.SUBMIT_BUTTON_TEXT_NEW_COMMENT
         break
       // Mode: Add a new post
       case Constants.EDITOR_MODE_ADD_POST:
       default:
-        prePopulatedFields = this.populateFieldsForAddPost(currentCategory)
-        inputFieldVisiblity = this.setVisibleFieldsForAddPost()
+        prePopulatedFields = Helpers.populateFieldsForAddPost(currentCategory)
+        inputFieldVisiblity = Helpers.setFieldVisibilityForAddPost()
         submitButtonText = Constants.SUBMIT_BUTTON_TEXT_NEW_POST
     }
 
