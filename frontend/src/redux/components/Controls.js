@@ -41,7 +41,8 @@ class Controls extends Component {
   }
 
   state = {
-    modalOpen: false
+    modalOpen: false,
+    modalMessage: ''
   }
 
   openModal = () => {
@@ -50,6 +51,20 @@ class Controls extends Component {
 
   closeModal = () => {
     this.setState({modalOpen: false})
+  }
+
+  componentDidMount() {
+    const { mode, title } = this.props
+
+    switch(mode) {
+      case Constants.CONTENT_MODE_COMMENT:
+        this.setState({ modalMessage: 'Really delete this comment?' })
+        break
+      default:
+      case Constants.CONTENT_MODE_POST:
+        this.setState({ modalMessage: `Really delete "${title}"?`})
+        break
+    }
   }
 
   /*
@@ -114,18 +129,8 @@ class Controls extends Component {
   }
 
   render() {
-    const { modalOpen } = this.state
-    const { postId, commentId, title, mode } = this.props
-    let modalMessage
-    switch(mode) {
-      case Constants.CONTENT_MODE_COMMENT:
-        modalMessage = "Really delete this comment?"
-        break
-      default:
-      case Constants.CONTENT_MODE_POST:
-        modalMessage = `Really delete "${title}"?`
-        break
-      }
+    const { modalOpen, modalMessage } = this.state
+    const { postId, commentId, mode } = this.props
     return (
       <div>
         <div>
