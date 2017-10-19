@@ -40,13 +40,11 @@ class ListComments extends Component {
 
     let numComments = 0, commentsToOutput
 
-    // Attempt to retrieve comments for the given parentId
-    const allPostComments = this.props.comments[parentId]
-    if(allPostComments) {
-      // If comments exist, convert comment object into array for convenience
-      const commentsArray = Helpers.convertCommentsToArray(allPostComments,parentId)
-
-      // Filter out deleted comments
+    const postComments = this.props.comments[parentId]
+    if(postComments) {
+      // If comments exist, convert comment object into array for output convenience
+      const commentsArray = Helpers.convertCommentsToArray(postComments,parentId)
+      // Filter out deleted comments and sort by votes
       commentsToOutput = commentsArray.filter(comment => !comment.deleted).sort(Helpers.sortByVotesDescending)
       numComments = commentsToOutput.length
     }
@@ -64,7 +62,8 @@ class ListComments extends Component {
           <Viewer
             content={comment}
             key={comment.id}
-            mode={Constants.CONTENT_MODE_COMMENT}/>
+            mode={Constants.CONTENT_MODE_COMMENT}
+          />
           ))}
       </div>
     )
