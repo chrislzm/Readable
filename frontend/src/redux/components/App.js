@@ -39,11 +39,13 @@ class App extends Component {
   }
 
   render() {
-    // Add default category to array of categories that shows all posts
-    let categories = [{path:Constants.DEFAULT_CATEGORY_PATH,name:Constants.DEFAULT_CATEGORY_NAME}]
+    const { categories } = this.props
+
+    // Add default category (that shows all posts) to array of all categories
+    let allCategories = [{path:Constants.DEFAULT_CATEGORY_PATH,name:Constants.DEFAULT_CATEGORY_NAME}]
     // If categories have been loaded from Redux Store, add them
-    if(this.props.categories) {
-      categories = [...categories,...this.props.categories]
+    if(categories) {
+      allCategories = [...allCategories,...categories]
     }
 
     return (
@@ -54,10 +56,10 @@ class App extends Component {
           </h2>
         </div>
         <NavigationBar
-          categories={categories}
+          categories={allCategories}
         />
         <div className="Content">
-          { categories.map(category => (
+          { allCategories.map(category => (
             <Route
               exact
               path={`/${category.path}`}
@@ -70,7 +72,7 @@ class App extends Component {
               )}
             />
           ))}
-          { categories.map(category => (
+          { allCategories.map(category => (
             <Route
               exact
               path={`/${category.path}/:postId`}
