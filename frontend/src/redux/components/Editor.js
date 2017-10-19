@@ -71,13 +71,18 @@ class Editor extends Component {
     this.setState({modalOpen: false})
   }
 
-  // If we are in comment editing mode then load the comment from the API server
-  // and save it to the Redux Store
+  // If we are editing, fetch the content to edit
   componentDidMount() {
-    const { editingMode} = this.props
-    if(editingMode === Constants.EDITOR_MODE_EDIT_COMMENT) {
-      const { commentId, dispatch } = this.props
-      dispatch(CommentActions.fetchComment(commentId))
+    const { editingMode, postId, commentId, dispatch } = this.props
+
+    switch(editingMode) {
+      case Constants.EDITOR_MODE_EDIT_POST:
+        dispatch(PostActions.fetchPost(postId))
+        break
+      case Constants.EDITOR_MODE_EDIT_COMMENT:
+        dispatch(CommentActions.fetchComment(commentId))
+        break
+      default:
     }
   }
 
@@ -256,7 +261,7 @@ class Editor extends Component {
           )}
         { editDataFound && (
         <form className="edit-post-form"
-          onSubmit={this.handleSubmit}
+          onSubmit={this.handleSubmit}>
           <div className="edit-post-details">
             <Table definition>
               <Table.Body>
