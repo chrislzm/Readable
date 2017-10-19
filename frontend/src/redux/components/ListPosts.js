@@ -128,6 +128,7 @@ class ListPosts extends Component {
     const { categoryName, posts, numCommentsForPost } = this.props
 
     const postsToDisplay = Helpers.filterAndSortPosts(posts,categoryName,this.state.sortMethod)
+    
     const numPosts = postsToDisplay.length
 
     // Add property to each post that contains its number of comments
