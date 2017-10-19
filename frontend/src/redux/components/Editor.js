@@ -88,7 +88,8 @@ class Editor extends Component {
   /*
     Method: handleSubmit
     Description: Handles edit form submission. Decides what action to take based
-      on the current editing mode.
+      on the current editing mode, validates form data and either displays a
+      modal error message or saves (dispatches) the changes.
     Parameters:
       e: <Event> The form submission event.
   */
@@ -150,23 +151,92 @@ class Editor extends Component {
         }
     }
   }
+  populateFieldsForEditPost(postId,postToEdit) {
+    let prePopulatedFields = {}
+    prePopulatedFields.id = postId
+    prePopulatedFields.title = postToEdit.title
+    prePopulatedFields.body = postToEdit.body
+    prePopulatedFields.author = postToEdit.author
+    prePopulatedFields.category = postToEdit.category
+    prePopulatedFields.timestamp = postToEdit.timestamp
+    return prePopulatedFields
+  }
+
+  setVisibleFieldsForEditPost() {
+    let inputFieldVisibility = {}
+    inputFieldVisibility.author = Constants.CSS_CLASS_HIDE
+    inputFieldVisibility.category = Constants.CSS_CLASS_HIDE
+    inputFieldVisibility.timestamp = Constants.CSS_CLASS_HIDE
+    inputFieldVisibility.title = Constants.CSS_CLASS_SHOW
+    return inputFieldVisibility
+  }
+
+  populateFieldsForEditComment(postId,commentId,commentToEdit) {
+    let prePopulatedFields = {}
+    prePopulatedFields.id = commentId
+    prePopulatedFields.parentId = postId
+    prePopulatedFields.body = commentToEdit.body
+    prePopulatedFields.timestamp = Moment(commentToEdit.timestamp, "x").format(Constants.DATE_FORMAT_EDITOR)
+    return prePopulatedFields
+  }
+
+  setVisibleFieldsForEditComment() {
+    // Only show timestamp and body when editing a comment
+    let inputFieldVisibility = {}
+    inputFieldVisibility.timestamp = Constants.CSS_CLASS_SHOW
+    inputFieldVisibility.category = Constants.CSS_CLASS_HIDE
+    inputFieldVisibility.title = Constants.CSS_CLASS_HIDE
+    inputFieldVisibility.author = Constants.CSS_CLASS_HIDE
+    return inputFieldVisibility
+  }
+
+  populateFieldsForAddComment(postId) {
+    let prePopulatedFields = {}
+    prePopulatedFields.parentId = postId
+    return prePopulatedFields
+  }
+
+  setVisibleFieldsForAddComment() {
+    // Only show author and body when adding a comment
+    let inputFieldVisibility = {}
+    inputFieldVisibility.author = Constants.CSS_CLASS_SHOW
+    inputFieldVisibility.category = Constants.CSS_CLASS_HIDE
+    inputFieldVisibility.title = Constants.CSS_CLASS_HIDE
+    inputFieldVisibility.timestamp = Constants.CSS_CLASS_HIDE
+    return inputFieldVisibility
+  }
+
+  populateFieldsForAddPost(currentCategory) {
+    let prePopulatedFields = {}
+    prePopulatedFields.category = currentCategory.name
+    return prePopulatedFields
+  }
+
+  setVisibleFieldsForAddPost() {
+    // Hide timestamp field
+    let inputFieldVisibility = {}
+    inputFieldVisibility.author = Constants.CSS_CLASS_SHOW
+    inputFieldVisibility.category = Constants.CSS_CLASS_SHOW
+    inputFieldVisibility.title = Constants.CSS_CLASS_SHOW
+    inputFieldVisibility.timestamp = Constants.CSS_CLASS_HIDE
+    return inputFieldVisibility
+  }
 
   render() {
-    let { editingMode, postId, commentId } = this.props
+    const { editingMode, postId, commentId, currentCategory } = this.props
 
     // editDataFound <boolean>: When false, we are editing but the post/comment
-    // not found in the Redux store. When true, the data was found, or we are
-    // editing a new post/comment.
+    // was not found in the Redux store. When true, the data was found, or we
+    // are editing a new post/comment.
     let editDataFound = true
 
     let submitButtonText
 
-    // Values used to pre-populate input fields
-    let id, parentId, category, title, body, author, timestamp
-    id = parentId = category = title = body = author = timestamp = ''
+    // Stores values used to pre-populate input fields
+    let prePopulatedFields = {}
 
-    // Control showing/hiding input fields (depending on editing mode)
-    let showAuthor, showCategory, showTimestamp, showTitle
+    // Stores visibility of input fields (which depends on editing mode)
+    let inputFieldVisiblity = {}
 
     // Configure the UI: Pre-populate and show/hide fields based on editingMode
     switch(editingMode) {
@@ -174,64 +244,37 @@ class Editor extends Component {
       case Constants.EDITOR_MODE_EDIT_POST: {
         const postToEdit = this.props.posts[postId]
         if(!postToEdit) {
-          // Display "Content not found" message if the post doesn't exist
           editDataFound = false
         } else {
-          // Pre-populate input fields
-          id = postId
-          title = postToEdit.title
-          body = postToEdit.body
-          author = postToEdit.author
-          category = postToEdit.category
-          timestamp = postToEdit.timestamp
-
-          // Only show title and body when editing a post
-          showAuthor = showCategory = showTimestamp = Constants.CSS_CLASS_HIDE
-          showTitle = Constants.CSS_CLASS_SHOW
-
+          prePopulatedFields = this.populateFieldsForEditPost(postId,postToEdit)
+          inputFieldVisiblity = this.setVisibleFieldsForEditPost()
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
         }
         break
       }
       // Mode: Editing an existing comment
       case Constants.EDITOR_MODE_EDIT_COMMENT:
+        // If post or comment doesn't exist in Redux store
         if(!this.props.comments[postId] || !this.props.comments[postId][commentId]) {
-          // Display "Content not found" message if post/comment doesn't exist
           editDataFound = false
         } else {
-          // Pre-populate input fields
           const commentToEdit = this.props.comments[postId][commentId]
-          id = commentId
-          parentId = postId
-          body = commentToEdit.body
-          timestamp = commentToEdit.timestamp
-
-          // Only show timestamp and body when editing a comment
-          showTimestamp = Constants.CSS_CLASS_SHOW
-          showCategory = showTitle = showAuthor = Constants.CSS_CLASS_HIDE
-
+          prePopulatedFields = this.populateFieldsForEditComment(postId,commentId,commentToEdit)
+          inputFieldVisiblity = this.setVisibleFieldsForEditComment()
           submitButtonText = Constants.SUBMIT_BUTTON_TEXT_EDIT
         }
         break
       // Mode: Add a new comment
       case Constants.EDITOR_MODE_ADD_COMMENT:
-        parentId = postId
-
-        // Only show author and body when adding a comment
-        showAuthor = Constants.CSS_CLASS_SHOW
-        showCategory = showTitle = showTimestamp = Constants.CSS_CLASS_HIDE
-
+        prePopulatedFields = this.populateFieldsForAddComment(postId)
+        inputFieldVisiblity = this.setVisibleFieldsForAddComment()
         submitButtonText = Constants.SUBMIT_BUTTON_TEXT_NEW_COMMENT
         break
       // Mode: Add a new post
       case Constants.EDITOR_MODE_ADD_POST:
       default:
-        category = this.props.currentCategory.name
-
-        // Hide timestamp field
-        showAuthor = showCategory = showTitle = Constants.CSS_CLASS_SHOW
-        showTimestamp = Constants.CSS_CLASS_HIDE
-
+        prePopulatedFields = this.populateFieldsForAddPost(currentCategory)
+        inputFieldVisiblity = this.setVisibleFieldsForAddPost()
         submitButtonText = Constants.SUBMIT_BUTTON_TEXT_NEW_POST
     }
 
@@ -264,7 +307,7 @@ class Editor extends Component {
           <div className="edit-post-details">
             <Table definition>
               <Table.Body>
-                <Table.Row className={showCategory}>
+                <Table.Row className={inputFieldVisiblity.category}>
                   <Table.Cell>
                     Category
                   </Table.Cell>
@@ -272,7 +315,7 @@ class Editor extends Component {
                     <select
                       name="category"
                       onSubmit={this.handleSubmit}
-                      defaultValue={category}>
+                      defaultValue={prePopulatedFields.category}>
                       {this.props.categories.map(category => (
                         <option
                           value={category.name}
@@ -283,15 +326,15 @@ class Editor extends Component {
                     </select>
                   </Table.Cell>
                 </Table.Row>
-                <Table.Row className={showTitle}>
+                <Table.Row className={inputFieldVisiblity.title}>
                   <Table.Cell>
                     Title
                   </Table.Cell>
-                  <Table.Cell key={title}>
+                  <Table.Cell key={prePopulatedFields.title}>
                     <input
                       type="text"
                       name="title"
-                      defaultValue={title}
+                      defaultValue={prePopulatedFields.title}
                     />
                   </Table.Cell>
                 </Table.Row>
@@ -299,15 +342,15 @@ class Editor extends Component {
                   <Table.Cell>
                     Body
                   </Table.Cell>
-                  <Table.Cell key={body}>
+                  <Table.Cell key={prePopulatedFields.body}>
                     <textarea
                       name="body"
-                      defaultValue={body}
+                      defaultValue={prePopulatedFields.body}
                       ref={(input) => { this.body = input }}
                     />
                   </Table.Cell>
                 </Table.Row>
-                <Table.Row className={showAuthor}>
+                <Table.Row className={inputFieldVisiblity.author}>
                   <Table.Cell>
                     Author
                   </Table.Cell>
@@ -315,20 +358,20 @@ class Editor extends Component {
                     <input
                       type="text"
                       name="author"
-                      defaultValue={author}
+                      defaultValue={prePopulatedFields.author}
                       ref={(input) => { this.author = input }}
                     />
                   </Table.Cell>
                 </Table.Row>
-                <Table.Row className={showTimestamp}>
+                <Table.Row className={inputFieldVisiblity.timestamp}>
                   <Table.Cell>
                     Time Stamp
                   </Table.Cell>
-                  <Table.Cell key={timestamp}>
+                  <Table.Cell key={prePopulatedFields.timestamp}>
                     <input
                       type="text"
                       name="timestamp"
-                      defaultValue={Moment(timestamp, "x").format(Constants.DATE_FORMAT_EDITOR)}
+                      defaultValue={prePopulatedFields.timestamp}
                     />
                   </Table.Cell>
                 </Table.Row>
@@ -345,12 +388,12 @@ class Editor extends Component {
             <input
               type="hidden"
               name="id"
-              value={id}
+              value={prePopulatedFields.id}
             />
             <input
               type="hidden"
               name="parentId"
-              value={parentId}
+              value={prePopulatedFields.parentId}
             />
             <input
               type="hidden"
