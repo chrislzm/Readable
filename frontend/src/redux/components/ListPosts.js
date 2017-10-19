@@ -5,11 +5,13 @@
   Description:
 
   React component that lists all posts for a given category and also updates the
-  currentCategory state in the Redux store. Several other components, such as
-  NavigationBar and AddPost, depend on the currentCategory state in order to
-  function correctly. For example, the NavigationBar component highlights the
-  current category, and the AddPost component pre-selects the current category
-  and uses the current category path in a "Back to Category" button link.
+  currentCategory state in the Redux store.
+
+  Several components, such as NavigationBar and AddPost, depend on the
+  currentCategory state in order to function correctly. For example: the
+  NavigationBar component highlights the current category, and the AddPost
+  component pre-selects the current category and uses the currentCategory path
+  in a "Back to Category" button link.
 
   Props:
     categoryName: <String> Required. A category name identical to one set in
@@ -17,7 +19,10 @@
     categoryPath: <String> Required. A category path identical to that set in
       the API server's api-server/categories.js file. Must be from the same
       tuple that contains the category name.
-    Redux Store State: Mapped to props
+    posts: <Redux State> Required. Convert state object to an array for outputs
+      convenience.
+    numCommentsForPost: <Redux State> Required. Generate this post-id to
+      number-of-comments map from the Redux comments state.
 */
 
 import React, { Component } from 'react'
@@ -154,7 +159,10 @@ class ListPosts extends Component {
     return(
       <div className="ListPosts">
         <div className="SectionTitle">
-          <h2>{Helpers.capitalize(categoryName)} ({numPosts})</h2>
+          <h2>
+            {Helpers.capitalize(categoryName)}
+            ({numPosts})
+          </h2>
           <div className="SectionTitleNav">
             <button>
               <Link
@@ -165,45 +173,74 @@ class ListPosts extends Component {
           </div>
         </div>
         { numPosts === 0 && (
-          <div className="StatusMessage">Nothing here yet. Be the first—<Link to={`/${Constants.PATH_ADD_POST}`}>Add a new post!</Link></div>
+          <div className="StatusMessage">
+            Nothing here yet. Be the first —
+            <Link to={`/${Constants.PATH_ADD_POST}`}>
+              Add a new post!
+            </Link>
+          </div>
         )}
         { numPosts > 0 && (
           <Table celled striped>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Category</Table.HeaderCell>
-                <Table.HeaderCell>Post Title</Table.HeaderCell>
-                <Table.HeaderCell>Author</Table.HeaderCell>
+                <Table.HeaderCell>
+                  Category
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                  Post Title
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                  Author
+                </Table.HeaderCell>
                 <Table.HeaderCell
                   className="sortableHeader"
                   onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_TIMESTAMP)}>
-                  <div className="sortableHeaderLabel">Date</div>
-                  <div className={this.state.sortDateArrowStyle}></div>
+                  <div className="sortableHeaderLabel">
+                    Date
+                  </div>
+                  <div className={this.state.sortDateArrowStyle}/>
                 </Table.HeaderCell>
                 <Table.HeaderCell
                   className="sortableHeader"
                   onClick={() => this.toggleSort(Constants.LIST_POSTS_SORT_FIELD_VOTES)}>
-                  <div className="sortableHeaderLabel">Votes</div>
-                  <div className={this.state.sortVotesArrowStyle}></div>
+                  <div className="sortableHeaderLabel">
+                    Votes
+                  </div>
+                  <div className={this.state.sortVotesArrowStyle}/>
                 </Table.HeaderCell>
-                <Table.HeaderCell>Comments</Table.HeaderCell>
-                <Table.HeaderCell>Controls</Table.HeaderCell>
+                <Table.HeaderCell>
+                  Comments
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                  Controls
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
               { sortedPosts.map(post => (
                 <Table.Row key={post.id}>
-                  <Table.Cell>{Helpers.capitalize(post.category)}</Table.Cell>
+                  <Table.Cell>
+                    {Helpers.capitalize(post.category)}
+                  </Table.Cell>
                   <Table.Cell>
                     <Link
                       to={`/${post.category}/${post.id}`}>
                       {post.title}
                     </Link>
                   </Table.Cell>
-                  <Table.Cell>{post.author}</Table.Cell>
-                  <Table.Cell>{Moment(post.timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}</Table.Cell>
-                  <Table.Cell>{post.voteScore}</Table.Cell>
-                  <Table.Cell>{post.numComments}</Table.Cell>
+                  <Table.Cell>
+                    {post.author}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {Moment(post.timestamp, "x").format(Constants.DATE_FORMAT_DISPLAY)}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {post.voteScore}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {post.numComments}
+                  </Table.Cell>
                   <Table.Cell>
                     <Controls
                       postId={post.id}
@@ -223,13 +260,13 @@ class ListPosts extends Component {
 
 
 const mapStateToProps = (state) => ({
-  // Create array of posts
+  // Create array of posts for output convenience
   posts: Object.keys(state.posts).map(id => {
     let post = state.posts[id]
     post.id = id
     return post
   }),
-  // Create post-id to number-of-comments map
+  // Create post-id to number-of-comments map for output convenience
   numCommentsForPost: (() =>{
     let numComments = {}
     for(const id of Object.keys(state.comments)) {
