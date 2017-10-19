@@ -64,6 +64,7 @@ class Edit extends Component {
   render() {
     const { modalOpen } = this.state
     const { postId, commentId } = this.props.match.params
+    const { currentCategory } = this.props
 
     let editingMode, sectionTitle
 
@@ -76,21 +77,16 @@ class Edit extends Component {
       sectionTitle = Constants.EDIT_SECTION_TITLE_POST
     }
 
-    // When true, displays content. When false, displays "Not found" message
-    let postExists
-    // These variables are used to generate button links back to post & category
-    let pathToViewPost, categoryName, categoryPath
-    // Test whether post exists/has been loaded into the Redux Store
+    // When true, displays editor. When false, displays "Not found" message
+    let postExists = false
+    // Stores URL to original post
+    let pathToViewPost
+    // If post exists in the Redux Store
     if(this.props.posts[postId]) {
       postExists = true
-      categoryName = this.props.posts[postId].category.toLowerCase()
-      categoryPath = this.props.categories[categoryName]
-      pathToViewPost = `/${categoryPath}/${postId}`
-    } else {
-      postExists = false
-      // Use default category name and path for linking instead
-      categoryName = this.props.currentCategory.name
-      categoryPath = this.props.currentCategory.path
+      const postCategoryName = this.props.posts[postId].category.toLowerCase()
+      const postCategoryPath = this.props.categories[postCategoryName]
+      pathToViewPost = `/${postCategoryPath}/${postId}`
     }
 
     return(
@@ -110,8 +106,8 @@ class Edit extends Component {
             )}
             <button>
               <Link
-                to={`/${categoryPath}`}>
-                &lt; Back To {Helpers.capitalize(categoryName)}
+                to={`/${currentCategory.path}`}>
+                &lt; Back To {Helpers.capitalize(currentCategory.name)}
               </Link>
             </button>
           </div>
@@ -124,7 +120,6 @@ class Edit extends Component {
         { postExists && (
             <div>
               <Editor
-                categoryPath={categoryPath}
                 postId={postId}
                 commentId={commentId}
                 handleEdit={this.openModal}
