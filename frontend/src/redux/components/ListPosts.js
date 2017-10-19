@@ -14,13 +14,13 @@
   in a "Back to Category" button link.
 
   Props:
-    categoryName: <String> Required. A category name identical to one set in
-      the API server's api-server/categories.js file.
-    categoryPath: <String> Required. A category path identical to that set in
-      the API server's api-server/categories.js file. Must be from the same
-      tuple that contains the category name.
-    posts: <Redux State> Required. Convert state object to an array for outputs
-      convenience.
+    categoryName: <String> Required. A category name (identical to one set in
+      the API server's api-server/categories.js file) whose posts we will list.
+    categoryPath: <String> Required. A category path (identical to that set in
+      the API server's api-server/categories.js file, and from the same tuple
+      that contains the category name) whose posts we will list.
+    posts: <Redux State> Required. Convert the state object to an array for
+      output convenience.
     numCommentsForPost: <Redux State> Required. Generate this post-id to
       number-of-comments map from the Redux comments state.
 */
