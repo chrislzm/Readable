@@ -45,6 +45,7 @@ class ViewPost extends Component {
     const { posts, currentCategory } = this.props
     const { postId } = this.props.match.params
 
+    // Set the section title based on the state of the post in our Redux store
     let sectionTitle
     let post = posts[postId]
     if(!post) {
@@ -52,12 +53,12 @@ class ViewPost extends Component {
     } else if(post.deleted) {
       sectionTitle = "Post Deleted"
     } else {
-      // If the post exists in the Redux store, store the id into the object we
-      // received (it won't have the id in it, since the store contains an id to
-      // content mapping). We will pass this object to the Viewer component,
-      // which needs the id.
-      post.id = postId
       sectionTitle = `${Helpers.capitalize(post.category)}: "${post.title}"`
+      // If the post exists in the Redux store, store the id into the object we
+      // received. It won't have an id property because the store is an id to
+      // (content) object mapping. The Viewer component expects the post object
+      // to have an id, which is why we set it here.
+      post.id = postId
     }
 
     return (
