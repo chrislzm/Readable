@@ -77,13 +77,14 @@ class Controls extends Component {
       commentId: Same as commentId prop (see above)
   */
   vote(delta,mode,postId,commentId) {
+    const { dispatch } = this.props
     switch(mode) {
       case Constants.CONTENT_MODE_COMMENT:
-        this.props.dispatch(CommentActions.submitVoteForComment(commentId,postId,delta))
+        dispatch(CommentActions.submitVoteForComment(commentId,postId,delta))
         break
       default:
       case Constants.CONTENT_MODE_POST:
-        this.props.dispatch(PostActions.submitVoteForPost(postId,delta))
+        dispatch(PostActions.submitVoteForPost(postId,delta))
     }
   }
 
@@ -97,13 +98,14 @@ class Controls extends Component {
       commentId: Same as commentId prop (see above)
   */
   edit(postId,mode,commentId) {
+    const { history } = this.props
     switch(mode) {
       case Constants.CONTENT_MODE_COMMENT:
-        this.props.history.push(`/${Constants.PATH_EDIT}/${postId}/${commentId}`)
+        history.push(`/${Constants.PATH_EDIT}/${postId}/${commentId}`)
         break
       default:
       case Constants.CONTENT_MODE_POST:
-        this.props.history.push(`/${Constants.PATH_EDIT}/${postId}`)
+        history.push(`/${Constants.PATH_EDIT}/${postId}`)
     }
   }
 
@@ -118,13 +120,14 @@ class Controls extends Component {
       commentId: Same commentId as prop (see above)
   */
   delete(postId,mode,commentId) {
+    const { dispatch } = this.props
     switch(mode) {
       case Constants.CONTENT_MODE_COMMENT:
-        this.props.dispatch(CommentActions.removeComment(commentId,postId))
+        dispatch(CommentActions.removeComment(commentId,postId))
         break
       default:
       case Constants.CONTENT_MODE_POST:
-        this.props.dispatch(PostActions.removePost(postId))
+        dispatch(PostActions.removePost(postId))
     }
   }
 
