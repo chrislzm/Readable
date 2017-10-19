@@ -44,7 +44,7 @@ class Edit extends Component {
     posts: PropTypes.object.isRequired
   }
 
-  // Set default mode to post editor
+  // Set default editing mode to post editor
   state = {
     editorMode: Constants.EDITOR_MODE_EDIT_POST,
     editorHeader: Constants.EDITOR_HEADER_EDITING_POST,
