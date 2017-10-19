@@ -139,14 +139,14 @@ function sortByNumComments(a,b,ascending) {
   return (a.numComments - b.numComments) * ascending
 }
 
-export function generateNewSortProperties(sortField,sortAscending,newSortField) {
+export function generateNewSortProperties(oldSortField,oldSortAscending,newSortField) {
   let sortProperties = {}
 
   // If the sort field hasn't changed, then we are changing sort direction
-  if(newSortField === sortField) {
-    sortProperties.ascending = !sortAscending
+  if(newSortField === oldSortField) {
+    sortProperties.ascending = !oldSortAscending
   } else {
-    sortProperties.ascending = sortAscending
+    sortProperties.ascending = oldSortAscending
   }
 
   // Set sort method and output styles based on the field being sorted
