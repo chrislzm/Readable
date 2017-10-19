@@ -9,6 +9,7 @@
 */
 
 import { OPTION_UP_VOTE, OPTION_DOWN_VOTE } from '../api/apiConstants'
+import { DEFAULT_CATEGORY_NAME } from './constants'
 
 // Capitalizes the first letter of a string
 export function capitalize (str = '') {
@@ -47,6 +48,29 @@ export function guid() {
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
+}
+
+export function filterAndSortPosts(posts,categoryName,sortMethod) {
+  const filteredPosts = posts.filter(post => postFilter(post.deleted,post.category,categoryName))
+  return filteredPosts.sort(sortMethod)
+}
+
+/*
+  Method: postFilter
+  Description: Arrays.prototype.filter() callback method that filters out
+    deleted posts and posts that are not in the current category
+  Parameters:
+    postDeleted: <Boolean> The "deleted" flag property value of a post
+      object
+    postCategory: <String> The "category" property of a post object
+    currentCategory: <String> The current category being viewed by the user
+  Returns:
+    <Boolean>: true if post should be kept, false if post should filtered out
+*/
+export function postFilter(postDeleted, postCategory, currentCategory) {
+  if(postDeleted) return false
+  if(currentCategory === DEFAULT_CATEGORY_NAME) return true
+  return postCategory.toLowerCase() === currentCategory.toLowerCase()
 }
 
 // Sort functions used in ListPosts component that are passed as the
