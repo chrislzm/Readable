@@ -4,12 +4,31 @@
 
   Description:
 
-  Contains helper functions used throughout the Readable app.
+  Contains helper functions used throughout the Readable app. This file is
+  divided into three sections:
 
+  (1) General Helper Methods: Designed to be used throughout the Readable app
+  (2) ListPosts Component Helper Methods: Designed to be used in the ListPosts
+        component
+  (3) Editor Component Helper Methods: Designed to be used in the Editor
+        component
 */
 
-import { OPTION_UP_VOTE, OPTION_DOWN_VOTE } from '../api/apiConstants'
-import { DEFAULT_CATEGORY_NAME } from './constants'
+import {
+  OPTION_UP_VOTE,
+  OPTION_DOWN_VOTE
+} from '../api/apiConstants'
+
+import {
+  DEFAULT_CATEGORY_NAME,
+  DATE_FORMAT_EDITOR,
+  CSS_CLASS_SHOW,
+  CSS_CLASS_HIDE
+} from './constants'
+
+import Moment from 'moment'
+
+/* (1) General Helper Methods */
 
 // Capitalizes the first letter of a string
 export function capitalize (str = '') {
@@ -62,31 +81,22 @@ export function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+/* (2) ListPosts Component Helper Methods */
+
+// Filters out deleted posts and posts not in the current category, then sorts
+// using the sortMethod.
 export function filterAndSortPosts(posts,categoryName,sortMethod) {
-  const filteredPosts = posts.filter(post => postFilter(post.deleted,post.category,categoryName))
+  const filteredPosts = posts.filter(post => postFilter(post,categoryName))
   return filteredPosts.sort(sortMethod)
 }
 
-/*
-  Method: postFilter
-  Description: Arrays.prototype.filter() callback method that filters out
-    deleted posts and posts that are not in the current category
-  Parameters:
-    postDeleted: <Boolean> The "deleted" flag property value of a post
-      object
-    postCategory: <String> The "category" property of a post object
-    currentCategory: <String> The current category being viewed by the user
-  Returns:
-    <Boolean>: true if post should be kept, false if post should filtered out
-*/
-export function postFilter(postDeleted, postCategory, currentCategory) {
-  if(postDeleted) return false
+export function postFilter(post, currentCategory) {
+  if(post.deleted) return false
+  // All posts are shown in the default category
   if(currentCategory === DEFAULT_CATEGORY_NAME) return true
-  return postCategory.toLowerCase() === currentCategory.toLowerCase()
+  return post.category.toLowerCase() === currentCategory.toLowerCase()
 }
 
-// Sort functions used in ListPosts component that are passed as the
-// compareFunction to Arrays.prototype.sort()
 export function sortByDateDescending(a,b) {
   return sortByDate(a,b,false)
 }
@@ -113,4 +123,77 @@ function sortByVotes(a,b,ascending) {
   if((a.voteScore < b.voteScore) ^ ascending) return 1
   if(a.voteScore === b.voteScore) return 0
   if((a.voteScore > b.voteScore) ^ ascending) return -1
+}
+
+/* (3) Editor Component Helper Methods */
+
+export function populateFieldsForEditPost(postId,postContent) {
+  let prePopulatedFields = {}
+  prePopulatedFields.id = postId
+  prePopulatedFields.title = postContent.title
+  prePopulatedFields.body = postContent.body
+  prePopulatedFields.author = postContent.author
+  prePopulatedFields.category = postContent.category
+  prePopulatedFields.timestamp = postContent.timestamp
+  return prePopulatedFields
+}
+
+export function populateFieldsForEditComment(parentId,commentId,commentContent) {
+  let prePopulatedFields = {}
+  prePopulatedFields.id = commentId
+  prePopulatedFields.parentId = parentId
+  prePopulatedFields.body = commentContent.body
+  prePopulatedFields.timestamp = Moment(commentContent.timestamp, "x").format(DATE_FORMAT_EDITOR)
+  return prePopulatedFields
+}
+
+export function populateFieldsForAddComment(parentId) {
+  let prePopulatedFields = {}
+  prePopulatedFields.parentId = parentId
+  return prePopulatedFields
+}
+
+export function populateFieldsForAddPost(currentCategory) {
+  let prePopulatedFields = {}
+  prePopulatedFields.category = currentCategory.name
+  return prePopulatedFields
+}
+
+export function setFieldVisibilityForEditPost() {
+  let inputFieldVisibility = {}
+  inputFieldVisibility.author = CSS_CLASS_HIDE
+  inputFieldVisibility.category = CSS_CLASS_HIDE
+  inputFieldVisibility.timestamp = CSS_CLASS_HIDE
+  inputFieldVisibility.title = CSS_CLASS_SHOW
+  return inputFieldVisibility
+}
+
+export function setFieldVisibilityForEditComment() {
+  // Only show timestamp and body when editing a comment
+  let inputFieldVisibility = {}
+  inputFieldVisibility.timestamp = CSS_CLASS_SHOW
+  inputFieldVisibility.category = CSS_CLASS_HIDE
+  inputFieldVisibility.title = CSS_CLASS_HIDE
+  inputFieldVisibility.author = CSS_CLASS_HIDE
+  return inputFieldVisibility
+}
+
+export function setFieldVisibilityForAddComment() {
+  // Only show author and body when adding a comment
+  let inputFieldVisibility = {}
+  inputFieldVisibility.author = CSS_CLASS_SHOW
+  inputFieldVisibility.category = CSS_CLASS_HIDE
+  inputFieldVisibility.title = CSS_CLASS_HIDE
+  inputFieldVisibility.timestamp = CSS_CLASS_HIDE
+  return inputFieldVisibility
+}
+
+export function setFieldVisibilityForAddPost() {
+  // Hide timestamp field
+  let inputFieldVisibility = {}
+  inputFieldVisibility.author = CSS_CLASS_SHOW
+  inputFieldVisibility.category = CSS_CLASS_SHOW
+  inputFieldVisibility.title = CSS_CLASS_SHOW
+  inputFieldVisibility.timestamp = CSS_CLASS_HIDE
+  return inputFieldVisibility
 }
