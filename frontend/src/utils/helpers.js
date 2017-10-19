@@ -28,6 +28,18 @@ export function convertCategoriesToArray(categories) {
   return categoryArray
 }
 
+// Converts a comments object into an array of comment objects (rather than
+// than a single object with multiple comment properties). This is used in the
+// ListComments.js component.
+export function convertCommentsToArray(comments,parentId) {
+  return Object.keys(comments).reduce((accumulator, commentId) => {
+    let comment = comments[commentId]
+    comment.parentId = parentId
+    accumulator.push(comment)
+    return accumulator
+  },[])
+}
+
 // Converts our Readable vote delta values (1 or -1 signifying upvote or
 // downvote) to a valid API vote option
 export function convertVoteDeltaToApiOption(delta) {
