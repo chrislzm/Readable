@@ -16,9 +16,10 @@
   Props:
     mode: <String Constant> Value must be CONTENT_MODE_COMMENT if being used
       with a comment, or CONTENT_MODE_POST if being used with a post.
-    postId: <String>  Required. Contains the id of the parent post when we are
-      in comment mode.
-    commentId: <String> Required in comment mode only.
+    id: <String>  Required. Contains the id of the post when we are in post mode
+      or the id of the comment when we are in comment mode.
+    parentId: <String> Required in comment mode only. Contains the id of the
+      parent post.
     title: <String> Required in post mode only. Contains the post title.
 */
 
@@ -35,8 +36,8 @@ class Controls extends Component {
 
   static propTypes = {
     mode: PropTypes.string.isRequired,
-    postId: PropTypes.string.isRequired,
-    commentId: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    parentId: PropTypes.string,
     title: PropTypes.string
   }
 
@@ -63,7 +64,6 @@ class Controls extends Component {
       default:
       case Constants.CONTENT_MODE_POST:
         this.setState({ modalMessage: `Really delete "${title}"?`})
-        break
     }
   }
 
@@ -133,7 +133,21 @@ class Controls extends Component {
 
   render() {
     const { modalOpen, modalMessage } = this.state
-    const { postId, commentId, mode } = this.props
+    const { id, parentId, mode } = this.props
+
+    // These variables are for readability and to eliminate ambiguity about
+    // whether "id "refers to a post id or comment id.
+    let commentId, postId
+    switch(mode) {
+      case Constants.CONTENT_MODE_COMMENT:
+        commentId = id
+        postId = parentId
+        break
+      default:
+      case Constants.CONTENT_MODE_POST:
+        postId = id
+    }
+
     return (
       <div>
         <div>

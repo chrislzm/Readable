@@ -27,19 +27,11 @@ function Viewer (props) {
 
   const { mode, content } = props
 
-  const { title, author, body, timestamp, voteScore, parentId } = content
-
-  // If content contains a post, id will contain the post id, and parentId will
-  // be undefined. However if content contains a comment, id will contain the
-  // comment id, and parentId will contain the parent posts's id. We need to
-  // update our local variables here so that id = post id (or parent id), and
-  // commentId = comment id.
-  let { id } = content
-  let commentId
-  if(mode === Constants.CONTENT_MODE_COMMENT) {
-    commentId = id
-    id = parentId
-  }
+  // Friendly reminder: If content contains a post, the id property will contain
+  // post id, and the parentId property will be undefined. However if content
+  // contains a comment, id will contain the comment id, anparentId will contain
+  // the parent posts's id.
+  const { id, parentId, title, author, body, timestamp, voteScore } = content
 
   return (
     <div className="Viewer">
@@ -83,8 +75,8 @@ function Viewer (props) {
             </Table.Cell>
             <Table.Cell>
               <Controls
-                postId={id}
-                commentId={commentId}
+                id={id}
+                parentId={parentId}
                 title={title}
                 mode={mode}
               />
