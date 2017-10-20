@@ -191,7 +191,7 @@ class ListPosts extends Component {
                   </Table.Cell>
                   <Table.Cell>
                     <Controls
-                      postId={post.id}
+                      id={post.id}
                       title={post.title}
                       mode={Constants.CONTENT_MODE_POST}
                     />
