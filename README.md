@@ -19,8 +19,8 @@ Installation
     - `npm start`
 
 3. View the README files for more Information
-    * [Front-End Server README](frontend/README.md).
-    * [API Server README](api-server/README.md).
+    * [Front-End Server README](frontend/README.md)
+    * [API Server README](api-server/README.md)
 
 Credits
 -------
