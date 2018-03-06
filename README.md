@@ -1,12 +1,11 @@
 Readable
 ========
-By Chris Leung
 
-Overview
---------
 Readable is a content and comment web app that allows users to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users can also edit and delete posts and comments.
 
 This application is mainly powered by React, Redux, and an API server and client library provided by Udacity, which persists information as one interacts with the application.
+
+![Screenshot](frontend/doc/screenshot.jpg "Screen Shot")
 
 Installation
 ------------
@@ -19,13 +18,9 @@ Installation
     - `npm install`
     - `npm start`
 
-Front-End Server
-----------------
-Information about the front-end server and how to use it can be found in its [README file](frontend/README.md).
-
-API Server
-----------
-Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+3. View the README files for more Information
+    * [Front-End Server README](frontend/README.md).
+    * [API Server README](api-server/README.md).
 
 Credits
 -------
