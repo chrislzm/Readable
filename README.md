@@ -5,7 +5,7 @@ Readable is a content and comment web app that allows users to post content to p
 
 This application is mainly powered by React, Redux, and an API server and client library provided by Udacity, which persists information as one interacts with the application.
 
-![Screenshot](frontend/doc/screenshot.jpg "Screen Shot")
+![Screenshot](frontend/doc/screenshot.png "Screen Shot")
 
 Installation
 ------------
